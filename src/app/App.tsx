@@ -10,7 +10,7 @@ import MyPage from "./screens/MyPage";
 import HomePage from "./screens/HomePage";
 import ModalVisibility from "./components/ModalVisibility"
 import Navbar from "./components/Navbar"
-
+import Footer from "./components/Footer"
 function App() {
   return (
     <>
@@ -36,6 +36,7 @@ function App() {
        </Route>
      
    </Routes>
+   <Footer/>
    </>
   );
 }

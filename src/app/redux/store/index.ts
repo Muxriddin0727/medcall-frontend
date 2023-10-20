@@ -4,6 +4,7 @@ import HomePageReducer from "./../homeSlice/slice";
 import HomePageSlice from "../store";
 import authSlice from "../authSlcie";
 import AuthReducer from '../authSlcie';
+import modalSlice from '../modalSlice';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -11,6 +12,7 @@ export const store = configureStore({
   reducer: {
     homePage: HomePageReducer,
     authSlice: AuthReducer,
+    modal: modalSlice,
    
   },
 });
@@ -20,10 +22,9 @@ export const store = configureStore({
 export default store;
 export type AppDispatch = typeof store.dispatch;
 export type RootStore = ReturnType<typeof store.getState>;
-export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
-  RootState,
+  RootStore,
   unknown,
   Action<string>
 >;

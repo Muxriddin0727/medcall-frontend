@@ -5,6 +5,8 @@ import { Outlet } from "react-router-dom";
 import { Radio } from 'antd';
 import { Typography } from 'antd';
 import { Input, Space } from 'antd';
+import { useReduxDispatch } from "../../hooks";
+ import { setAuthModal } from "../../redux/modalSlice";
 //  import type { SearchProps } from '../Search';
 
 // UI //
@@ -15,6 +17,7 @@ const { Search } = Input;
 
 
 const Navbar: FC = () => {
+  const dispatch =useReduxDispatch();
    
 
     return (
@@ -50,8 +53,20 @@ const Navbar: FC = () => {
             <button className=" w-[172px] h-[42px] " >
                   <>
                   <Radio.Group defaultValue="Log in" buttonStyle="solid">
-                  <Radio.Button value="Log in">Log in</Radio.Button>
-                  <Radio.Button value="Sign up">Sign up</Radio.Button>
+                  <Radio.Button 
+                  value="Log in"
+                  onClick= {()=>{
+                    dispatch(setAuthModal());
+                  }}
+                  >
+                    Log in</Radio.Button>
+                  <Radio.Button 
+                  value="Sign up"
+                  onClick= {()=>{
+                    dispatch(setAuthModal());
+                  }}
+                  >
+                    Sign up</Radio.Button>
                   </Radio.Group>
                   </>
             </button>
