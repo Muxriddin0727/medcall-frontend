@@ -5,12 +5,17 @@ import { Carousel } from 'antd';
         //UI//
 const { Meta } = Card;
 const contentStyle: React.CSSProperties = {
-    margin: 0,
-    height: '160px',
+    display: "flex",
+    alignItems: "stretch",
+    flexGrow: "1",
+    height: "100%",
+    position: "absolute",
+    top: "0",
+    right: "0",
+    bottom: "0",
+    left: "0",
     color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
+    
   };
         //UI//
 
@@ -19,35 +24,47 @@ const Categories: FC = () => {
         console.log(currentSlide)
     };
     return (
-    // <div className="w-[full] h-[300px] ">
-    //     <div className=" w-[90%] mt-24 justify-center items-center m-8">
-    //         <div className="flex ">
-                <Carousel afterChange={onChange}>
+     <div className="w-[full] h-[300px] ">
+       {/* <div className=" w-[90%] mt-24 justify-center items-center m-8"> */}
+             
+                <Carousel  
+                afterChange={onChange} 
+                slidesToShow={5}
+                style={{ display: "grid",
+                alignItems: "stretch",
+                justifyContent: "stretch",
+                height: "200px",
+                objectFit: "cover",
+                flexGrow: "1",}} >
+                <div className=" flex space-x-4" >
+                <div style={contentStyle}>
                 
-                
-                <Card
+                    <Card
                     hoverable
-                    style={{ width: 200  }}
+                    // style={{ width: 200  }}
                     cover ={<img style={{width: "150px", height:'150px', margin:"auto" }} alt="example" src="/images/kid.jpg" />}
                 >
                 <Meta title="Europe Street beat"  />
                 </Card>
+                
 
-                <Card
+           <Card
                     hoverable
                     style={{ width: 200 }}
                     cover ={<img style={{width: "150px", height:'150px', margin:"auto" }} alt="example" src="/images/neuro.jpg" />}
                 >
                 <Meta title="Europe Street beat" />
                 </Card>
+              
 
-                <Card
+               <Card
                     hoverable
                     style={{ width: 200 }}
                     cover ={<img style={{width: "150px", height:'150px', margin:"auto" }} alt="example" src="/images/cardio.jpg" />}
                 >
                 <Meta title="Europe Street beat" />
                 </Card>
+                
 
                 <Card
                     hoverable
@@ -56,22 +73,26 @@ const Categories: FC = () => {
                 >
                 <Meta title="Europe Street beat"  />
                 </Card>
+                
 
-                <Card
+               <Card
                     hoverable
                     style={{ width: 200 }}
                     cover ={<img style={{width: "150px", height:'150px', margin:"auto" }} alt="example" src="/images/otol.jpg" />}
                 >
                 <Meta title="Europe Street beat"  />
                 </Card>
-
-                <Card
+                
+                </div>
+                <div  style={contentStyle}>
+               <Card
                     hoverable
                     style={{ width: 200 }}
                     cover ={<img style={{width: "150px", height:'150px', margin:"auto" }} alt="example" src="/images/psycho.jpg" />}
                 >
                 <Meta title="Europe Street beat" />
                 </Card>
+                
 
                 <Card
                     hoverable
@@ -80,20 +101,22 @@ const Categories: FC = () => {
                 >
                 <Meta title="Europe Street beat"/>
                 </Card>
+                
 
-                <Card
+               <Card
                     hoverable
                     style={{ width: 200 }}
                     cover ={<img style={{width: "150px", height:'150px', margin:"auto" }} alt="example" src="/images/alergist.jpg" />}
                 >
                 <Meta title="Europe Street beat"  />
                 </Card>
+                </div>
+                </div>
 
                 </Carousel>
 
-    //         </div>
-    //     </div>
-    // </div>
+       {/* </div>  */}
+      </div>
 )};
 
 export default Categories;

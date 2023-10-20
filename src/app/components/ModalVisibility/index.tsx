@@ -3,13 +3,11 @@ import Authentication from "./Modals/Authorization";
 import { useReduxSelector } from "../../hooks"
 
 const ModalVisibility = () => {
-  const{
-      AuthenticationModal,
-  } = useReduxSelector((state) =>state.homePage);
+  const{authModal,} = useReduxSelector((state) =>state.modal);
 
 return (
   <>
-      {AuthenticationModal.open && <Authentication/>}
+      {authModal&& <Authentication/>}
     
   </>
 );

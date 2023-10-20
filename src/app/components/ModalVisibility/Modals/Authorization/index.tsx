@@ -1,14 +1,22 @@
 import React from 'react';
 import{FC} from  "react";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, Modal } from 'antd';
+import { useReduxDispatch, useReduxSelector } from '../../../../hooks';
+import { setAuthModal } from '../../../../redux/modalSlice';
 
 const AuthenticationModal: FC = () => {
+  const{authModal} = useReduxSelector(state=>state.modal);
+  const dispatch = useReduxDispatch();
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
   };
 
   return (
+    <Modal onCancel={() => {
+      dispatch(setAuthModal());
+    }}
+    open= {authModal}>
     <Form
       name="normal_login"
       className="login-form"
@@ -48,6 +56,7 @@ const AuthenticationModal: FC = () => {
         Or <a href="">register now!</a>
       </Form.Item>
     </Form>
+    </Modal>
   );
 };
 
