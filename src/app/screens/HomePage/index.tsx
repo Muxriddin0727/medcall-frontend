@@ -1,21 +1,14 @@
-import {FC}  from "react";
-import Statistics  from "./statistics";
-import Categories  from "./categories";
-import Intro  from "./intro";
-import TopDoctors  from "./topDoctors";
-import Feedbacks  from "./feedbacks";
-import TopBlogs from "./topBlogs";
-import Navbar from "../../components/Navbar"
+import type {FC}  from "react";
+import Welcome from "./Welcome" ;
+import AboutUs from "./About us";
+
+
 const HomePage: FC = () => {
     return (
        
     <div>
-        <Categories/>
-        <Intro/>
-        <TopDoctors/>
-        <Statistics/>
-        <Feedbacks/>
-        <TopBlogs/>
+        <Welcome/>
+        <AboutUs/>
         
     </div>
     

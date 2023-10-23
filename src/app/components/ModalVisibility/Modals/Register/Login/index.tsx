@@ -1,0 +1,64 @@
+import type { FC } from "react";
+import { Button, Form, Input, Divider } from "antd";
+import { createFromIconfontCN, GoogleOutlined } from '@ant-design/icons';
+import { useReduxDispatch } from "../../../../../hooks";
+import { setAuthModal } from "../../../../../redux/modalSlice";
+
+
+const IconFont = createFromIconfontCN({
+    scriptUrl: '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js',
+  });
+
+
+  
+
+//   <Button 
+//   onClick = {() => dispatch(setAuthModal())} 
+//   className="ml-[100px]">Register </Button>
+
+const Login: FC = () => {
+    const dispatch= useReduxDispatch();
+  return (
+    
+    <div className=" w-[full]  flex justify-between items-center mt-[20px] ">
+        
+      <Form className="w-[566px] h-[472px] m-auto">
+        <div className="w-[90%] m-auto">
+       
+        
+
+        <h2 className="py-3"> Enter your username and password to login.</h2>
+        <Form.Item className="pb-3">
+          <Input  className="h-[40px]" placeholder="muxriddin@gmail.com" />
+        </Form.Item>
+        <Form.Item >
+          <Input.Password className="h-[40px]"
+          placeholder="********" 
+          suffix={null}
+         />
+        </Form.Item>
+        
+        <Button
+            className="flex start-[300px] "
+            type="link"
+          >
+            Forgot Password?
+          </Button>
+        <Form.Item >
+          <Button className=" w-full h-[40px]  mt-4 bg-sky-500/75" type="primary">Login</Button>
+        </Form.Item>
+        <Divider plain>Or login with</Divider>
+        <Form.Item >
+          <Button  className=" w-full h-[40px]  " type="default" icon={<IconFont type="icon-facebook"></IconFont>} >Login with Facebook</Button>
+        </Form.Item>
+
+        <Form.Item >
+          <Button className=" w-full h-[40px] " type="default" icon={<GoogleOutlined />}>Login with Google</Button>
+        </Form.Item>
+        </div>
+      </Form>
+    </div>
+  );
+};
+
+export default Login;
