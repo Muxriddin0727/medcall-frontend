@@ -9,9 +9,10 @@ import Signup from "./Signup";
 const Register: FC = () => {
   const { authModal } = useReduxSelector((state) => state.modal);
   const dispatch = useReduxDispatch();
-  const [active, setActive] = useState<string>("login");
+  const [active, setActive] = useState<"login" | 'signup'>("login");
   return (
     <Modal
+    footer={false}
       onCancel={() =>
         dispatch(
           setAuthModal())}
@@ -37,10 +38,8 @@ const Register: FC = () => {
           Register
         </h3>
       </div>
+      {active === "login" ? <Login/> : <Signup/>}
 
-
-      <Login />
-      <Signup />
     </Modal>
   );
 };

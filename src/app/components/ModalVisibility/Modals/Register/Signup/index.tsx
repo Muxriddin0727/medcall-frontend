@@ -1,7 +1,6 @@
 import type {FC} from "react";
 import {
     useReduxDispatch,
-    useReduxSelector,
   } from "../../../../../hooks";
   import { Button, Form, Input, Divider } from "antd";
   import { createFromIconfontCN,  GoogleOutlined } from '@ant-design/icons';
@@ -15,7 +14,6 @@ import {
 
 
 const Signup:FC = () => {
-    const { authModal } = useReduxSelector((state) => state.modal);
     const dispatch = useReduxDispatch();
 
   
