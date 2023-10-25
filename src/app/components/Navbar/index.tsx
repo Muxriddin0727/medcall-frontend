@@ -14,14 +14,14 @@ const Navbar: FC = () => {
 
   return (
     <>
-      <div className=" flex justify-between px-[50px] py-[35px]">
+      <div className=" w-[90%] m-auto flex justify-between px-[50px] py-[35px]">
         <div className="flex">
           <img
             className="w-[172px] h-[42px] "
             src="/images/logo.png" alt="logo"
           />
         </div>
-        <div className="flex text-slate-950 text-sm font-normal">
+        <div className="flex text-slate-950 text-xm font-normal">
           <div className="max-md:hidden flex gap-5 items-center">
             <NavLink to= "/">Home</NavLink>
             <NavLink to="/appointment">Appointments</NavLink>
@@ -30,8 +30,9 @@ const Navbar: FC = () => {
             <NavLink to="/blogs">Blogs</NavLink>
             <NavLink to="/help">Help</NavLink>
             <Button 
+            type="primary"
             onClick = {() => dispatch(setAuthModal())} 
-            className="ml-[100px]">Register </Button>
+            className="ml-[100px] bg-cyan-500">Register </Button>
           </div>
           <div className="hidden max-md:block cursor-pointer">
             <MenuOutlined />
@@ -45,10 +46,6 @@ const Navbar: FC = () => {
 
 export default Navbar;
 
-{/* <img
-className="w-[172px] h-[42px] mr-19 ml-28 "
-src="/images/logo.png" alt="logo"
-/> */}
 
 
 

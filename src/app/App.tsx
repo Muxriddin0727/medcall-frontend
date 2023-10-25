@@ -4,6 +4,7 @@ import HomePage from "./screens/HomePage";
 import ModalVisibility from "./components/ModalVisibility"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
+import FindDoctors from "./screens/Find Doctors";
 
 
 const App: FC = () => {
@@ -12,7 +13,8 @@ const App: FC = () => {
       <ModalVisibility />
       <Routes>
         <Route path="/" element={<Navbar />}>
-          <Route path="/" element={<HomePage />} />
+          <Route index element={<HomePage />} />
+          <Route path="/findDoctors" element={<FindDoctors />} />
         </Route>
       </Routes>
       <Footer />
