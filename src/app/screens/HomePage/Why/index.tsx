@@ -3,10 +3,11 @@ import {Button} from "antd"
 
 const Why: FC = () => {
   return (
-    <div className="w-[90%] m-auto h-[800px] flex gap-24 justify-center mt-[100px] ">
+    <div className="bg-slate-50">
+    <div className="w-[90%] m-auto mb-[100px]  flex gap-24 justify-center   ">
       
 
-      <div className=" w-[532px] max-md:w-full">
+      <div className=" w-[532px] my-16 max-md:w-full">
         <div>
           
           <h1 className=" w-[532px] text-neutral-800 text-5xl font-bold leading-[60.90px] max-md:w-fit max-md:text-3xl">
@@ -29,14 +30,15 @@ const Why: FC = () => {
         </div>
       </div>
 
-      <div className="relative max-md:hidden">
+      <div className="my-20 max-md:hidden">
         <img
-          className="w-[500px] h-[481px]"
-          src="/doctors/doctorlar.jpg"
+          className=""
+          src="https://www.pngkit.com/png/full/0-3571_servicing-all-aspects-across-the-end-stage-renal.png"
           alt="online doctor"
         />
     
       </div>
+    </div>
     </div>
   );
 };

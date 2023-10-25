@@ -3,7 +3,7 @@ import { DownOutlined } from "@ant-design/icons";
 
 const Welcome: FC = () => {
   return (
-    <div className="/bg-[url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fhmcarchitects.com%2Fnews%2Fdesigning-for-better-mental-health-in-the-emergency-department-2020-03-25%2F&psig=AOvVaw3sIfgJ_8x4j_RTIsFn60Bg&ust=1698156956546000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNCkzOOtjIIDFQAAAAAdAAAAABAJ)] relative">
+    <div className="bg-[url(https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg)] relative">
       <div className="absolute w-full h-full bg-black opacity-30 z-[1]"></div>
       <div className="relative z-10 py-[185px]">
         <h1 className="text-[64px] text-white font-bold text-center max-md:text-[30px]">
