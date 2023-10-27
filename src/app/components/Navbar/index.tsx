@@ -13,8 +13,8 @@ const Navbar: FC = () => {
 
 
   return (
-    <>
-      <div className=" w-[90%] m-auto flex justify-between px-[50px] py-[35px]">
+    <div className="px-[50px] ">
+      <div className=" w-[90%] m-auto flex justify-between py-[35px]">
         <div className="flex">
           <img
             className="w-[172px] h-[42px] "
@@ -24,9 +24,9 @@ const Navbar: FC = () => {
         <div className="flex text-slate-950 text-xm font-normal">
           <div className="max-md:hidden flex gap-5 items-center">
             <NavLink to= "/">Home</NavLink>
-            <NavLink to="/appointment">Appointments</NavLink>
-            <NavLink to="/findDoctors">FindDoctors</NavLink>
-            <NavLink to="/myPage">MyPage</NavLink>
+            <NavLink to="/appointments">Appointments</NavLink>
+            <NavLink to="/find-doctors">FindDoctors</NavLink>
+            <NavLink to="/my-page">MyPage</NavLink>
             <NavLink to="/blogs">Blogs</NavLink>
             <NavLink to="/help">Help</NavLink>
             <Button 
@@ -40,7 +40,7 @@ const Navbar: FC = () => {
         </div>
       </div>
       <Outlet />
-    </>
+    </div>
   );
 };
 
