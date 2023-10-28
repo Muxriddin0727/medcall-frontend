@@ -5,7 +5,7 @@ const Img: FC = () => {
   return (
     <div>
       <div className="flex gap-6 max-lg:flex-col">
-        <div className="cursor-pointer flex justify-center items-center w-[450px]">
+        <div className="cursor-pointer flex justify-center items-center w-[350px]">
           <Image
             loading={"lazy"}
             src="/doctors/david.jpg"

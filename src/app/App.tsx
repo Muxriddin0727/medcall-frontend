@@ -5,7 +5,8 @@ import ModalVisibility from "./components/ModalVisibility"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import FindDoctors from "./screens/Find Doctors";
-import Appointments from "./screens/Appointments";
+import SingleDoctor from "./screens/Find Doctors/SingleDoctor";
+import Blogs from "./screens/Blogs"
 
 
 
@@ -17,8 +18,9 @@ const App: FC = () => {
         <Route path="/" element={<Navbar />}>
           <Route index element={<HomePage />} />
           <Route path="/find-doctors" element={<FindDoctors />} />
-          <Route path="/appointments" element={<Appointments />} />
-
+          <Route path="/find-doctors/:id" element={< SingleDoctor/>} />
+          <Route path= "/blogs" element= {<Blogs/>}/>
+          <Route path = "/blogs/:id" />
         </Route>
       </Routes>
       <Footer />

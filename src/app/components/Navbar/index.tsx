@@ -13,7 +13,7 @@ const Navbar: FC = () => {
 
 
   return (
-    <div className="px-[50px] ">
+    <div className="px-[50px] max-sm:px-[10px] ">
       <div className=" w-[90%] m-auto flex justify-between py-[35px]">
         <div className="flex">
           <img
