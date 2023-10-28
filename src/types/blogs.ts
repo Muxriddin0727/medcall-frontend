@@ -18,3 +18,13 @@ export interface BlogsInput {
     createdAt: Date;
     updatedAt: Date;
   }
+
+  export type BlogCardType = {
+    title: string;
+    id: number;
+    content: string;
+    short_description: string;
+    created_by: string;
+    views: number;
+    reaction_length: number;
+  };

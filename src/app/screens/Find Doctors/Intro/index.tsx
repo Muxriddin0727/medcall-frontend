@@ -1,26 +1,26 @@
 import { Carousel } from "antd";
-import type {FC}from "react";
-import Card1 from "./Card1"
-import Card3 from "./Card3";
-import Card2 from "./Card2";
+import type { FC } from "react";
+import Card from "./Card";
+import { intro_data } from "../../../../lib";
 
-
-const Intro:FC = () => {
-    return (
-        <div className="w-[90%] m-auto mb-[30px]">
-            <Carousel  autoplay effect="scrollx">
-                <div>
-                   <Card1/>
-                </div>
-                <div>
-                   <Card2/>
-                </div>
-                <div>
-                   <Card3/>
-                </div>
-            </Carousel>
-        </div>
-    )
-}
+const Intro: FC = () => {
+  return (
+    <div className="w-[90%] m-auto mb-[30px]">
+      <Carousel autoplay effect="scrollx">
+        {intro_data.map((value) => (
+          <div key= {value.id}>
+            <Card {...value}
+            //  id ={value.id}
+            //  title= {value.title}
+            //  description={value.description}
+            //  buttonText={value.buttonText}
+            //  src={value.src}
+            />
+          </div>
+        ))}
+      </Carousel>
+    </div>
+  );
+};
 
 export default Intro;

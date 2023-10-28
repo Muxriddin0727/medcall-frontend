@@ -4,7 +4,7 @@ import PriceRange from "./PriceRange";
 
 const Dashboard:FC= () => {
     return (
-        <div className="w-[20%] p-4 mr-6  bg-[#F5F5F5]">
+        <div className="min-w-[300px] h-fit p-4 mr-6  bg-[#F5F5F5] max-lg:hidden">
             <Categories/>
             <PriceRange/>
             

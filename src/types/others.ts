@@ -22,3 +22,11 @@ export type MainCardType = {
   comments?: [];
   rate?: number;
 };
+
+export interface IntroItemType {
+  id: number;
+  title: string;
+  description: string;
+  buttonText: string;
+  src: string;
+}

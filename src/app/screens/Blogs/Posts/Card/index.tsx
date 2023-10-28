@@ -1,0 +1,43 @@
+import { Card, Typography } from "antd";
+import { EyeOutlined, CommentOutlined, HeartOutlined } from "@ant-design/icons";
+import { FC } from "react";
+import { BlogCardType } from "../../../../../types/blogs";
+import { useNavigate } from "react-router-dom";
+
+const Blog: FC<BlogCardType> = ({
+  title,
+  short_description,
+  views,
+  reaction_length,
+  created_by,
+  id,
+}) => {
+  const navigate = useNavigate();
+  return (
+    <Card
+      actions={[
+        <div>
+          <EyeOutlined /> {views}
+        </div>,
+        <div>
+          <CommentOutlined /> {0}
+        </div>,
+        <div>
+          <HeartOutlined /> {reaction_length}
+        </div>,
+      ]}
+    >
+      <h1
+        onClick={() => navigate(`/blog/123`)}
+        className="text-[18px] text-bold cursor-pointer hover:underline"
+      >
+        {title}
+      </h1>
+      <Typography spellCheck={true} className="mt-[10px] text-[12px]">
+        {short_description}
+      </Typography>
+    </Card>
+  );
+};
+
+export default Blog;
