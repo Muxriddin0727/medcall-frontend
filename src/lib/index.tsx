@@ -1,5 +1,5 @@
 import { BlogCardType } from "../types/blogs";
-import { IntroItemType } from "../types/others";
+import { IntroItemType,  } from "../types/others";
 
 const intro_data: IntroItemType[] = [
   {
@@ -42,5 +42,7 @@ const blog_data: BlogCardType[]=[
     reaction_length:21
   }
 ];
+
+
  export {blog_data};
-export { intro_data };
+export { intro_data};

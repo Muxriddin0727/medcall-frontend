@@ -24,9 +24,7 @@ const Navbar: FC = () => {
         <div className="flex text-slate-950 text-xm font-normal">
           <div className="max-md:hidden flex gap-5 items-center">
             <NavLink to= "/">Home</NavLink>
-            <NavLink to="/appointments">Appointments</NavLink>
-            <NavLink to="/find-doctors">FindDoctors</NavLink>
-            <NavLink to="/my-page">MyPage</NavLink>
+            <NavLink to="/find-doctors">Find Doctors</NavLink>
             <NavLink to="/blogs">Blogs</NavLink>
             <NavLink to="/help">Help</NavLink>
             <Button 
@@ -35,7 +33,8 @@ const Navbar: FC = () => {
             className="ml-[100px] bg-cyan-500">Register </Button>
           </div>
           <div className="hidden max-md:block cursor-pointer">
-            <MenuOutlined />
+            <MenuOutlined
+            />
           </div>
         </div>
       </div>

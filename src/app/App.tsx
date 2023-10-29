@@ -7,6 +7,8 @@ import Footer from "./components/Footer"
 import FindDoctors from "./screens/Find Doctors";
 import SingleDoctor from "./screens/Find Doctors/SingleDoctor";
 import Blogs from "./screens/Blogs"
+import Render from "./screens/Blogs/Rander";
+import Help from "./screens/Help";
 
 
 
@@ -20,7 +22,8 @@ const App: FC = () => {
           <Route path="/find-doctors" element={<FindDoctors />} />
           <Route path="/find-doctors/:id" element={< SingleDoctor/>} />
           <Route path= "/blogs" element= {<Blogs/>}/>
-          <Route path = "/blogs/:id" />
+          <Route path = "/blogs/:id" element={<Render/>} />
+          <Route path = "/help" element = {<Help/>} />
         </Route>
       </Routes>
       <Footer />

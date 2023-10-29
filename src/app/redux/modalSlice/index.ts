@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
   authModal: boolean;
-  loading: boolean;
+  bookModal: boolean;
 };
 
 const initialState: InitialState = {
   authModal: false,
-  loading: false,
+  bookModal: false,
 };
 
 const modalSlice = createSlice({
@@ -17,8 +17,11 @@ const modalSlice = createSlice({
     setAuthModal(state, ) {
       state.authModal = !state.authModal
     },
+    setBookModal(state,) {
+      state.bookModal =!state.bookModal
+    },
   },
 });
 
-export const { setAuthModal } = modalSlice.actions;
+export const { setAuthModal, setBookModal } = modalSlice.actions;
 export default modalSlice.reducer;

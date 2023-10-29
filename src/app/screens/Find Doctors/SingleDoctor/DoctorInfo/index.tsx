@@ -1,8 +1,13 @@
 import type { FC } from "react";
 import { Descriptions, Rate, Skeleton, Tooltip, Button, Badge } from "antd";
 import { HeartFilled } from "@ant-design/icons";
+import { useReduxDispatch } from "../../../../hooks";
+import { setBookModal } from "../../../../redux/modalSlice";
+
 
 const DoctorInfo: FC = () => {
+    const dispatch= useReduxDispatch();
+
     return (
         <div className="">
             <div className="flex justify-between">
@@ -90,7 +95,10 @@ const DoctorInfo: FC = () => {
                 <Button type="primary" className="w-[130px] h-[40px] bg-sky-500/100">
                     Message
                 </Button>
-                <Button type="primary" className="w-[130px] h-[40px] bg-sky-500/100">
+                <Button 
+                onClick = {() => dispatch(setBookModal())}
+                type="primary" 
+                className="w-[130px] h-[40px] bg-sky-500/100">
                     Book
                 </Button>
             </div>
