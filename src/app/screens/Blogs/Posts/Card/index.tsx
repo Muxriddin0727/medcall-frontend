@@ -28,7 +28,7 @@ const Blog: FC<BlogCardType> = ({
       ]}
     >
       <h1
-        onClick={() => navigate(`/blog/123`)}
+        onClick={() => navigate("/blog/:id")}
         className="text-[18px] text-bold cursor-pointer hover:underline"
       >
         {title}

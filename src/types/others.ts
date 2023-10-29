@@ -30,3 +30,4 @@ export interface IntroItemType {
   buttonText: string;
   src: string;
 }
+
