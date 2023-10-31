@@ -19,8 +19,8 @@ export interface FindDoctors {
 
   export interface Member {
     _id: string;
-    mb_nick: string;
-    mb_phone: string;
+    mb_name: string;
+    mb_email: string;
     mb_password: string;
     mb_type: string;
     mb_status: string;
@@ -36,10 +36,4 @@ export interface FindDoctors {
     createdAt: Date;
   }
 
-  export interface MemberUpdateData {
-    mb_nick?: string | null;
-    mb_phone?: string | null;
-    mb_address?: string | null;
-    mb_description?: string | null;
-    mb_image?: string | null;
-  }
+ 

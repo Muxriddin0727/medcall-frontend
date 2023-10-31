@@ -23,10 +23,11 @@ const Navbar: FC = () => {
         </div>
         <div className="flex text-slate-950 text-xm font-normal">
           <div className="max-md:hidden flex gap-5 items-center">
-            <NavLink to= "/">Home</NavLink>
+            <NavLink to= "/">Home</NavLink >
             <NavLink to="/find-doctors">Find Doctors</NavLink>
             <NavLink to="/blogs">Blogs</NavLink>
             <NavLink to="/help">Help</NavLink>
+            
             <Button 
             type="primary"
             onClick = {() => dispatch(setAuthModal())} 
