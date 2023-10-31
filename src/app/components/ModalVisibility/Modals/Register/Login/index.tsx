@@ -7,6 +7,7 @@ import { useReduxDispatch } from "../../../../../hooks";
 import { setAuthModal } from "../../../../../redux/modalSlice";
 import MemberApi from "../../../../../api/memberApi";
 import { sweetErrorHandling } from "../../../../../../lib/sweetAlert";
+import Avatar from "react-avatar";
 
 const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js",
@@ -18,9 +19,10 @@ const IconFont = createFromIconfontCN({
 
 const Login: FC = (props: any) => {
   const dispatch = useReduxDispatch();
-  const [mb_nick, set_mb_name] = useState<string>("");
+  const [mb_name, set_mb_name] = useState<string>("");
   const [mb_phone, set_mb_email] = useState<number>(0);
   const [mb_password, set_mb_password] = useState<string>("");
+  const userInitials = mb_name || "User";
 
   // HANDLERS //
 
@@ -36,11 +38,11 @@ const Login: FC = (props: any) => {
 
   const handleSignupRequest = async () => {
     try {
-      const is_fulfilled = mb_nick != "" && mb_password != "" && mb_phone != 0;
+      const is_fulfilled = mb_name != "" && mb_password != "" && mb_phone != 0;
       assert.ok(is_fulfilled, Definer.input_err1);
 
       const signup_data = {
-        mb_nick: mb_nick,
+        mb_name: mb_name,
         mb_phone: mb_phone,
         mb_password: mb_password,
       };
@@ -57,11 +59,11 @@ const Login: FC = (props: any) => {
 
   const handleLoginRequest = async () => {
     try {
-      const is_fulfilled = mb_nick != "" && mb_password != "";
+      const is_fulfilled = mb_name != "" && mb_password != "";
       assert.ok(is_fulfilled, Definer.input_err1);
 
       const login_data = {
-        mb_nick: mb_nick,
+        mb_name: mb_name,
         mb_password: mb_password,
       };
 
@@ -117,6 +119,11 @@ const Login: FC = (props: any) => {
               Login
             </Button>
           </Form.Item>
+
+          <Form.Item>
+            <Avatar name={userInitials} size="50" round={true} />
+          </Form.Item>
+         
           <Divider plain>Or login with</Divider>
           <Form.Item>
             <Button

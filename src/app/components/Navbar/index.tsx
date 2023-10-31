@@ -4,6 +4,7 @@ import { Button } from 'antd';
 import { MenuOutlined } from "@ant-design/icons";
 import { useReduxDispatch } from "../../hooks";
 import { setAuthModal } from "../../redux/modalSlice";
+import { LoginOutlined } from "@ant-design/icons";
 
 
 
@@ -29,9 +30,10 @@ const Navbar: FC = () => {
             <NavLink to="/help">Help</NavLink>
             
             <Button 
+            
             type="primary"
             onClick = {() => dispatch(setAuthModal())} 
-            className="ml-[100px] bg-cyan-500">Register </Button>
+            className="ml-[100px] bg-cyan-500 " icon={<LoginOutlined />}> Register </Button>
           </div>
           <div className="hidden max-md:block cursor-pointer">
             <MenuOutlined

@@ -12,6 +12,7 @@ const Register: FC = (props: any) => {
   const { authModal } = useReduxSelector((state) => state.modal);
   const dispatch = useReduxDispatch();
   const [active, setActive] = useState<"login" | "signup">("login");
+  
 
  
   
