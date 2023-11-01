@@ -5,10 +5,11 @@ import { MenuOutlined } from "@ant-design/icons";
 import { useReduxDispatch } from "../../hooks";
 import { setAuthModal } from "../../redux/modalSlice";
 import { LoginOutlined } from "@ant-design/icons";
+import { verifiedMemberData } from "../../api/verify";
 
 
 
-const Navbar: FC = () => {
+const Navbar: FC = (props: any) => {
   const dispatch= useReduxDispatch();
 
 
@@ -28,12 +29,18 @@ const Navbar: FC = () => {
             <NavLink to="/find-doctors">Find Doctors</NavLink>
             <NavLink to="/blogs">Blogs</NavLink>
             <NavLink to="/help">Help</NavLink>
-            
+            {verifiedMemberData ? (
             <Button 
-            
             type="primary"
             onClick = {() => dispatch(setAuthModal())} 
             className="ml-[100px] bg-cyan-500 " icon={<LoginOutlined />}> Register </Button>
+            ) : (
+              <img
+              style={{ width: "48px", height: "48px", borderRadius: "24px" }}
+              src={verifiedMemberData.mb_image}
+              onClick={props.logoutRequest}
+            />
+          )}
           </div>
           <div className="hidden max-md:block cursor-pointer">
             <MenuOutlined

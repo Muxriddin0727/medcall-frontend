@@ -1,109 +1,76 @@
-import { FC, useState } from "react";
-import assert from "assert";
-import { Definer } from "../../../../../../lib/Definer";
-import { Button, Form, Input, Divider } from "antd";
+import { FC } from "react";
+import { useRef } from 'react';
+import { Button, Form, Input, Divider, InputRef } from "antd";
 import { createFromIconfontCN, GoogleOutlined } from "@ant-design/icons";
-import { useReduxDispatch } from "../../../../../hooks";
-import { setAuthModal } from "../../../../../redux/modalSlice";
 import MemberApi from "../../../../../api/memberApi";
 import { sweetErrorHandling } from "../../../../../../lib/sweetAlert";
 import Avatar from "react-avatar";
+import assert from "assert";
+import { Definer } from "../../.././../.././../lib/Definer";
 
 const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js",
 });
 
-//   <Button
-//   onClick = {() => dispatch(setAuthModal())}
-//   className="ml-[100px]">Register </Button>
 
 const Login: FC = (props: any) => {
-  const dispatch = useReduxDispatch();
-  const [mb_name, set_mb_name] = useState<string>("");
-  const [mb_phone, set_mb_email] = useState<number>(0);
-  const [mb_password, set_mb_password] = useState<string>("");
-  const userInitials = mb_name || "User";
+  const nameRef = useRef<InputRef>(null);
+  const passwordRef = useRef<InputRef>(null);
 
-  // HANDLERS //
 
-  const handleUsername = (e: any) => {
-    set_mb_name(e.target.value);
-  };
-  const handleEmail = (e: any) => {
-    set_mb_email(e.target.value);
-  };
-  const handlePassword = (e: any) => {
-    set_mb_password(e.target.value);
-  };
-
-  const handleSignupRequest = async () => {
-    try {
-      const is_fulfilled = mb_name != "" && mb_password != "" && mb_phone != 0;
-      assert.ok(is_fulfilled, Definer.input_err1);
-
-      const signup_data = {
-        mb_name: mb_name,
-        mb_phone: mb_phone,
-        mb_password: mb_password,
-      };
-
-      const memberApiService = new MemberApi();
-      await memberApiService.signupRequest(signup_data);
-
-      window.location.reload();
-    } catch (err) {
-      console.log(err);
-      sweetErrorHandling(err).then();
-    }
-  };
 
   const handleLoginRequest = async () => {
+    console.log(nameRef, passwordRef);
+    
     try {
-      const is_fulfilled = mb_name != "" && mb_password != "";
+      const mb_name = nameRef.current?.input?.value;
+      const mb_password = passwordRef.current?.input?.value;
+
+      const is_fulfilled = mb_name && mb_password;
       assert.ok(is_fulfilled, Definer.input_err1);
 
       const login_data = {
-        mb_name: mb_name,
-        mb_password: mb_password,
+        mb_name,
+        mb_password,
       };
 
       const memberApiService = new MemberApi();
       await memberApiService.loginRequest(login_data);
 
-      window.location.reload();
     } catch (err) {
       console.log(err);
       sweetErrorHandling(err).then();
     }
   };
 
-  const passwordKeyPressHandler = (e: any) => {
-    if (e.key == "ENTER" && props.signUpOpen) {
-      handleSignupRequest().then();
-    } else if (e.key == "ENTER" && props.loginOpen) {
-      handleLoginRequest().then();
-    }
-  };
+ 
 
   return (
     <div className=" w-[full]  flex justify-between items-center mt-[20px] ">
-      <Form className="w-[566px] h-[472px] m-auto">
+      <Form 
+      onFinish={handleLoginRequest}
+      className="w-[566px] h-[472px] m-auto">
         <div className="w-[90%] m-auto">
           <h2 className="py-3"> Enter your username and password to login.</h2>
-          <Form.Item className="pb-3">
+          <Form.Item 
+          name="username"
+          rules={[{ required: true, message: 'Please input your username!' }]}
+          className="pb-3">
             <Input
-              onChange={handleUsername}
               className="h-[40px]"
               placeholder="Name"
+              ref={nameRef}
             />
           </Form.Item>
-          <Form.Item>
+          <Form.Item
+          name="password"
+          rules={[{ required: true, message: 'Please input your password!' }]}>
             <Input.Password
-              onChange={handlePassword}
-              onKeyPress={passwordKeyPressHandler}
+              // onKeyPress={passwordKeyPressHandler}
               className="h-[40px]"
               placeholder="********"
               suffix={null}
+              ref={passwordRef}
             />
           </Form.Item>
 
@@ -112,16 +79,16 @@ const Login: FC = (props: any) => {
           </Button>
           <Form.Item>
             <Button
-             onClick={handleLoginRequest}
               className=" w-full h-[40px]  mt-4 bg-sky-500/75"
               type="primary"
+              htmlType="submit"
             >
               Login
             </Button>
           </Form.Item>
 
           <Form.Item>
-            <Avatar name={userInitials} size="50" round={true} />
+          <Avatar name={typeof nameRef.current?.input === 'string' ? nameRef.current?.input : nameRef.current?.input?.value || "User"} size="50" round={true} />
           </Form.Item>
          
           <Divider plain>Or login with</Divider>
