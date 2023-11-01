@@ -12,11 +12,11 @@ export interface AppRootState {
 
 /** HANDLERS */
 export interface HomePageState {
-  AuthenticationModal: {
-    open: false,
-    loading: false,
-  },
-  categories: FindDoctors[];
+  // AuthenticationModal: {
+  //   open: false,
+  //   loading: false,
+  // },
+  
   topDoctors: FindDoctors[];
   topBlogs: Blogs[];
   feedbacks: Feedbacks[];

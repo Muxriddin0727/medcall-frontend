@@ -1,9 +1,9 @@
-import  { FC, useState } from "react";
+import  { FC } from "react";
+import { useRef } from 'react';
 import assert from "assert";
 import { Definer } from "../../.././../.././../lib/Definer";
 import { sweetErrorHandling } from "../../../../../../lib/sweetAlert";
-import { useReduxDispatch } from "../../../../../hooks";
-import { Button, Form, Input, Divider } from "antd";
+import { Button, Form, Input, Divider, InputRef } from "antd";
 import { createFromIconfontCN, GoogleOutlined } from "@ant-design/icons";
 import MemberApi from "../../../../../api/memberApi";
 
@@ -12,38 +12,33 @@ const IconFont = createFromIconfontCN({
 });
 
 const Signup: FC = (props: any) => {
-  const dispatch = useReduxDispatch();
-  const [mb_name, set_mb_name] = useState<string>("");
-  const [mb_email, set_mb_email] = useState<string>("");
-  const [mb_password, set_mb_password] = useState<string>("");
+  const nameRef = useRef<InputRef>(null);
+  const passwordRef = useRef<InputRef>(null);
+  const emailRef = useRef<InputRef>(null);
 
-   /** HANDLERS */
-   const handleUsername = (e: any) => {
-    set_mb_name (e.target.value);
-  };
-  const handleEmail = (e: any) => {
-    set_mb_email  (e.target.value);
-  };
-  const handlePassword = (e: any) => {
-    set_mb_password (e.target.value);
-  };
+ 
+
+  
 
   const handleSignupRequest = async () => {
     try {
-      const is_fulfilled = mb_name != "" && mb_password != "" && mb_email != "";
+      const mb_name = nameRef.current?.input?.value;
+      const mb_password = passwordRef.current?.input?.value;
+      const mb_email = emailRef.current?.input?.value;
+
+      const is_fulfilled = mb_name  && mb_password  && mb_email;
       assert.ok(is_fulfilled, Definer.input_err1);
 
       const signup_data = {
-        mb_name: mb_name,
-        mb_email: mb_email,
-        mb_password: mb_password,
+        mb_name,
+        mb_email,
+        mb_password,
       };
 
       const memberApiService = new MemberApi();
       await memberApiService.signupRequest(signup_data);
 
     
-      window.location.reload();
     } catch (err) {
       console.log(err);
       sweetErrorHandling(err).then();
@@ -52,28 +47,30 @@ const Signup: FC = (props: any) => {
 
   return (
     <div className=" w-[full]  flex justify-between items-center mt-[20px] ">
-      <Form className="w-[566px] m-auto">
+      <Form 
+      onFinish={handleSignupRequest}
+      className="w-[566px] m-auto">
         <div className="w-[90%] m-auto">
           <h2 className="py-3">
             {" "}
             Enter your username and password to register.
           </h2>
           <Form.Item className="pb-3">
-            <Input onChange={handleUsername} className="h-[40px]" placeholder="Name" />
+            <Input ref={nameRef} className="h-[40px]" placeholder="Name" />
           </Form.Item>
           <Form.Item className="pb-3">
             <Input className="h-[40px]" placeholder="Last Name" />
           </Form.Item>
           <Form.Item className="pb-3">
             <Input
-              onChange={handleEmail}
+              ref={emailRef}
               className="h-[40px]"
               placeholder="Enter your email address"
             />
           </Form.Item>
           <Form.Item>
             <Input.Password
-            onChange={handlePassword}
+            ref={passwordRef}
               className="h-[40px]"
               placeholder="Enter your password"
             />
@@ -87,7 +84,7 @@ const Signup: FC = (props: any) => {
 
           <Form.Item>
             <Button
-             onClick={handleSignupRequest}
+             
               className=" w-full h-[40px]  mt-4 bg-sky-500/75"
               type="primary"
             >

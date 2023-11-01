@@ -18,12 +18,13 @@ class MemberApi {
       });
 
       assert.ok(result?.data, Definer.general_err1);
-      assert.ok(result?.data?.state != "fail", result?.data?.message);
+      assert.ok(result?.data?.state !== "fail", result?.data?.message);
       console.log("state:", result.data.state);
 
       const member: Member = result.data.data;
 
       localStorage.setItem("member_data", JSON.stringify(member));
+      localStorage.setItem("isAuthenticated", "true");
       return member;
     } catch (err: any) {
       console.log(`ERROR ::: loginRequest  ${err.message}  `);
@@ -39,7 +40,7 @@ class MemberApi {
 
       console.log("state:", result.data.state);
       assert.ok(result?.data, Definer.general_err1);
-      assert.ok(result?.data?.state != "fail", result?.data?.message);
+      assert.ok(result?.data?.state !== "fail", result?.data?.message);
 
       const member: Member = result.data.data;
 
@@ -58,11 +59,12 @@ class MemberApi {
       });
 
       assert.ok(result?.data, Definer.general_err1);
-      assert.ok(result?.data?.state != "fail", result?.data?.message);
+      assert.ok(result?.data?.state !== "fail", result?.data?.message);
       console.log("state:", result.data.state);
 
+      localStorage.removeItem("isAuthenticated");
       const logout_result = result.data.state;
-      return logout_result == "success";
+      return logout_result === "success";
     } catch (err: any) {
       console.log(`ERROR ::: logOutRequest  ${err.message}  `);
       throw err;
@@ -77,7 +79,7 @@ class MemberApi {
         });
 
       assert.ok(result?.data, Definer.general_err1);
-      assert.ok(result?.data?.state != "fail", result?.data?.message);
+      assert.ok(result?.data?.state !== "fail", result?.data?.message);
       console.log("state:", result.data.state);
 
       const member: Member = result.data.data;
