@@ -1,11 +1,12 @@
 import type { FC } from "react";
 import { Descriptions, Rate, Skeleton, Tooltip, Button, Badge } from "antd";
-import { HeartFilled } from "@ant-design/icons";
 import { useReduxDispatch } from "../../../../hooks";
 import { setBookModal } from "../../../../redux/modalSlice";
+import { FindDoctors } from "../../../../.././types/user";
 
 
-const DoctorInfo: FC = () => {
+
+const DoctorInfo: FC <{value: FindDoctors}> = ({value}) => {
     const dispatch= useReduxDispatch();
 
     return (
@@ -14,10 +15,10 @@ const DoctorInfo: FC = () => {
                 <div className="flex items-center gap-4">
                     <Skeleton.Avatar active={true} />
 
-                    <Tooltip title="David">
+                    <Tooltip title={value.mb_name}>
                         <img
                             className="rounded-full w-[50px] h-[50px] cursor-pointer"
-                            src="/doctors/david.jpg"
+                            src={`http://localhost:5005/${value.mb_image}`}
                             alt="david"
                         />
                     </Tooltip>
@@ -87,7 +88,7 @@ const DoctorInfo: FC = () => {
 
             <Descriptions className="mt-[24px]">
                 <Descriptions.Item span={3} label="Fee">
-                    30 min - 30 000 UZS
+                    {value.mb_price}
                 </Descriptions.Item>
             </Descriptions>
 

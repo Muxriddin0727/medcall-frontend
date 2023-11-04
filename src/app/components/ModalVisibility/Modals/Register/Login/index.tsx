@@ -1,76 +1,68 @@
-import { FC } from "react";
-import { useRef } from 'react';
-import { Button, Form, Input, Divider, InputRef } from "antd";
-import { createFromIconfontCN, GoogleOutlined } from "@ant-design/icons";
-import MemberApi from "../../../../../api/memberApi";
-import { sweetErrorHandling } from "../../../../../../lib/sweetAlert";
-import Avatar from "react-avatar";
-import assert from "assert";
-import { Definer } from "../../.././../.././../lib/Definer";
+import { useState, type FC } from "react";
+import { Button, Form, Input, Divider, notification } from "antd";
+import { createFromIconfontCN, GoogleOutlined, LoadingOutlined } from "@ant-design/icons";
+// import Avatar from "react-avatar";
+import { useReduxDispatch } from "../../../../../hooks";
+import { setAuthModal } from "../../../../../redux/modalSlice";
+import { setLogin } from "../../../../../redux/userSlice";
+import { useAxios } from "../../../../../customHooks/useAxios";
 
 const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js",
 });
 
+const Login: FC = () => {
 
-const Login: FC = (props: any) => {
-  const nameRef = useRef<InputRef>(null);
-  const passwordRef = useRef<InputRef>(null);
+  const axios = useAxios();
+  const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useReduxDispatch();
 
 
 
-  const handleLoginRequest = async () => {
-    console.log(nameRef, passwordRef);
+  const onFinish = async (value: object) => {
+
+    setLoading(true);
+    const data = await axios ({url: "/login", method: "POST", body: value});
+    setLoading(false);
+    if (!data) 
+     return notification.error({
+      message: "Not found",
+      description: "Username or password is incorrect",
+     });
+     dispatch(setAuthModal());
+     dispatch(setLogin(data.data.data));
     
-    try {
-      const mb_name = nameRef.current?.input?.value;
-      const mb_password = passwordRef.current?.input?.value;
-
-      const is_fulfilled = mb_name && mb_password;
-      assert.ok(is_fulfilled, Definer.input_err1);
-
-      const login_data = {
-        mb_name,
-        mb_password,
-      };
-
-      const memberApiService = new MemberApi();
-      await memberApiService.loginRequest(login_data);
-
-    } catch (err) {
-      console.log(err);
-      sweetErrorHandling(err).then();
-    }
   };
 
- 
+  
 
   return (
     <div className=" w-[full]  flex justify-between items-center mt-[20px] ">
-      <Form 
-      onFinish={handleLoginRequest}
-      className="w-[566px] h-[472px] m-auto">
+      <Form
+        onFinish={onFinish}
+        className="w-[566px] h-[472px] m-auto"
+      >
         <div className="w-[90%] m-auto">
           <h2 className="py-3"> Enter your username and password to login.</h2>
-          <Form.Item 
-          name="username"
-          rules={[{ required: true, message: 'Please input your username!' }]}
-          className="pb-3">
-            <Input
-              className="h-[40px]"
-              placeholder="Name"
-              ref={nameRef}
-            />
+          <Form.Item
+            name="mb_name"
+            
+            rules={[{ required: true, message: "Please input your username!" }]}
+            className="pb-3"
+          >
+            <Input className="h-[40px]" placeholder="Name"  />
           </Form.Item>
           <Form.Item
-          name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}>
+            name="mb_password"
+            rules={[{ required: true, message: "Please input your password!" }]}
+          >
             <Input.Password
               // onKeyPress={passwordKeyPressHandler}
               className="h-[40px]"
               placeholder="********"
               suffix={null}
-              ref={passwordRef}
+              autoComplete="current-password"
+             
             />
           </Form.Item>
 
@@ -83,14 +75,22 @@ const Login: FC = (props: any) => {
               type="primary"
               htmlType="submit"
             >
-              Login
+            {loading ? <LoadingOutlined/> : "Login"}
             </Button>
           </Form.Item>
 
-          <Form.Item>
-          <Avatar name={typeof nameRef.current?.input === 'string' ? nameRef.current?.input : nameRef.current?.input?.value || "User"} size="50" round={true} />
-          </Form.Item>
-         
+          {/* <Form.Item>
+            <Avatar
+              name={
+                typeof nameRef.current?.input === "string"
+                  ? nameRef.current?.input
+                  : nameRef.current?.input?.value || "User"
+              }
+              size="50"
+              round={true}
+            />
+          </Form.Item> */}
+
           <Divider plain>Or login with</Divider>
           <Form.Item>
             <Button

@@ -2,13 +2,16 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import reduxLogger from "redux-logger";
 import modalSlice from './modalSlice';
 import HomePageReducer from './home/slice';
+import userSlice from './userSlice';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(reduxLogger),
   reducer: {
     modal: modalSlice,
+    user: userSlice,
     homePage: HomePageReducer,
+
    
   },
 });

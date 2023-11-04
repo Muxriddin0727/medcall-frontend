@@ -1,13 +1,16 @@
 export interface FindDoctors {
     _id: string;
-    mb_nick: string;
-    mb_phone: string;
+    mb_username: string;
+    mb_name: string;
+    mb_email: string;
     mb_password: string;
     mb_type: string;
     mb_status: string;
+    mb_price: string;
     mb_address?: string;
     mb_description?: string;
     mb_image: string;
+    mb_profession: string;
     mb_point: number;
     mb_top: string;
     mb_views: number;

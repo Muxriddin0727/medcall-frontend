@@ -39,3 +39,9 @@ export interface CartItem {
   image: string;
 }
 
+export interface SearchObj {
+  page: number;
+  limit: number;
+  order: string;
+}
+
