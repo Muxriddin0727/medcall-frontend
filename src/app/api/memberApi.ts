@@ -13,7 +13,7 @@ class MemberApi {
 
   public async loginRequest(login_data: any) {
     try {
-      const result = await axios.post(this.path + "/login", login_data, {
+      const result = await axios.post(serverApi + "/login", login_data, {
         withCredentials: true,
       });
 
@@ -54,7 +54,7 @@ class MemberApi {
 
   public async logOutRequest() {
     try {
-      const result = await axios.get(this.path + "/logout", {
+      const result = await axios.get(serverApi + "/logout", {
         withCredentials: true,
       });
 
