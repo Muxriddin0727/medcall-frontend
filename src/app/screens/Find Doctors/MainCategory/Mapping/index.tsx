@@ -11,7 +11,7 @@ const Mapping: FC = () => {
 
   useEffect(() => {
     axios({
-      url: "/find-doctors",
+      url: "/client/get-doctors",
     }).then((data) => {
       setAllDoctors(data.data.data);
     });

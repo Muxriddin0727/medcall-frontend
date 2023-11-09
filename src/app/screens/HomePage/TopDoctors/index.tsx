@@ -10,9 +10,11 @@ const TopDoctors: FC = () => {
 
   useEffect(() => {
     axios({
-      url: "/top-doctors",
+      url: "/client/get-top-doctors",
     }).then((data) => {
       setTopDoctors(data.data.data);
+    }).catch((error) => {
+      console.error("Error fetching top doctors: ", error);
     });
   }, []);
 
@@ -29,7 +31,7 @@ const TopDoctors: FC = () => {
 
       <div className="  gap-6 grid grid-cols-3 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
         {doctorsData.map((value: FindDoctors) => (
-          <Card className="bg-stone-100 hover:scale-110">
+          <Card key={value._id} className="bg-stone-100 hover:scale-110">
             <div className="flex gap-16 mb-4">
               <div className="flex-col">
                 <Space>
@@ -46,7 +48,7 @@ const TopDoctors: FC = () => {
               <div>
                 <img
                   className="w-[110px] max-h-[125px] rounded-lg"
-                  src={`http://localhost:5005/${value.mb_image}`}
+                  // src={`http://localhost:5005/${value.mb_image}`}
                   alt="doctor"
                 />
               </div>

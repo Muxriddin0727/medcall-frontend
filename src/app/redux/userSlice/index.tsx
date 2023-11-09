@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
-    member_data: {mb_name: string} | null;
+    member_data: {mb_username: string} | null;
  
 };
 

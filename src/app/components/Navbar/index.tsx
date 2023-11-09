@@ -38,7 +38,7 @@ const Navbar: FC = (props: any) => {
               className="ml-[100px] bg-cyan-500 "
               icon={<LoginOutlined />}
             >
-              {member_data ? `${member_data.mb_name}` : "Register"} {""}
+              {member_data ? `${member_data.mb_username}` : "Register"} {""}
             </Button>
           </div>
           <div className="hidden max-md:block cursor-pointer">

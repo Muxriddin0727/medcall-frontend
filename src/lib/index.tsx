@@ -22,7 +22,7 @@ const intro_data: IntroItemType[] = [
 
   {
     id: 2,
-    title: "ONLINE HEALING FOR LASTING HEALTH",
+    title: "ONLINE HEALING FOR LASTING",
     description:
 
     " MedCall is your trusted destination for accessible, convenient, and    expert medical advice and care. We bring the expertise of healthcare    professionals to your fingertips, offering a comprehensive suite of   telemedicine services tailored to your needs.",

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Modal } from "antd";
 import { useReduxDispatch, useReduxSelector } from "../../../../hooks";
 import { setAuthModal } from "../../../../redux/modalSlice";
+import { useAxios } from "../../../../customHooks/useAxios";
 import Login from "./Login";
 import Signup from "./Signup";
 
@@ -12,6 +13,7 @@ const Register: FC = (props: any) => {
   const { authModal } = useReduxSelector((state) => state.modal);
   const dispatch = useReduxDispatch();
   const [active, setActive] = useState<"login" | "signup" | "logout">("login");
+  const axios = useAxios();
 
 
 
@@ -44,7 +46,10 @@ const Register: FC = (props: any) => {
 
         <h3
           tabIndex={0}
-          onClick={() => setActive("logout")}
+          onClick={() => setActive("logout")
+          
+        }
+  
           className={`cursor-pointer text-xl transition-all ${active === "logout" && "text-[#19BCE4]"
             }`}
         >
