@@ -7,8 +7,6 @@ import MemberApi from "../../../api/memberApi";
 import { useReduxDispatch } from "../../../hooks";
 const { confirm } = Modal;
 
-
-
 const Dashboard: FC = () => {
   const dispatch = useReduxDispatch();
   const navigate = useNavigate();
@@ -23,11 +21,10 @@ const Dashboard: FC = () => {
       },
       okText: "I'm sure",
       onOk: async () => {
-        const data = await logOutRequest();
-        if (data) {
-          dispatch(setLogout());
-          navigate("/");
-        }
+        // const data = await logOutRequest();
+        localStorage.removeItem("user_data");
+        dispatch(setLogout());
+        navigate("/");
       },
     });
   };
@@ -35,10 +32,7 @@ const Dashboard: FC = () => {
     <div className="bg-[#FBFBFB] w-[310px] h-fit text-xl p-[15px] max-sm:hidden">
       <h1 className="font-bold">My Account</h1>
       <div className="flex flex-col gap-3 mt-[15px] border-b border-[#46A35880] pb-[35px]">
-        <div
-          
-          className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold"
-        >
+        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold">
           <h3 className="font-normal text-base"> Mike</h3>
         </div>
       </div>

@@ -19,7 +19,7 @@ const Signup: FC = (props: any) => {
 
   const onFinish = async (value: object) => {
     setLoading(true);
-    const data = await axios({url: "/sign-up", method: "POST", body: value});;
+    const data = await axios({url: "/client/sign-up", method: "POST", body: value});;
     setLoading(false);
     if (!data)
       return notification.error({
@@ -39,8 +39,16 @@ const Signup: FC = (props: any) => {
             Enter your username and password to register.
           </h2>
           <Form.Item
-            name="mb_name"
+            name="mb_username"
             rules={[{ required: true, message: "Please input your username!" }]}
+            className="pb-3"
+          >
+            <Input className="h-[40px]" placeholder="Username" />
+          </Form.Item>
+
+          <Form.Item
+            name="mb_name"
+            rules={[{ required: true, message: "Please input your name!" }]}
             className="pb-3"
           >
             <Input className="h-[40px]" placeholder="Name" />
@@ -83,6 +91,7 @@ const Signup: FC = (props: any) => {
             <Button
               className=" w-full h-[40px]  mt-4 bg-sky-500/75"
               type="primary"
+              htmlType="submit"
             >
               {loading ? <LoadingOutlined/> : "Sign Up"}
             </Button>

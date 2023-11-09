@@ -22,7 +22,7 @@ const Login: FC = () => {
   const onFinish = async (value: object) => {
 
     setLoading(true);
-    const data = await axios ({url: "/login", method: "POST", body: value});
+    const data = await axios ({url: "/client/login", method: "POST", body: value});
     setLoading(false);
     if (!data) 
      return notification.error({
@@ -45,12 +45,12 @@ const Login: FC = () => {
         <div className="w-[90%] m-auto">
           <h2 className="py-3"> Enter your username and password to login.</h2>
           <Form.Item
-            name="mb_name"
+            name="mb_username"
             
             rules={[{ required: true, message: "Please input your username!" }]}
             className="pb-3"
           >
-            <Input className="h-[40px]" placeholder="Name"  />
+            <Input className="h-[40px]" placeholder="Userame"  />
           </Form.Item>
           <Form.Item
             name="mb_password"
