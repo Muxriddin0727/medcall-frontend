@@ -9,7 +9,6 @@ import {
   DatePickerProps,
   TimePicker,
   Button,
-  
 } from "antd";
 import { useReduxDispatch, useReduxSelector } from "../../../../hooks";
 import { setBookModal } from "../../../../redux/modalSlice";
@@ -19,23 +18,18 @@ const onChange: DatePickerProps["onChange"] = (date, dateString) => {
 };
 
 const Book: FC = () => {
-    const { bookModal } = useReduxSelector((state) => state.modal);
-    const dispatch = useReduxDispatch();
+  const { bookModal } = useReduxSelector((state) => state.modal);
+  const dispatch = useReduxDispatch();
 
   return (
-    <Modal 
-    title="Book an Appointment" 
-    open={bookModal} 
-    footer={false}
-    onCancel={() =>
-        dispatch(
-          setBookModal())}
-      
+    <Modal
+      title="Book an Appointment"
+      open={bookModal}
+      footer={false}
+      onCancel={() => dispatch(setBookModal())}
     >
       <div className=" w-[full]  flex justify-between items-center mt-[20px] ">
-        <Form 
-        layout="vertical" 
-        className="w-[566px] h-[472px] m-auto">
+        <Form layout="vertical" className="w-[566px] h-[472px] m-auto">
           <div className="w-[90%] m-auto">
             <Form.Item label="Name" className="pb-3">
               <Input className="h-[40px]" placeholder="David John" />
@@ -68,10 +62,10 @@ const Book: FC = () => {
                       },
                       disabledMinutes: () => {
                         return [
-                          ...Array.from({ length: 28 }).map(
+                          ...Array.from({ length: 28 })?.map(
                             (_, idx) => idx + 2
                           ),
-                          ...Array.from({ length: 29 }).map(
+                          ...Array.from({ length: 29 })?.map(
                             (_, idx) => idx + 31
                           ),
                         ];

@@ -5,9 +5,9 @@ type getParams = "category" | "sort" | "type" | "range-min" | "range-max";
 export const useAppSearchParams = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const category = searchParams.get("category") ?? "house-plants";
+  const category = searchParams.get("category") ?? "DERMATOLOGISTS";
   const sort = searchParams.get("sort") ?? "default-sorting";
-  const type = searchParams.get("type") ?? "all-plants";
+  const type = searchParams.get("type") ?? "all-doctors";
   const range_min = searchParams.get("range-min") ?? "0";
   const range_max = searchParams.get("range-max") ?? "1000";
 
