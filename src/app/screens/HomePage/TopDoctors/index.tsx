@@ -3,7 +3,6 @@ import { Card, Button, Space, Badge, Rate } from "antd";
 import { FindDoctors } from "../../../../types/user";
 import { useAxios } from "../../../customHooks/useAxios";
 
-
 const TopDoctors: FC = () => {
   const [doctorsData, setTopDoctors] = useState([]);
   const axios = useAxios();
@@ -11,11 +10,13 @@ const TopDoctors: FC = () => {
   useEffect(() => {
     axios({
       url: "/client/get-top-doctors",
-    }).then((data) => {
-      setTopDoctors(data.data.data);
-    }).catch((error) => {
-      console.error("Error fetching top doctors: ", error);
-    });
+    })
+      .then((data) => {
+        setTopDoctors(data.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching top doctors: ", error);
+      });
   }, []);
 
   return (
@@ -30,7 +31,7 @@ const TopDoctors: FC = () => {
       </div>
 
       <div className="  gap-6 grid grid-cols-3 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
-        {doctorsData.map((value: FindDoctors) => (
+        {doctorsData?.map((value: FindDoctors) => (
           <Card key={value._id} className="bg-stone-100 hover:scale-110">
             <div className="flex gap-16 mb-4">
               <div className="flex-col">

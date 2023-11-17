@@ -1,43 +1,59 @@
 import { Card, Typography } from "antd";
 import { EyeOutlined, CommentOutlined, HeartOutlined } from "@ant-design/icons";
-import { FC } from "react";
-import { BlogCardType } from "../../../../../types/blogs";
-import { useNavigate } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
+import { Blog } from "../../../../../types/blogs";
+import { useNavigate, useParams } from "react-router-dom";
+import { blog_data } from "../../../../../lib";
+import { useAxios } from "../../../../customHooks/useAxios";
+import { Spin } from "antd";
 
-const Blog: FC<BlogCardType> = ({
-  title,
-  short_description,
-  views,
-  reaction_length,
-  created_by,
-  id,
-}) => {
+const Blogs: FC = () => {
+  const { id } = useParams();
+  const [blogData, setBlogData] = useState<Blog | null>(null);
+  const axios = useAxios();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    axios({
+      url: `/client/blogs/${id}`,
+    }).then((data) => {
+      setBlogData(data.data.data);
+    });
+  }, [id]);
+
+  if (!blogData) {
+    return (
+      <div>
+        <Spin size="large" />
+      </div>
+    );
+  }
+
   return (
     <Card
       actions={[
         <div>
-          <EyeOutlined /> {views}
+          <EyeOutlined /> {blogData.blog_views}
         </div>,
         <div>
-          <CommentOutlined /> {0}
+          <CommentOutlined /> {blogData.blog_comment.length}
         </div>,
         <div>
-          <HeartOutlined /> {reaction_length}
+          <HeartOutlined /> {blogData.blog_likes}
         </div>,
       ]}
     >
       <h1
-        onClick={() => navigate("/blog/:id")}
+        onClick={() => navigate("/blogs/:id")}
         className="text-[18px] text-bold cursor-pointer hover:underline"
       >
-        {title}
+        {blogData.blog_subject}
       </h1>
       <Typography spellCheck={true} className="mt-[10px] text-[12px]">
-        {short_description}
+        {blogData.blog_description}
       </Typography>
     </Card>
   );
 };
 
-export default Blog;
+export default Blogs;

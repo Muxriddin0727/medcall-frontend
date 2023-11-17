@@ -1,5 +1,5 @@
 import { Feedbacks } from "./others"
-import { Blogs } from "./blogs"
+import { Blog } from "./blogs"
 import { FindDoctors } from "./user"
 
 /** REACT APP STAT/E */
@@ -18,7 +18,7 @@ export interface HomePageState {
   // },
   
   topDoctors: FindDoctors[];
-  topBlogs: Blogs[];
+  topBlogs: Blog[];
   feedbacks: Feedbacks[];
 }
 

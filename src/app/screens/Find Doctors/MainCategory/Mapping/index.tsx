@@ -1,4 +1,5 @@
-import { useState, type FC, useEffect } from "react";import Headers from "./Headers";
+import { useState, type FC, useEffect } from "react";
+import Headers from "./Headers";
 import Card from "./Card";
 import { useAxios } from "../../../../customHooks/useAxios";
 import { FindDoctors } from "../../../../../types/user";
