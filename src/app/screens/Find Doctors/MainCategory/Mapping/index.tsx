@@ -3,15 +3,15 @@ import Headers from "./Headers";
 import Card from "./Card";
 import { useAxios } from "../../../../customHooks/useAxios";
 import { FindDoctors } from "../../../../../types/user";
-import { useSearchParams } from "react-router-dom";
+import { useAppSearchParams } from "../../../../customHooks/useSearchParams";
 
 
 
 const Mapping: FC = () => {
-  const [params, setParams] = useSearchParams();
+  const {getParams}= useAppSearchParams();
   const [doctorsData, setAllDoctors] = useState([]);
   const axios = useAxios();
-  const category = params.get("category");
+  const category = getParams("category");
 
   useEffect(() => {
     axios({

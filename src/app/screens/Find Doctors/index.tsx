@@ -9,6 +9,7 @@ const FindDoctors: FC = () => {
     <div>
       <Intro />
       <MainCategory />
+      <SingleDoctor />
       
     </div>
   );

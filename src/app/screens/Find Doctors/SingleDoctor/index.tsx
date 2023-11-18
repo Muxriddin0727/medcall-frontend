@@ -4,14 +4,19 @@ import DoctorInfo from "./DoctorInfo";
 import { FindDoctors } from "../../../../types/user";
 import Img from "./Img";
 import { useAxios } from "../../../customHooks/useAxios";
+import { useParams } from "react-router-dom";
+import { useAppSearchParams } from "../../../customHooks/useSearchParams";
 
 const SingleDoctor: FC = () => {
   const [chosenDoctorData, setChosenDoctor] = useState<FindDoctors | null>(null);
+  const {getParams}= useAppSearchParams();
   const axios = useAxios();
+  const {id} = useParams();
+  const category = getParams("category");
 
   useEffect(() => {
     axios({
-      url: `/find-doctors/:id`,
+      url: `/client/category/${category}/${id}`,
     }).then((data) => {
       setChosenDoctor(data.data.data);
     });
