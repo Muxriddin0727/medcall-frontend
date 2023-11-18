@@ -19,11 +19,11 @@ const SubBlog: FC = () => {
 
   useEffect(() => {
     axios({
-      url: `/client/blogs/${id}`,
+      url: `/client/get-blogs/${id}`,
     }).then((data) => {
       setBlogData(data.data.data);
     });
-  }, [id, axios]);
+  }, [id]);
   if (!blogData) {
     return <div><Spin size="large" /></div>;
   }
@@ -62,7 +62,7 @@ const SubBlog: FC = () => {
         </p>
         <p className="text-gray-500 max-lg:text-sm">
           <CommentOutlined className="mr-2" />
-          {blogData.blog_comment.length}
+          {blogData.blog_comment}
         </p>{" "}
         <p className="text-gray-500 max-lg:text-sm">
           <HeartOutlined className="mr-2" />
