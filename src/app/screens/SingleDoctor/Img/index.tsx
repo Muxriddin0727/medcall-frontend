@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { Image } from "antd";
-import { FindDoctors } from "../../../../.././types/user";
+import { FindDoctors } from "../../../.././types/user";
 
 
 const Img: FC <{value: FindDoctors}> = ({value}) => {

@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { Descriptions, Rate, Skeleton, Tooltip, Button, Badge } from "antd";
-import { useReduxDispatch } from "../../../../hooks";
-import { setBookModal } from "../../../../redux/modalSlice";
-import { FindDoctors } from "../../../../.././types/user";
+import { useReduxDispatch } from "../../../hooks";
+import { setBookModal } from "../../../redux/modalSlice";
+import { FindDoctors } from "../../../.././types/user";
 
 
 

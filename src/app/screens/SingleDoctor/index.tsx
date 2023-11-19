@@ -1,11 +1,11 @@
 import { useState, type FC, useEffect } from "react";
 import Description from "./Description";
 import DoctorInfo from "./DoctorInfo";
-import { FindDoctors } from "../../../../types/user";
+import { FindDoctors } from "../../../types/user";
 import Img from "./Img";
-import { useAxios } from "../../../customHooks/useAxios";
+import { useAxios } from "../../customHooks/useAxios";
 import { useParams } from "react-router-dom";
-import { useAppSearchParams } from "../../../customHooks/useSearchParams";
+import { useAppSearchParams } from "../../customHooks/useSearchParams";
 
 const SingleDoctor: FC = () => {
   const [chosenDoctorData, setChosenDoctor] = useState<FindDoctors | null>(null);
