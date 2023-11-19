@@ -2,6 +2,7 @@ export interface FindDoctors {
     _id: string;
     mb_username: string;
     mb_name: string;
+    mb_last_name: string;
     mb_email: string;
     mb_password: string;
     mb_type: string;

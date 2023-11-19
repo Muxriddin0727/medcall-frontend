@@ -23,7 +23,7 @@ const Card: FC <{value: FindDoctors}> = ({value}) => {
             <HeartFilled className="text-[red]" />
           </div>
           <div 
-          onClick = {() => navigate ("/find-doctors/:id")} 
+          onClick = {() => navigate ("/single-doctor/:id")} 
           className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer text-[20px]">
             <DownOutlined />
           </div>
