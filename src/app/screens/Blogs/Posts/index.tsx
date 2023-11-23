@@ -12,7 +12,7 @@ const Posts: FC = () => {
 
   useEffect(() => {
     axios({
-      url: `/client/get-blogs`,
+      url: `/client/blogs`,
     }).then((data) => {
       setBlogData(data.data.data);
     });

@@ -9,7 +9,7 @@ const Blogs: FC <Blog> = ({
   blog_views,
   blog_comment, 
   blog_likes,
-  blog_subject, 
+  blog_title, 
   blog_description,
   _id
 }) => {
@@ -35,7 +35,7 @@ const Blogs: FC <Blog> = ({
         onClick={() => navigate(`/blogs/${_id}`)}
         className="text-[18px] text-bold cursor-pointer hover:underline"
       >
-        {blog_subject}
+        {blog_title}
       </h1>
       <Typography spellCheck={true} className="mt-[10px] text-[12px]">
         {blog_description}

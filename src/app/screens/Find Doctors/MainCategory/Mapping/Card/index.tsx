@@ -14,7 +14,7 @@ const Card: FC <{value: FindDoctors}> = ({value}) => {
         <div className="bg-[#46A358] text-white absolute top-3 left-0 px-[5px] py-[3px]">
           15% OFF
         </div>
-        <img width={180} src={`http://localhost:5005/${value.mb_image}`} alt="img" className="" />
+        <img width={180} src={`http://localhost:3002/${value.mb_image}`} alt="img" className="" />
         <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
           <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer text-[20px]">
             <WechatOutlined />

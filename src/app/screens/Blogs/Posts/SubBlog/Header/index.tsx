@@ -2,9 +2,8 @@ import { FC } from "react";
 import { Avatar, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Blog } from "../../../../../../types/blogs";
-import { FindDoctors } from "../../../../../../types/user";
 
-const Header: FC<{ value: FindDoctors }> = ({ value }) => {
+const Header: FC<{ value: Blog['member_data'] }> = ({ value }) => {
   return (
     <div className="w-full m-auto my-8 grid justify-between grid-flow-col ">
       <div className=" flex gap-6">
