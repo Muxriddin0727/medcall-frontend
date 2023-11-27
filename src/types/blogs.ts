@@ -7,6 +7,12 @@ export interface BlogsInput {
     bo_id: string;
   }
 
+  export interface MeLiked {
+    mb_id: string;
+    like_ref_id: string;
+    my_favorite: boolean;
+  }
+
   export interface Blog {
     member_data: FindDoctors;
     _id: string;
@@ -23,6 +29,7 @@ export interface BlogsInput {
     mb_follow_cnt: number;
     createdAt: Date;
     updatedAt: Date;
+    me_liked: MeLiked[];
   }
 
   export type BlogCardType = {

@@ -10,8 +10,8 @@ const Img: FC <{value: FindDoctors}> = ({value}) => {
         <div className="cursor-pointer flex justify-center items-center w-[350px]">
           <Image
             loading={"lazy"}
-            src={`http://localhost:5005/${value.mb_image}`}
-            className="w-[250px]"
+            src={`http://localhost:3002/${value.mb_image}`}
+            className="w-[250px] rounded-md"
           />
         </div>
       </div>

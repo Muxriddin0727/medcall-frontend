@@ -7,7 +7,7 @@ export const sweetErrorHandling = async (
   err: any,
   sweet_off: boolean = false
 ) => {
-  let error_message = err.message.includes("att:")
+  let error_message = err.message && err.message.includes("att:")
     ? err.message
     : Definer.general_err1;
 

@@ -5,11 +5,11 @@ import { useAxios } from "../../../../customHooks/useAxios";
 import { FindDoctors } from "../../../../../types/user";
 import { useAppSearchParams } from "../../../../customHooks/useSearchParams";
 
-
-
 const Mapping: FC = () => {
-  const {getParams}= useAppSearchParams();
+  const { getParams } = useAppSearchParams();
   const [doctorsData, setAllDoctors] = useState([]);
+  const [likeDoctors, setLikeDoctors] = useState([]);
+
   const axios = useAxios();
   const category = getParams("category");
 
@@ -20,12 +20,22 @@ const Mapping: FC = () => {
       setAllDoctors(data.data.data);
     });
   }, [category]);
+
+  useEffect(() => {
+    axios({
+      method: "POST",
+      url: `/client/member-liken`,
+    }).then((data) => {
+      setLikeDoctors(data.data.data);
+    });
+  }, []);
+
   return (
     <div className="w-full ml-4">
       <Headers />
       <div className="grid grid-cols-3 grid-flow-row gap-4 my-6 max-xl:grid-cols-2 max-sm:grid-cols-1">
         {doctorsData.map((value: FindDoctors) => (
-          <Card value = {value} key={value._id}/>
+          <Card value={value} category={category} key={value._id} />
         ))}
       </div>
     </div>
