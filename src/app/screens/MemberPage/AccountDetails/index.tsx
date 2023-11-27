@@ -2,7 +2,7 @@ import { Button, Form, Input, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { FC } from "react";
 
-// import { UploadType } from "../../../@types";
+
 
 const AccountDetails: FC = () => {
   

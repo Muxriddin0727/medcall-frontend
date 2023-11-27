@@ -18,7 +18,7 @@ const DoctorInfo: FC <{value: FindDoctors}> = ({value}) => {
                     <Tooltip title={value.mb_name}>
                         <img
                             className="rounded-full w-[50px] h-[50px] cursor-pointer"
-                            src={`http://localhost:5005/${value.mb_image}`}
+                            src={`http://localhost:3002/${value.mb_image}`}
                             alt="david"
                         />
                     </Tooltip>
@@ -46,22 +46,11 @@ const DoctorInfo: FC <{value: FindDoctors}> = ({value}) => {
                     <Badge
                         className="font-medium text-[20px]"
                         color="#0EA5E9"
-                        text="University of California, San Francisco"
+                        text={value.mb_degree}
                     />
-                    <p>Medical Dagree </p>
+                    
 
-                    <Badge
-                        className="font-medium text-[20px]"
-                        color="#0EA5E9"
-                        text="University of California, Los Angels (UCLA)"
-                    />
-                    <p>Completed Recidency training in Cardiology</p>
-                    <Badge
-                        className="font-medium text-[20px]"
-                        color="#0EA5E9"
-                        text="University of California, Berkeley"
-                    />
-                    <p>Master of Public Helth Dagree </p>
+                    
                 </div>
 
                 <div className="mt-[12px]">
@@ -69,20 +58,10 @@ const DoctorInfo: FC <{value: FindDoctors}> = ({value}) => {
                     <Badge
                         className="font-medium text-[20px]"
                         color="#0EA5E9"
-                        text="Fellow of the American College of Cardiology (FACC)                        "
+                        text={value.mb_experience}
                     />
 
-                    <Badge
-                        className="font-medium text-[20px]"
-                        color="#0EA5E9"
-                        text="Active member of the American Heart Association                        "
-                    />
-                    <p>Completed Recidency training in Cardiology</p>
-                    <Badge
-                        className="font-medium text-[20px]"
-                        color="#0EA5E9"
-                        text="Collaborative work with local heart health advocacy groups                        "
-                    />
+            
                 </div>
             </div>
 

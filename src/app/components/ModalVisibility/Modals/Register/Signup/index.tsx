@@ -53,9 +53,15 @@ const Signup: FC = (props: any) => {
           >
             <Input className="h-[40px]" placeholder="Name" />
           </Form.Item>
-          <Form.Item className="pb-3">
+
+          <Form.Item
+            name="mb_last_name"
+            rules={[{ required: true, message: "Please input your Last name!" }]}
+            className="pb-3"
+          >
             <Input className="h-[40px]" placeholder="Last Name" />
           </Form.Item>
+          
           <Form.Item
             name="mb_email"
             rules={[{ required: true, message: "Please input your username!" }]}

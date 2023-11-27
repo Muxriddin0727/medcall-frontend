@@ -3,6 +3,8 @@ import { Definer } from "../../lib/Definer";
 import { serverApi } from "../../lib/config";
 import axios from "axios";
 import { Member, } from "../../types/user";
+import { MemberLiken } from "../../types/others";
+
 
 class MemberApi {
   private readonly path: string;
@@ -13,7 +15,7 @@ class MemberApi {
 
   public async loginRequest(login_data: any) {
     try {
-      const result = await axios.post(serverApi + "/login", login_data, {
+      const result = await axios.post(serverApi + "/client//login", login_data, {
         withCredentials: true,
       });
 
@@ -34,7 +36,7 @@ class MemberApi {
 
   public async signupRequest(signup_data: any) {
     try {
-      const result = await axios.post(this.path + "/sign-up", signup_data, {
+      const result = await axios.post(this.path + "/client/sign-up", signup_data, {
         withCredentials: true,
       });
 
@@ -54,7 +56,7 @@ class MemberApi {
 
   public async logOutRequest() {
     try {
-      const result = await axios.get(serverApi + "/logout", {
+      const result = await axios.get(serverApi + "/client/logout", {
         withCredentials: true,
       });
 
@@ -90,5 +92,26 @@ class MemberApi {
       throw err;
     }
   }
+
+  public async memberLikeTarget(data: any) {
+    try {
+      const url = "/client/member-liken",
+        result = await axios.post(this.path + url, data, {
+          withCredentials: true,
+        });
+
+      assert.ok(result?.data, Definer.general_err1);
+      assert.ok(result?.data?.state != "fail", result?.data?.message);
+      console.log("state:", result.data.state);
+
+      const like_result: MemberLiken = result.data.data;
+
+      return like_result;
+    } catch (err: any) {
+      console.log(`ERROR ::: memberLikeTarget  ${err.message}  `);
+      throw err;
+    }
+  }
+
 }
 export default MemberApi;

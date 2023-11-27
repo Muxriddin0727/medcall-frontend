@@ -6,12 +6,12 @@ const AboutUs: FC = () => {
     <div className="w-[90%] m-auto h-[800px] flex gap-24 justify-center mt-[100px] ">
       <div className="relative max-md:hidden">
         <img
-          className="w-[500px] h-[581px]"
+          className="w-[500px] h-[580px] rounded-lg"
           src="/doctors/onlined.jpg"
           alt="online doctor"
         />
         <img
-          className="w-[240px] h-[160px] shrink absolute top-[460px] left-[300px]"
+          className="w-[240px] h-[160px] shrink absolute top-[460px] left-[300px] rounded-lg"
           src="/doctors/onlinedo.jpg"
           alt=" onlindo"
         />

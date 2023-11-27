@@ -10,7 +10,7 @@ export const useAxios = () =>{
         method?: "GET" | "POST" | "PUT" | "DELETE";
         body?: object;
     }) => {  return axios ({
-        url: `http://localhost:5005${url}`,
+        url: `http://localhost:3002${url}`,
         method,
         data: body,
     });

@@ -9,7 +9,7 @@ const TopDoctors: FC = () => {
 
   useEffect(() => {
     axios({
-      url: "/client/get-top-doctors",
+      url: "/client/top-doctors",
     })
       .then((data) => {
         setTopDoctors(data.data.data);
@@ -49,7 +49,7 @@ const TopDoctors: FC = () => {
               <div>
                 <img
                   className="w-[110px] max-h-[125px] rounded-lg"
-                  // src={`http://localhost:5005/${value.mb_image}`}
+                  src={`http://localhost:3002/${value.mb_image}`}
                   alt="doctor"
                 />
               </div>

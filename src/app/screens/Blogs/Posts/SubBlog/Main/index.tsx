@@ -7,7 +7,7 @@ const Main: FC<{ value: Blog }> = ({ value }) => {
     <div className="w-2/3 m-auto p-6">
       <div className="w-full  bg-white m-auto rounded-xl">
         <h1 className="w-full m- p-2 font-bold text-3xl box-border">
-          {value.blog_subject}
+          {value.blog_title}
         </h1>
 
         <p className="w-full m-auto py-6  box-border block ">

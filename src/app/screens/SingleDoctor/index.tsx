@@ -8,19 +8,24 @@ import { useParams } from "react-router-dom";
 import { useAppSearchParams } from "../../customHooks/useSearchParams";
 
 const SingleDoctor: FC = () => {
+  const {id,} = useParams();
   const [chosenDoctorData, setChosenDoctor] = useState<FindDoctors | null>(null);
   const {getParams}= useAppSearchParams();
   const axios = useAxios();
-  const {id} = useParams();
   const category = getParams("category");
+  console.log('id:', id);
+  console.log('category:', category);
 
   useEffect(() => {
+    if(!id || !category) {
     axios({
       url: `/client/category/${category}/${id}`,
     }).then((data) => {
       setChosenDoctor(data.data.data);
     });
-  }, []);
+    console.log('id:', id);
+  }
+  }, [id, category]);
   return (
     <div className=" w-[90%] m-auto mt-[43px]">
       <div className="flex w-full gap-[200px] max-lg:flex-col">

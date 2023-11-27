@@ -17,7 +17,7 @@ const Navbar: FC = (props: any) => {
       <div className=" w-[90%] m-auto flex justify-between py-[35px]">
         <div className="flex">
           <img
-            className="w-[172px] h-[42px] "
+            className="w-full h-auto "
             src="/images/logo.png"
             alt="logo"
           />

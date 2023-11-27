@@ -9,7 +9,8 @@ if (cookie.get("access_token")) {
     ? localStorage.getItem("member_data")
     : null;
   member_data = memberDataJson ? JSON.parse(memberDataJson) : null;
-
+//pasdgi verifyni boshqacha ishlatish usuli, yanayam qulayi
+//.
   if (member_data) {
     member_data.mb_image = member_data.mb_image
       ? `${serverApi}/${member_data.mb_image}`
