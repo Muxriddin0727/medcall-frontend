@@ -13,6 +13,9 @@ export const useAxios = () =>{
         url: `http://localhost:3002${url}`,
         method,
         data: body,
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
     });
 };
 

@@ -20,8 +20,8 @@ export interface BlogsInput {
     blog_content: string;
     blog_status: string;
     blog_description: string;
-    blog_likes: number;
-    blog_views: number;
+    blog_likes: string[];
+    blog_views: string[];
     blog_comment: string;
     doctor_mb_id: string;
     mb_name: string;
