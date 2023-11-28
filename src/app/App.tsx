@@ -22,7 +22,7 @@ const App: FC = () => {
         <Route path="/" element={<Navbar />}>
           <Route index element={<HomePage />} />
           <Route path="/find-doctors" element={<FindDoctors />} />
-          <Route path="/single-doctor/:id" element={<SingleDoctor />} />
+          <Route path="/single-doctor/:category/:id" element={<SingleDoctor />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<SubBlog />} />
           <Route path="/help" element={<Help />} />

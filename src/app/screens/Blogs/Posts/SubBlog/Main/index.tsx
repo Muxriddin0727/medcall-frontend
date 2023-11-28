@@ -1,8 +1,36 @@
-import { FC } from "react";
-import { EyeOutlined, CommentOutlined, HeartOutlined } from "@ant-design/icons";
+import { FC, useState } from "react";
+import { EyeOutlined, CommentOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Blog } from "../../../../../../types/blogs";
+import { useAxios } from "../../../../../customHooks/useAxios";
 
 const Main: FC<{ value: Blog }> = ({ value }) => {
+  const axios = useAxios();
+
+  const verifiedMember = JSON.parse(
+    String(localStorage.getItem("member_data"))
+  ) as any;
+  const [liked, setLiked] = useState(value?.blog_likes?.includes(verifiedMember._id));
+  const [likesCount, setLikesCount] = useState(value?.blog_likes.length);
+  const likeHandler = async () => {
+    const newLikedState = !liked;
+    setLiked(newLikedState);
+    setLikesCount(prevCount => newLikedState ? prevCount + 1 : prevCount - 1);
+    try {
+    await axios({
+      url: `/client/blog-liken`,
+      method: "POST",
+      body: {
+        _id: verifiedMember._id,
+        blog_id: value._id,
+      },
+    });
+  } catch (error) {
+    setLiked(!newLikedState);
+    setLikesCount(prevCount => newLikedState ? prevCount - 1 : prevCount + 1);
+    console.log("error:", error);
+  }
+  }
+
   return (
     <div className="w-2/3 m-auto p-6">
       <div className="w-full  bg-white m-auto rounded-xl">
@@ -24,10 +52,16 @@ const Main: FC<{ value: Blog }> = ({ value }) => {
           <CommentOutlined className="mr-2" />
           {value.blog_comment}
         </p>{" "}
-        <p className="text-gray-500 max-lg:text-sm">
-          <HeartOutlined className="mr-2" />
-          {value.blog_likes}
-        </p>{" "}
+        <div
+        onClick = {likeHandler}
+        >
+          {liked ? (
+          <HeartFilled className="text-red-500"/> 
+          ) : (
+          <HeartOutlined />
+          )}
+          <span>{likesCount}</span>
+        </div>,
       </div>
     </div>
   );
