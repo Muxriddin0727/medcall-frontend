@@ -13,7 +13,6 @@ import SubBlog from "./screens/Blogs/Posts/SubBlog";
 import AccountDetails from "./screens/MemberPage/AccountDetails";
 import MyAppointments from "./screens/MemberPage/MyAppointments";
 import FavBlogs from "./screens/MemberPage/FavBlogs";
-
 const App: FC = () => {
   return (
     <>
@@ -29,7 +28,7 @@ const App: FC = () => {
           <Route path="/member-page" element={<MemberPage />}>
             <Route path="account-details" element={<AccountDetails />} />
             <Route path="my-appointments" element={<MyAppointments />} />
-            <Route path="favorite-blogs" element={<FavBlogs />} />
+            <Route path="favorite-blogs/:id" element={<FavBlogs />} />
           </Route>
         </Route>
       </Routes>

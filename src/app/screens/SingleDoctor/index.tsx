@@ -14,8 +14,6 @@ const SingleDoctor: FC = () => {
   );
   const { getParams } = useAppSearchParams();
   const axios = useAxios();
-  console.log("id:", id);
-  console.log("category:", category);
 
   useEffect(() => {
     axios({
@@ -23,7 +21,6 @@ const SingleDoctor: FC = () => {
     }).then((data) => {
       setChosenDoctor(data.data.data);
     });
-    console.log("id:", id);
   }, []);
   return (
     <div className=" w-[90%] m-auto mt-[43px]">

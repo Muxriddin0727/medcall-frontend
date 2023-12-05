@@ -1,11 +1,15 @@
 import { Button, Form, Input, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 
+const verifiedMember = JSON.parse(
+  String(localStorage.getItem("member_data"))
+) as any;
 
 const AccountDetails: FC = () => {
-  
+
+
   return (
     <Form
       name="complex-form"
@@ -19,11 +23,11 @@ const AccountDetails: FC = () => {
       className="w-full"
       size="large"
       initialValues={{
-        name: "Mukhridin",
-        surname: "Abduvokhidov",
-        email:"muxriddin99@hotmail.com",
-        phone_number: "01021599907",
-        username: "Mike",
+        name: verifiedMember.mb_name,
+        surname: verifiedMember.mb_last_name,
+        email:verifiedMember.mb_email,
+        phone_number: verifiedMember.mb_phone,
+        username: verifiedMember.mb_username,
       }}
     >
       <Form.Item
@@ -98,7 +102,7 @@ const AccountDetails: FC = () => {
           name="phone_number"
           rules={[
             {
-              required: true,
+              required: false,
             },
           ]}
           style={{
@@ -107,7 +111,7 @@ const AccountDetails: FC = () => {
             margin: "0 8px",
           }}
         >
-          <Input addonBefore={"+998"} placeholder="Your phone number..." />
+          <Input addonBefore={"+8210"} placeholder="Your phone number..." />
         </Form.Item>
       </Form.Item>
       <Form.Item
@@ -150,11 +154,11 @@ const AccountDetails: FC = () => {
               "https://greenshop.abduvoitov.com/api/upload?access_token=64bebc1e2c6d3f056a8c85b7"
             }
                     >
-                        <Button type="primary" icon={<UploadOutlined />}>Upload</Button>
+                        <Button type="primary" className="bg-cyan-500" icon={<UploadOutlined />}>Upload</Button>
                     </Upload>
                 </Form.Item>
             </Form.Item>
-            <Button htmlType="submit" className="h-[40px] px-[10px] mt-[15px]" type="primary">
+            <Button htmlType="submit" className="h-[40px] px-[10px] mt-[15px] bg-cyan-500" type="primary">
                 Save changes
       </Button>
     </Form>

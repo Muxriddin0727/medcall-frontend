@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Button } from "antd";
+import { Button, FloatButton  } from "antd";
+import { MessageOutlined } from "@ant-design/icons";
 import { MenuOutlined } from "@ant-design/icons";
 import { useReduxDispatch, useReduxSelector } from "../../hooks";
-import { setAuthModal } from "../../redux/modalSlice";
+import { setAuthModal, setChatModal } from "../../redux/modalSlice";
 import { LoginOutlined } from "@ant-design/icons";
 // import { verifiedMemberData } from "../../api/verify";
 
@@ -45,6 +46,11 @@ const Navbar: FC = (props: any) => {
             <MenuOutlined />
           </div>
         </div>
+        <FloatButton 
+        icon={<MessageOutlined />} 
+        tooltip={<div>Have something to ask ?</div>} 
+        onClick = {() => dispatch(setChatModal()) }
+        />
       </div>
       <Outlet />
     </div>

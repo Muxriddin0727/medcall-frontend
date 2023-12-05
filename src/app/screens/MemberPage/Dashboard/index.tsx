@@ -43,7 +43,7 @@ const Dashboard: FC = () => {
         </div>
 
         <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold"
-        onClick = {() => navigate("/member-page/favorite-blogs")}>
+        onClick = {() => navigate(`/member-page/favorite-blogs/:id`)}>
           <h3 className="font-normal text-base"> Liked Blogs</h3>
         </div>
 

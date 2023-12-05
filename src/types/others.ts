@@ -4,6 +4,18 @@ export interface Feedbacks {
   mb_nick: string;
 }
 
+export interface Appointment {
+  _id:string;
+  slot_id: string;
+  mem_id: string;
+  ref_id: string;
+  date: string;
+  
+  slots: [];
+  doctor_id: string;
+  created_at: string;
+};
+
 export type MainCardType = {
   _id: string;
   discount?: boolean;
@@ -50,5 +62,20 @@ export interface SearchObj {
   page: number;
   limit: number;
   order: string;
+}
+
+export interface ChatMessage {
+  msg: string;
+  mb_id: string;
+  mb_nick: string;
+  mb_image: string;
+}
+
+export interface ChatGreetMsg {
+  text: string;
+}
+
+export interface ChatInfoMsg {
+  total: number;
 }
 
