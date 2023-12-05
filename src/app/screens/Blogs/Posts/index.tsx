@@ -2,7 +2,9 @@ import { FC, useEffect, useState } from "react";
 import Blogs from "./Card";
 import { useAxios } from "../../../customHooks/useAxios";
 import { Blog } from "../../../../types/blogs";
-import { Spin } from "antd";
+import { Spin, Skeleton, SkeletonProps } from "antd";
+import SkeletonImage from "antd/es/skeleton/Image";
+import SkeletonNode from "antd/es/skeleton/Node";
 
 
 const Posts: FC = () => {
@@ -20,9 +22,9 @@ const Posts: FC = () => {
 
   if (!blogData) {
     return (
-      <div>
-        <Spin size="large" />
-      </div>
+     <SkeletonNode
+     
+     active />
     );
   }
   return (

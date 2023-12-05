@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { Spin } from "antd";
+import { Skeleton, Spin } from "antd";
 import { Blog } from "../../../../../types/blogs";
 import { useAxios } from "../../../../customHooks/useAxios";
 import { useParams } from "react-router-dom";
@@ -9,7 +9,6 @@ import { FindDoctors } from "../../../../../types/user";
 
 const SubBlog: FC = () => {
   const { id } = useParams();
-  console.log(id);
   const [blogData, setBlogData] = useState<Blog | null>(null);
   const [authorData, setAuthorData] = useState<FindDoctors | null>(null); // [1
   const axios = useAxios();
@@ -31,18 +30,16 @@ const SubBlog: FC = () => {
 
   return (
     <div className="w-2/3 m-auto p-6">
-      {!blogData ? (
-        <div>
-          <Spin size="large" />
-        </div>
+      {!blogData || !authorData ? (
+        <Skeleton active round />
       ) : (
-        <div className="w-full  bg-white m-auto rounded-xl">
-          {authorData &&  <Header value={authorData} />}
+        <div className="w-full bg-white m-auto rounded-xl">
+          {authorData && <Header value={authorData} />}
           {blogData && <Main value={blogData} />}
         </div>
       )}
     </div>
-  );
+  )
 };
 
 export default SubBlog;

@@ -1,8 +1,11 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Empty, Button } from "antd";
 import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
 import React from 'react';
 import { Avatar, List, Space } from 'antd';
+import { Blog } from "../../../../types/blogs";
+import { useAxios } from "../../../customHooks/useAxios";
+import { Appointment } from "../../../../types/others";
 
 const data = Array.from({ length: 23 }).map((_, i) => ({
   href: 'https://ant.design',
@@ -22,6 +25,27 @@ const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
 );
 
 const MyAppointments: FC = () => {
+  const [appointmentData, setAppointmentData] = useState<Appointment[]>([]); 
+  const axios = useAxios();
+
+  useEffect(() => {
+    const memberData = localStorage.getItem('member_data');
+    if (memberData) {
+      const parsedData = JSON.parse(memberData);
+      const id = parsedData._id;
+      axios({
+        url: `/client/get-appointments/${id}`,
+      })
+      .then((response) => {
+        console.log(response);
+        setAppointmentData(response.data.appointments);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+  }, []);
+  console.log("appointmentData", appointmentData);
  
 
   return (
@@ -34,7 +58,7 @@ const MyAppointments: FC = () => {
       },
       pageSize: 3,
     }}
-    dataSource={data}
+    dataSource={appointmentData? [...appointmentData] : []}
     footer={
       <div>
         <b>ant design</b> footer part
@@ -42,7 +66,7 @@ const MyAppointments: FC = () => {
     }
     renderItem={(item) => (
       <List.Item
-        key={item.title}
+        key={item.date}
         actions={[
           <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
           <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
@@ -57,11 +81,9 @@ const MyAppointments: FC = () => {
         }
       >
         <List.Item.Meta
-          avatar={<Avatar src={item.avatar} />}
-          title={<a href={item.href}>{item.title}</a>}
-          description={item.description}
+          description={item.date}
         />
-        {item.content}
+        {item.slots}
       </List.Item>
     )}
   />

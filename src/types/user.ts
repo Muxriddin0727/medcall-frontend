@@ -20,6 +20,7 @@ export interface FindDoctors {
     mb_top: string;
     mb_views: string[];
     mb_likes: string[];
+    mb_comments: string[];
     mb_follow_cnt: number;
     mb_subscriber_cnt: number;
     me_liked: MeLiked[];
