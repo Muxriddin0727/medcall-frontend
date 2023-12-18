@@ -5,20 +5,17 @@ import App from "./app/App";
 import "./css/index.css";
 import { BrowserRouter } from "react-router-dom";
 import { SocketContext, socket } from "./app/context/socket";
+import { StrictMode } from "react";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
-
-    <BrowserRouter>
+  <BrowserRouter>
     <Provider store={store}>
       <SocketContext.Provider value={socket}>
-      <App />
+        <App />
       </SocketContext.Provider>
     </Provider>
-    </BrowserRouter>
- 
+  </BrowserRouter>
 );
-
-

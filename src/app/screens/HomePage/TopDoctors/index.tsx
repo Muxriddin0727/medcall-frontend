@@ -1,74 +1,146 @@
 import { useState, type FC, useEffect } from "react";
-import { Card, Button, Space, Badge, Rate } from "antd";
+import { Card, Button, Space, Badge, Rate, Avatar } from "antd";
 import { FindDoctors } from "../../../../types/user";
 import { useAxios } from "../../../customHooks/useAxios";
+import { useReduxDispatch } from "../../../hooks";
+import { setBookModal } from "../../../redux/modalSlice";
+import { useNavigate } from "react-router-dom";
+import {
+  HeartOutlined,
+  HeartFilled,
+  CommentOutlined,
+  DownOutlined,
+} from "@ant-design/icons";
+import { verifiedMemberData } from "../../../api/verify";
+import { sweetErrorHandling } from "../../../../lib/sweetAlert";
+import { setMemberCommentsModal } from "../../../redux/modalSlice";
 
-const TopDoctors: FC = () => {
-  const [doctorsData, setTopDoctors] = useState([]);
+const TopDoctors: FC<{ category: string }> = ({ category }) => {
+  const [topdoctors, setTopDoctors] = useState<FindDoctors[]>([]);
   const axios = useAxios();
+  const dispatch = useReduxDispatch();
+  const navigate = useNavigate();
+  const [likedDoctors, setLikedDoctors] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+  
+
+  const likeHandler = async (value: FindDoctors) => {
+    if (!verifiedMemberData) {
+      sweetErrorHandling("Please login or register first");
+      return;
+    }
+    const currentlyLiked = likedDoctors[value._id] || false;
+    setLikedDoctors({ ...likedDoctors, [value._id]: !currentlyLiked });
+    try {
+      await axios({
+        url: `/client/member-liken`,
+        method: "POST",
+        body: {
+          _id: verifiedMemberData._id,
+          mb_id: value._id,
+        },
+      });
+    } catch (error) {
+      sweetErrorHandling("Please login or register first");
+      setLikedDoctors({ ...likedDoctors, [value._id]: currentlyLiked }); // revert like status on error
+      console.log("error:", error);
+    }
+  };
 
   useEffect(() => {
     axios({
       url: "/client/top-doctors",
     })
-      .then((data) => {
-        setTopDoctors(data.data.data);
+      .then((response) => {
+        setTopDoctors(response.data.data);
+        // Initialize liked status for each doctor
+        const initialLikes = response.data.data.reduce((acc: { [key: string]: boolean }, doctor: FindDoctors) => {
+          acc[doctor._id] = verifiedMemberData
+            ? doctor.mb_likes?.includes(verifiedMemberData._id) || false
+            : false;
+          return acc;
+        }, {});
+        setLikedDoctors(initialLikes);
       })
       .catch((error) => {
         console.error("Error fetching top doctors: ", error);
       });
-  }, []);
+  }, []); 
 
   return (
-    <div className="w-[90%] mb-[100px] m-auto">
-      <div className="mb-10">
-        <h1 className=" text-neutral-800 text-4xl font-bold text-center   leading-[60.90px]">
-          Meet Our Top Doctors
-        </h1>
-        <p className=" text-neutral-600 text-xm font-normal text-center my-4  leading-[27px]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
-      </div>
+    <div className="mb-24">
+      <h1 className=" text-neutral-800 text-4xl font-bold text-center leading-[60.90px]">
+        Meet Our Top Doctors
+      </h1>
+      <p className=" text-neutral-600 text-xm font-normal text-center my-4 leading-[27px]">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+      <div className="grid grid-cols-4 grid-flow-row gap-6 my-6 max-xl:grid-cols-2 max-sm:grid-cols-1">
+        {topdoctors.map((value: FindDoctors) => {
+       
 
-      <div className="  gap-6 grid grid-cols-3 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
-        {doctorsData?.map((value: FindDoctors) => (
-          <Card key={value._id} className="bg-stone-100 hover:scale-110">
-            <div className="flex gap-16 mb-4">
-              <div className="flex-col">
-                <Space>
-                  <Badge text={value.mb_status} color="#f50" />
-                </Space>
-                <h1 className=" my-4 text-black text-[22px] font-semibold ">
-                  {value.mb_name}
-                </h1>
-                <h3 className="my-2 "> {value.mb_profession}</h3>
-                <p className="text-black text-opacity-75 text-[12px] font-normal ">
-                  {value.mb_price}
-                </p>
-              </div>
-              <div>
-                <img
-                  className="w-[110px] max-h-[125px] rounded-lg"
+          return (
+            <div key={value._id}>
+              <div className="group w-[300px] h-[300px] bg-[#f5f5f5] flex justify-center items-center relative">
+                <Avatar
+                  size={{
+                    xs: 200,
+                    sm: 300,
+                    md: 300,
+                    lg: 300,
+                    xl: 300,
+                    xxl: 300,
+                  }}
+                  shape="square"
                   src={`http://localhost:3002/${value.mb_image}`}
-                  alt="doctor"
+                  alt="img"
+                  className=""
                 />
+                <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
+                  <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]">
+                    <CommentOutlined
+                      onClick={() =>
+                        dispatch(
+                          setMemberCommentsModal({
+                            isOpen: true,
+                            mb_id: value._id,
+                          })
+                        )
+                      }
+                    />
+                  </div>
+                  <div
+                    onClick={() => likeHandler(value)}
+                    className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
+                  >
+                    {likedDoctors[value._id] ? (
+                      <HeartFilled className="text-red-500" />
+                    ) : (
+                      <HeartOutlined />
+                    )}
+                  </div>
+                  <div
+                    onClick={() =>
+                      navigate(
+                        `/single-doctor/${value.mb_profession}/${value._id}`
+                      )
+                    }
+                    className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
+                  >
+                    <DownOutlined />
+                  </div>
+                </div>
               </div>
+              <h3 className="font-normal cursor-pointer mt-[12px]">
+                {value.mb_profession}
+              </h3>
+              <p className="text-cyan-500 font-bold">
+                {value.mb_name} {value.mb_last_name}
+              </p>
             </div>
-            <div>
-              <div className="my-3">
-                <Rate allowHalf defaultValue={2.5} />
-              </div>
-              <Space className="flex justify-between   max-md:flex-col max-md:items-start">
-                <Button className=" bg-sky-500/100 " type="primary">
-                  Message
-                </Button>
-                <Button className=" bg-sky-500/100" type="primary">
-                  Book an Appointment
-                </Button>
-              </Space>
-            </div>
-          </Card>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

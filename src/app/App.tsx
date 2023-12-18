@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./screens/HomePage";
 import ModalVisibility from "./components/ModalVisibility";
@@ -13,10 +13,19 @@ import SubBlog from "./screens/Blogs/Posts/SubBlog";
 import AccountDetails from "./screens/MemberPage/AccountDetails";
 import MyAppointments from "./screens/MemberPage/MyAppointments";
 import FavBlogs from "./screens/MemberPage/FavBlogs";
+import { MemberDataContext } from "./context/MemberDataContext";
+import { Member, VerifiedMemberData } from "../types/user";
+
 const App: FC = () => {
+  const [verifiedMemberData, setVerifiedMemberData] = useState<VerifiedMemberData | null | undefined>(undefined);
+
+
+ 
+
   return (
     <>
       <ModalVisibility />
+      <MemberDataContext.Provider value={{ verifiedMemberData, setVerifiedMemberData }}>
       <Routes>
         <Route path="/" element={<Navbar />}>
           <Route index element={<HomePage />} />
@@ -26,12 +35,13 @@ const App: FC = () => {
           <Route path="/blogs/:id" element={<SubBlog />} />
           <Route path="/help" element={<Help />} />
           <Route path="/member-page" element={<MemberPage />}>
-            <Route path="account-details" element={<AccountDetails />} />
-            <Route path="my-appointments" element={<MyAppointments />} />
-            <Route path="favorite-blogs/:id" element={<FavBlogs />} />
+          <Route path="account-details" element={<AccountDetails />} />           
+           <Route path="my-appointments" element={<MyAppointments />} />
+            <Route path="favorite-blogs/:id" element={<FavBlogs  />} />        
           </Route>
         </Route>
       </Routes>
+      </MemberDataContext.Provider>
       <Footer />
     </>
   );

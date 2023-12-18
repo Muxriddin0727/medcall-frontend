@@ -1,20 +1,20 @@
 import { FC, useEffect, useState } from "react";
-import { Empty, Button } from "antd";
-import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import React from 'react';
-import { Avatar, List, Space } from 'antd';
+import { Divider, Image } from "antd";
+import { PushpinFilled, EnvironmentFilled } from "@ant-design/icons";
+import React from "react";
+import { Avatar, List, Space } from "antd";
 import { Blog } from "../../../../types/blogs";
 import { useAxios } from "../../../customHooks/useAxios";
 import { Appointment } from "../../../../types/others";
 
 const data = Array.from({ length: 23 }).map((_, i) => ({
-  href: 'https://ant.design',
+  href: "https://ant.design",
   title: `ant design part ${i}`,
   avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
   description:
-    'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+    "Ant Design, a design language for background applications, is refined by Ant UED Team.",
   content:
-    'We supply a series of design principles, practical patterns and high quality design resources ',
+    "We supply a series of design principles, practical patterns and high quality design resources ",
 }));
 
 const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
@@ -25,28 +25,27 @@ const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
 );
 
 const MyAppointments: FC = () => {
-  const [appointmentData, setAppointmentData] = useState<Appointment[]>([]); 
+  const [appointmentData, setAppointmentData] = useState<Appointment[]>([]);
   const axios = useAxios();
 
   useEffect(() => {
-    const memberData = localStorage.getItem('member_data');
+    const memberData = localStorage.getItem("member_data");
     if (memberData) {
       const parsedData = JSON.parse(memberData);
       const id = parsedData._id;
       axios({
         url: `/client/get-appointments/${id}`,
       })
-      .then((response) => {
-        console.log(response);
-        setAppointmentData(response.data.appointments);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((response) => {
+          console.log(response);
+          setAppointmentData([response.data]);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   }, []);
   console.log("appointmentData", appointmentData);
- 
 
   return (
     <List
@@ -58,36 +57,63 @@ const MyAppointments: FC = () => {
       },
       pageSize: 3,
     }}
-    dataSource={appointmentData? [...appointmentData] : []}
-    footer={
-      <div>
-        <b>ant design</b> footer part
-      </div>
-    }
+    dataSource={appointmentData[0]?.appointment_data || []} // use appointmentData[0].appointment_data
     renderItem={(item) => (
       <List.Item
         key={item.date}
         actions={[
-          <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-          <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-          <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+          <div className="flex flex-col  space-y-[-20px] ">
+            <IconText
+              icon={PushpinFilled}
+              text="Office Hours: 8.00 - 19.30"
+              key="list-vertical-star-o"
+            />
+            ,
+            <IconText
+              icon={EnvironmentFilled}
+              text="101 DAEHAK-RO JONGNO-GU, SEOUL  (서울시 종로구 대학로 101, 연건동)"
+              key="list-vertical-like-o"
+            />
+            ,
+          </div>,
         ]}
         extra={
           <img
             width={272}
             alt="logo"
-            src= "https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg"
+            src="https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg"
+          
           />
         }
       >
-        <List.Item.Meta
-          description={item.date}
-        />
-        {item.slots}
+        <List.Item.Meta />
+        {item.slots &&
+          item.slots.map(
+            (
+              slot,
+              index // check if item.slots is defined before calling .map()
+            ) => (
+              <div key={index} className="flex flex-col gap-4">
+                <Avatar
+                  size= "large"
+                  src={`http://localhost:3002/${slot.doctorImg}`}
+                />
+                <p>
+                  With: Dr. {slot.doctorName} {slot.doctorLastname}
+                </p>
+                <p>Appointment Date: {item.date}</p>
+                <p>
+                  Appointment Time: {slot.start} - {slot.end}
+                </p>
+              </div>
+            )
+          )}
       </List.Item>
     )}
   />
-  );
+);
 };
 
 export default MyAppointments;
+
+

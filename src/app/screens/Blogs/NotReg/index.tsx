@@ -1,7 +1,14 @@
 import { FC } from "react";
 import {Button} from "antd";
+import { verifiedMemberData } from "../../../api/verify";
+import { useReduxDispatch } from "../../../hooks";
+import { useNavigate } from "react-router-dom";
+import { setAuthModal } from "../../../redux/modalSlice";
+
 
 const NotReg: FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useReduxDispatch();
     return (
       <div className="flex flex-col items-center">
         {" "}
@@ -38,10 +45,17 @@ const NotReg: FC = () => {
         <p className="text-center text-[25px] mt-[20px] max-xl:text-[2vw] ">
         MedCall, your trusted online medical consulting platform, provides a convenient and secure way to access expert healthcare advice from the comfort of your home.
         </p>
-        
-        <Button type="primary" className="mt-12  bg-cyan-500 ">
+        {!verifiedMemberData && (
+        <Button 
+        onClick={() => {
+          
+         dispatch(setAuthModal());
+        }}
+        type="primary" 
+        className="mt-12  bg-cyan-500 ">
           Join MedCall
         </Button>
+        )}
         
       </div>
     );

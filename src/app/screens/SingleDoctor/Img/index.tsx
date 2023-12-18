@@ -7,7 +7,7 @@ const Img: FC <{value: FindDoctors}> = ({value}) => {
   return (
     <div>
       <div className="flex gap-6 max-lg:flex-col">
-        <div className="cursor-pointer flex justify-center items-center w-[350px]">
+        <div className="cursor-pointer flex justify-center items-center w-[250px]">
           <Image
             loading={"lazy"}
             src={`http://localhost:3002/${value.mb_image}`}

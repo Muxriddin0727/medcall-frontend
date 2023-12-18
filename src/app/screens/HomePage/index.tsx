@@ -1,23 +1,43 @@
-import type {FC}  from "react";
-import Welcome from "./Welcome" ;
+import { useState, type FC, useEffect } from "react";
+import Welcome from "./Welcome";
 import AboutUs from "./About us";
 import TopDoctors from "./TopDoctors";
 import Feedbacks from "./Feedbacks";
 import Why from "./Why";
-
+import { FindDoctors } from "../../../types/user";
+import { useAppSearchParams } from "../../customHooks/useSearchParams";
+import { useAxios } from "../../customHooks/useAxios";
+import { useParams } from "react-router-dom";
+import Promo from "./Promo";
 
 const HomePage: FC = () => {
-    return (
-       
+  const [doctorsData, setAllDoctors] = useState([]);
+  const axios = useAxios();
+  const { getParams } = useAppSearchParams();
+  const { id } = useParams();
+  const category = getParams("category") || "";
+  const [updateCount, setUpdateCount] = useState(0);
+
+  useEffect(() => {
+    axios({
+      url: `/client/category/${category}`,
+    }).then((data) => {
+      setAllDoctors(data.data.data);
+    });
+  }, [category]);
+  console.log("doctordata", doctorsData);
+  console.log("category", category);
+
+  return (
     <div>
-        <Welcome/>
-        <AboutUs/>
-        <TopDoctors/>
-        <Feedbacks/>
-        <Why/>
-        
+      <Welcome />
+      <AboutUs />
+      <TopDoctors category={category} />
+      <Feedbacks />
+      <Why />
+      <Promo />
     </div>
-    
-)};
+  );
+};
 
 export default HomePage;

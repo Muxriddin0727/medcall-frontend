@@ -1,14 +1,14 @@
 import { useState, type FC, useEffect } from "react";
-import Description from "./Description";
 import DoctorInfo from "./DoctorInfo";
 import { FindDoctors } from "../../../types/user";
 import Img from "./Img";
 import { useAxios } from "../../customHooks/useAxios";
 import { useParams } from "react-router-dom";
 import { useAppSearchParams } from "../../customHooks/useSearchParams";
+import Description from "./Description";
 
 const SingleDoctor: FC = () => {
-  const { id, category } = useParams();
+  const { id = "", category } = useParams<{ id: string, category: string }>();
   const [chosenDoctorData, setChosenDoctor] = useState<FindDoctors | null>(
     null
   );
@@ -24,7 +24,7 @@ const SingleDoctor: FC = () => {
   }, []);
   return (
     <div className=" w-[90%] m-auto mt-[43px]">
-      <div className="flex w-full gap-[200px] max-lg:flex-col">
+      <div className="flex w-full gap-8 max-lg:flex-col">
         <div className=" w-[30%]">
           {chosenDoctorData && <Img value={chosenDoctorData} />}
         </div>
@@ -32,7 +32,7 @@ const SingleDoctor: FC = () => {
           {chosenDoctorData && <DoctorInfo value={chosenDoctorData} />}
         </div>
       </div>
-      <Description />
+      {chosenDoctorData && <Description value={chosenDoctorData} />}
     </div>
   );
 };

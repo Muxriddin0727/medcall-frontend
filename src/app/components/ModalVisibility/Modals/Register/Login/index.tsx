@@ -12,6 +12,7 @@ import { setLogin } from "../../../../../redux/userSlice";
 import { useAxios } from "../../../../../customHooks/useAxios";
 import { sweetFailureProvider } from "../../../../../../lib/sweetAlert";
 import { Definer } from "../../../../../../lib/Definer";
+import { useNavigate } from "react-router-dom";
 
 const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js",
@@ -46,7 +47,7 @@ const Login: FC = () => {
 
   return (
     <div className=" w-[full]  flex justify-between items-center mt-[20px] ">
-      <Form onFinish={onFinish} className="w-[566px] h-[472px] m-auto">
+      <Form onFinish={onFinish} className="w-[566px] h-[350px] m-auto">
         <div className="w-[90%] m-auto">
           <h2 className="py-3"> Enter your username and password to login.</h2>
           <Form.Item
@@ -69,9 +70,6 @@ const Login: FC = () => {
             />
           </Form.Item>
 
-          <Button className="flex start-[300px] " type="link">
-            Forgot Password?
-          </Button>
           <Form.Item>
             <Button
               className=" w-full h-[40px]  mt-4 bg-sky-500/75"
@@ -94,26 +92,7 @@ const Login: FC = () => {
             />
           </Form.Item> */}
 
-          <Divider plain>Or login with</Divider>
-          <Form.Item>
-            <Button
-              className=" w-full h-[40px]  "
-              type="default"
-              icon={<IconFont type="icon-facebook"></IconFont>}
-            >
-              Login with Facebook
-            </Button>
-          </Form.Item>
-
-          <Form.Item>
-            <Button
-              className=" w-full h-[40px] "
-              type="default"
-              icon={<GoogleOutlined />}
-            >
-              Login with Google
-            </Button>
-          </Form.Item>
+          <Divider plain></Divider>
         </div>
       </Form>
     </div>

@@ -14,8 +14,6 @@ if (data !== null && data !== undefined) {
   } catch (error) {
     sweetErrorHandling("Invalid member data in local storage");
   }
-} else {
-  sweetErrorHandling("No member data found in local storage");
 }
 
 const initialState: InitialState = {
@@ -33,6 +31,12 @@ const userSlice = createSlice({
       state.member_data = payload.data;
     },
 
+    setTokenExpired(state) {
+      state.member_data = null;
+      localStorage.removeItem("member_data");
+      localStorage.removeItem("token");
+    },
+
     setSignup(state, { payload }) {
       state.member_data = payload;
     },
@@ -43,5 +47,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setLogin, setLogout, setSignup } = userSlice.actions;
+export const { setLogin, setLogout, setSignup, setTokenExpired } = userSlice.actions;
 export default userSlice.reducer;

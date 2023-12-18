@@ -102,26 +102,10 @@ const Signup: FC = (props: any) => {
               {loading ? <LoadingOutlined/> : "Sign Up"}
             </Button>
           </Form.Item>
-          <Divider plain>Or Sign Up with</Divider>
-          <Form.Item>
-            <Button
-              className=" w-full h-[40px]  "
-              type="default"
-              icon={<IconFont type="icon-facebook"></IconFont>}
-            >
-              Login with Facebook
-            </Button>
-          </Form.Item>
+          <Divider plain></Divider>
+        
 
-          <Form.Item>
-            <Button
-              className=" w-full h-[40px] "
-              type="default"
-              icon={<GoogleOutlined />}
-            >
-              Login with Google
-            </Button>
-          </Form.Item>
+        
         </div>
       </Form>
     </div>

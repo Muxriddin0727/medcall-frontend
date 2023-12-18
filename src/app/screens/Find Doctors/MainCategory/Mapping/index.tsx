@@ -11,8 +11,7 @@ const Mapping: FC = () => {
   const [likeDoctors, setLikeDoctors] = useState([]);
 
   const axios = useAxios();
-  const category = getParams("category");
-
+  const category = getParams("category") || '';
   useEffect(() => {
     axios({
       url: `/client/category/${category}`,

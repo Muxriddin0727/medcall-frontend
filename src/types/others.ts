@@ -4,16 +4,39 @@ export interface Feedbacks {
   mb_nick: string;
 }
 
+
+export interface Comment {
+  _id: string;
+  mb_name: string;
+  comment_content: string;
+  mb_image: string;
+  posted_at: Date;
+}
+
+export interface File {
+  uid: string;
+  name: string;
+  status: string;
+  url: string;
+}
+
+
 export interface Appointment {
-  _id:string;
-  slot_id: string;
-  mem_id: string;
-  ref_id: string;
+  _id: string;
   date: string;
-  
-  slots: [];
+  slots: {
+    _id: number;
+    ref_id: string;
+    start: string;
+    end: string;
+    patientName: string;
+    doctorName: string;
+    doctorLastname: string;
+    doctorImg: string;
+  }[];
   doctor_id: string;
   created_at: string;
+  appointment_data?: Appointment[]; // add this line
 };
 
 export type MainCardType = {

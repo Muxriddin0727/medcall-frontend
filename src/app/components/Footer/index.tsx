@@ -4,12 +4,12 @@ import { Row, Col } from "antd";
 const Footer: FC = () => {
   return (
     <div>
-      <div className="bg-[#f5f5f5] mt-16" >
+      <div className="bg-[#f5f5f5] " >
         <div className="flex justify-between bg-[#20f2e41a] p-[23px] max-lg:flex-col max-lg:items-center gap-2.5">
           <img
             src="/images/logo.png"
             alt="logo"
-            className="cursor-pointer w-[150px]"
+            className="cursor-pointer w-[280px]"
           />
           <div className="flex gap-2.5 items-center">
             <img className="w-5 h-5" src="/icons/location.png" alt="location" />

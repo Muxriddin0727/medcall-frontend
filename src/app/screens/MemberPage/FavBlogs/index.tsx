@@ -1,105 +1,169 @@
 import type { FC } from "react";
-import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
+import {
+  HeartFilled,
+  HeartOutlined,
+  EyeOutlined,
+  CommentOutlined,
+} from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { Avatar, List, Space, Divider } from "antd";
+import { Card, Typography, Pagination, Row, Col } from "antd";
 import { Blog } from "../../../../types/blogs";
 import { useAxios } from "../../../customHooks/useAxios";
+import { useNavigate } from "react-router-dom";
 import SkeletonNode from "antd/es/skeleton/Node";
-import { useAppSearchParams } from "../../../customHooks/useSearchParams";
-import { useParams } from "react-router-dom";
-
-const data = Array.from({ length: 23 }).map((_, i) => ({
-  href: "https://ant.design",
-  title: `ant design part ${i}`,
-  avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
-  description: "Cardiologist",
-  content: "Benefits of sleeping well.",
-}));
-
-const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
-  <Space>
-    {React.createElement(icon)}
-    {text}
-  </Space>
-);
+import { useReduxDispatch } from "../../../hooks";
+import { setBlogCommentsModal } from "../../../redux/modalSlice";
 
 const FavBlogs: FC = () => {
   const [blogData, setBlogData] = useState<Blog[]>([]); // initialize as empty array
   const axios = useAxios();
+  const dispatch = useReduxDispatch();
+  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [blogsPerPage] = useState(9);
+  const verifiedMember = JSON.parse(
+    String(localStorage.getItem("member_data"))
+  ) as any;
+  const [liked, setLiked] = useState<boolean[]>([]);
+  const [likesCount, setLikesCount] = useState<number[]>([]);
+  const [viewsCount, setViewsCount] = useState<number[]>([]);
 
   useEffect(() => {
-    const memberData = localStorage.getItem('member_data');
+    const memberData = localStorage.getItem("member_data");
     if (memberData) {
       const parsedData = JSON.parse(memberData);
       const id = parsedData._id;
       axios({
         url: `/client/liked-blogs/${id}`,
       })
-      .then((response) => {
-        console.log(response);
-        setBlogData(response.data.blogs);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((response) => {
+          console.log(response);
+          if (response.data.blogs) {
+            setBlogData(response.data.blogs);
+            console.log("blogData:", blogData);
+            setLiked(
+              response.data.blogs.map((blog: Blog) =>
+                blog.blog_likes?.includes(verifiedMember._id)
+              )
+            );
+            console.log("Response:", response);
+
+            setLikesCount(
+              response.data.blogs.map((blog: Blog) => blog.blog_likes.length)
+            );
+
+            // Set viewsCount here
+            setViewsCount(
+              response.data.blogs.map((blog: Blog) => blog.blog_views.length)
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   }, []);
+
+  if (!blogData) {
+    return <SkeletonNode active />;
+  }
   console.log("blogData", blogData);
 
-  return (
-    <List
-      className="w-[95%]"
-      itemLayout="vertical"
-      size="large"
-      // loading={true}  TO DO : Add loading
-      grid={{ gutter: 50, }}
-      pagination={{
-        onChange: (page) => {
-          console.log(page);
+  const likeHandler = async (index: number) => {
+    const newLikedState = !liked[index];
+    const newLiked = [...liked];
+    newLiked[index] = newLikedState;
+    setLiked(newLiked);
+    const newLikesCount = [...likesCount];
+    newLikesCount[index] = newLikedState
+      ? likesCount[index] + 1
+      : likesCount[index] - 1;
+    setLikesCount(newLikesCount);
+    try {
+      await axios({
+        url: `/client/blog-liken`,
+        method: "POST",
+        body: {
+          _id: verifiedMember._id,
+          blog_id: blogData[index]._id,
         },
-        pageSize: 12,
-      }}
-      dataSource={blogData ? [...blogData] : []}
-      
-      renderItem={(item) => (
-        <List.Item
-          className=""
-          key={item.blog_title}
-          actions={[
-            <IconText
-              icon={StarOutlined}
-              text="156"
-              key="list-vertical-star-o"
-            />,
-            <IconText
-              icon={LikeOutlined}
-              text="156"
-              key="list-vertical-like-o"
-            />,
-            <IconText
-              icon={MessageOutlined}
-              text="2"
-              key="list-vertical-message"
-            />,
-          ]}
-        >
-          <List.Item.Meta
-            className="w-2/5 "
-            // avatar={<Avatar src={item.} />}
-            title={<a href={item.mb_name}>{item.blog_title} </a>}
-            description={item.blog_description}
-          />
-          <img
-            className="h-[80px] rounded-xl"
-            width={272}
-            alt="logo"
-            src="https://i.pinimg.com/564x/6a/37/c9/6a37c9dcdaaaf2de65b8b6e0c12aa49b.jpg"
-          />
-          {item.blog_content}
-          <Divider />
-        </List.Item>
-      )}
-    />
+      });
+      if (!newLikedState) {
+        setBlogData(blogData.filter((_, i) => i !== index));
+      }
+    } catch (error) {
+      newLiked[index] = !newLikedState;
+      setLiked(newLiked);
+      newLikesCount[index] = newLikedState
+        ? likesCount[index] - 1
+        : likesCount[index] + 1;
+      setLikesCount(newLikesCount);
+      console.log("error:", error);
+    }
+  };
+
+  // Calculate the blogs that should be displayed on the current page
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
+
+  return (
+    <div className=" w-4/5 m-auto ">
+      <Row gutter={16}>
+        {currentBlogs.map((value, index) => (
+          <Col span={12} key={value._id}>
+            <Card
+              className=" w-[90%] mb-8"
+              actions={[
+                <div>
+                  <EyeOutlined />
+                  <span className="ml-1">{value.blog_views.length}</span>
+                </div>,
+                <div>
+                  <CommentOutlined
+                    onClick={() =>
+                      dispatch(
+                        setBlogCommentsModal({
+                          isOpen: true,
+                          blog_id: value._id,
+                        })
+                      )
+                    }
+                  />
+                </div>,
+                <div onClick={() => likeHandler(index)}>
+                  {liked[index] ? (
+                    <HeartFilled className="text-red-500" />
+                  ) : (
+                    <HeartOutlined />
+                  )}
+                  <span className="ml-1">{likesCount[index]}</span>
+                </div>,
+              ]}
+            >
+              <h1
+                onClick={() => {
+                  navigate(`/blogs/${value._id}`);
+                }}
+                className="text-[18px] text-bold cursor-pointer hover:underline"
+              >
+                {value.blog_title}
+              </h1>
+              <Typography spellCheck={true} className="mt-[10px] text-[12px]">
+                {value.blog_description}
+              </Typography>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+      <Pagination
+        className=""
+        current={currentPage}
+        total={blogData.length}
+        pageSize={blogsPerPage}
+        onChange={(page) => setCurrentPage(page)}
+      />
+    </div>
   );
 };
 

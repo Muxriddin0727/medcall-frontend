@@ -1,34 +1,39 @@
 import { FC, useState } from "react";
-import DescriptionInfo from "./DescriptionInfo";
-import Reviews from "./Reviews";
+import { FindDoctors } from "../../../../types/user";
+import Feedbacks from "./FeedBacks";
+import Blogs from "./Blogs";
+import { useParams } from "react-router-dom";
+import { Blog } from "../../../../types/blogs";
 
-const Description: FC = () => {
+const Description: FC<{value:FindDoctors  }> = ({ value }) => {
+  const { id = "", category } = useParams<{ id: string; category: string }>();
+  const [active, setActive] = useState<"description" | "reviews">(
+    "description"
+  );
+
   return (
     <div className="mt-[92px]">
-      <div className="flex gap-5 border-b border-[#46A358] pb-[5px]">
+      <div className="flex gap-5 border-b border-cyan-500 pb-[5px]">
         <h3
-          className={`cursor-pointer hover:text-[#46A358] ${
-            <DescriptionInfo /> && "text-[#46A358]"
+          className={`cursor-pointer hover:text-cyan-500 ${
+            active === "description" && "text-cyan-600"
           }`}
-          onClick={() => <DescriptionInfo />}
+          onClick={() => setActive("description")}
         >
-          Description
+          Feedbacks
         </h3>
         <h3
-          className={`cursor-pointer hover:text-[#46A358] ${
-            <Reviews /> && "text-[#46A358]"
+          className={`cursor-pointer hover:text-cyan-500 ${
+            active === "reviews" && "text-cyan-600"
           }`}
-          onClick={() => <Reviews />}
+          onClick={() => setActive("reviews")}
         >
-          Reviews
+          Blogs
         </h3>
       </div>
+      {active === "description" ? <Feedbacks mb_id={id} /> : <Blogs />}
     </div>
   );
 };
 
 export default Description;
-<div>
-  <DescriptionInfo />
-  <Reviews />
-</div>;

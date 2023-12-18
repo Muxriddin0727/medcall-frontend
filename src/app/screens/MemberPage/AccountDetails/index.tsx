@@ -1,17 +1,105 @@
-import { Button, Form, Input, Upload } from "antd";
+import { Button, Form, Input, Skeleton, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState, Dispatch, SetStateAction } from "react";
+import { verifiedMemberData } from "../../../api/verify";
+import { useAxios } from "../../../customHooks/useAxios";
+import {
+  sweetErrorHandling,
+  sweetTopSuccessAlert,
+} from "../../../../lib/sweetAlert";
+import { File } from "../../../../types/others";
 
-
-const verifiedMember = JSON.parse(
-  String(localStorage.getItem("member_data"))
-) as any;
+import { UploadFile } from "antd/lib/upload/interface";
+import { useMemberData } from "../../../context/MemberDataContext";
+import { VerifiedMemberData } from "../../../../types/user";
 
 const AccountDetails: FC = () => {
+  const axios = useAxios();
+  const [form] = Form.useForm();
+  const { verifiedMemberData, setVerifiedMemberData } = useMemberData() as {
+    verifiedMemberData: VerifiedMemberData | null | undefined;
+    setVerifiedMemberData: Dispatch<
+      SetStateAction<VerifiedMemberData | null | undefined>
+    >;
+  };
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  const handleUploadChange = (info: { fileList: UploadFile<any>[] }) =>
+    setFileList(info.fileList);
 
+  useEffect(() => {
+    const fetchMemberData = async () => {
+      try {
+        const response = await axios({
+          url: "/client/member-data",
+          method: "GET",
+        });
+
+        if (response.data && setVerifiedMemberData) {
+          setVerifiedMemberData(response.data);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Failed to fetch member data:", error);
+      }
+    };
+
+    fetchMemberData();
+  }, []);
+
+  useEffect(() => {
+    console.log("verifiedMemberData", verifiedMemberData);
+    if (
+      verifiedMemberData &&
+      verifiedMemberData.state === "success" &&
+      verifiedMemberData.data
+    ) {
+      form.setFieldsValue({
+        name: verifiedMemberData.data.mb_name,
+        surname: verifiedMemberData.data.mb_last_name,
+        email: verifiedMemberData.data.mb_email,
+        phone_number: verifiedMemberData.data.mb_phone,
+        username: verifiedMemberData.data.mb_username,
+      });
+      setLoading(false);
+    }
+  }, [verifiedMemberData]);
+
+  const onFinish = async (values: any) => {
+    try {
+      const updatedData = {
+        ...values,
+        profile_photo: fileList.length > 0 ? fileList[0].name : undefined,
+      };
+      const response = await axios({
+        url: "/client/member-update",
+        method: "POST",
+        body: updatedData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setVerifiedMemberData({
+        ...response.data.updatedMemberData,
+        updated_at: Date.now(),
+      });
+
+      localStorage.setItem(
+        "verifiedMemberData",
+        JSON.stringify(response.data.updatedMemberData)
+      );
+
+      sweetTopSuccessAlert("Member data updated successfully!");
+    } catch (error) {
+      console.error("An error occurred while updating member data:", error);
+      sweetErrorHandling("Failed to update member data. Please try again.");
+    }
+  };
   return (
     <Form
+      form={form}
       name="complex-form"
       labelCol={{
         span: 12,
@@ -23,12 +111,13 @@ const AccountDetails: FC = () => {
       className="w-full"
       size="large"
       initialValues={{
-        name: verifiedMember.mb_name,
-        surname: verifiedMember.mb_last_name,
-        email:verifiedMember.mb_email,
-        phone_number: verifiedMember.mb_phone,
-        username: verifiedMember.mb_username,
+        name: verifiedMemberData?.data?.mb_name,
+        surname: verifiedMemberData?.data?.mb_last_name,
+        email: verifiedMemberData?.data?.mb_email,
+        phone_number: verifiedMemberData?.data?.mb_phone,
+        username: verifiedMemberData?.data?.mb_username,
       }}
+      onFinish={onFinish}
     >
       <Form.Item
         rules={[
@@ -149,17 +238,27 @@ const AccountDetails: FC = () => {
           }}
         >
           <Upload
-            name="image"
-            action={
-              "https://greenshop.abduvoitov.com/api/upload?access_token=64bebc1e2c6d3f056a8c85b7"
-            }
-                    >
-                        <Button type="primary" className="bg-cyan-500" icon={<UploadOutlined />}>Upload</Button>
-                    </Upload>
-                </Form.Item>
-            </Form.Item>
-            <Button htmlType="submit" className="h-[40px] px-[10px] mt-[15px] bg-cyan-500" type="primary">
-                Save changes
+            name="profile_photo"
+            action="http://localhost:3002/client/member-update"
+            fileList={fileList}
+            onChange={handleUploadChange}
+          >
+            <Button
+              type="primary"
+              className="bg-cyan-500"
+              icon={<UploadOutlined />}
+            >
+              Upload
+            </Button>
+          </Upload>
+        </Form.Item>
+      </Form.Item>
+      <Button
+        htmlType="submit"
+        className="h-[40px] px-[10px] mt-[15px] bg-cyan-500"
+        type="primary"
+      >
+        Save changes
       </Button>
     </Form>
   );

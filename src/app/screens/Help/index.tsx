@@ -28,13 +28,13 @@ const Help: FC= () => {
           <Panel header=" What do I need for a video consultation?" key="5">
           You'll need a device with a camera and microphone, as well as a stable internet connection. Our platform will guide you through the setup.
           </Panel>
-          <Panel header=" How do I pay for online medical consultations?" key="2">
+          <Panel header=" How do I pay for online medical consultations?" key="6">
           You can make payments using various methods, including credit/debit cards or other accepted payment options when booking your consultation.
           </Panel>
-          <Panel header="What if I have technical issues during a consultation?" key="2">
+          <Panel header="What if I have technical issues during a consultation?" key="7">
           In case of technical difficulties, our support team is available to assist you. We also recommend performing a pre-consultation test to ensure a smooth experience.
           </Panel>
-          <Panel header="What do I do in case of an emergency or urgent medical issue?" key="2">
+          <Panel header="What do I do in case of an emergency or urgent medical issue?" key="8">
           What do I do in case of an emergency or urgent medical issue?
           </Panel>
         </Collapse>
@@ -58,7 +58,7 @@ const Help: FC= () => {
           )}
         />
       </TabPane>
-      <TabPane tab="Send message to Admin" key="3" className="w-[90%] m-auto my-12  flex justify-center" >
+      <TabPane tab="Send message to Admin" key="9" className="w-[90%] m-auto my-12  flex justify-center" >
       <Form className="w-[60%]  "
       name="admin-message"
       labelCol={{ span: 4 }}
@@ -105,9 +105,19 @@ const Help: FC= () => {
     </Form>
       </TabPane>
     </Tabs>
-        
+
+    <div>
+    <iframe
+            className="rounded-xl w-full m-auto shadow-md my-20"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPT%20Kulkul%20Teknologi%20Internasional!5e0!3m2!1sen!2sid!4v1601138221085!5m2!1sen!2sid"
+            width="1320px"
+            height="500"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+    </div>
      
     </div>
+    
   );
 };
 

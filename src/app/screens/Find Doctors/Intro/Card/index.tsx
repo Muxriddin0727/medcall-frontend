@@ -1,8 +1,12 @@
 import type { FC } from "react";
 import { Button } from "antd";
 import { IntroItemType } from "../../../../../types/others";
+import { useReduxDispatch } from "../../../../hooks";
+import { useNavigate } from "react-router-dom";
 
 const Card: FC <IntroItemType>= ({title, description, buttonText, src}) => {
+  const dispatch = useReduxDispatch();
+  const navigate = useNavigate();
   return (
     <div className="h-[450px] bg-[#F5F5F5]  mt-3 flex max-2xl:h-[400px] max-md:h-[300px]">
       <div className="flex-[2] pl-10 ">
@@ -18,6 +22,7 @@ const Card: FC <IntroItemType>= ({title, description, buttonText, src}) => {
         </p>
         <div className="pb-8">
           <Button
+          onClick={() => navigate(`/help`)}
             type="primary"
             className="my-[20px] w-[140px]  bg-cyan-500 h-9 max-md:mt-[10px]"
           >

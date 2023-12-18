@@ -7,16 +7,7 @@ import {
   useState,
 } from "react";
 import { SocketContext } from "../../../../context/socket";
-import {
-  Avatar,
-  Input,
-  Badge,
-  Modal,
-  Button,
-  Row,
-  Col,
-  Typography,
-} from "antd";
+import { Avatar, Input, Badge, Modal, Button } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 import {
   sweetErrorHandling,
@@ -30,16 +21,11 @@ import {
 import { setChatModal } from "../../../../redux/modalSlice";
 import { useReduxDispatch, useReduxSelector } from "../../../../hooks";
 import { Definer } from "../../../../../lib/Definer";
-
-const verifiedMemberData = JSON.parse(
-  localStorage.getItem("member_data") || "{}"
-);
-const assert = require("assert");
-
-const { Text } = Typography;
+import assert from "assert";
+import { verifiedMemberData } from "../../../../api/verify";
 
 const NewMessage = (data: any) => {
-  if (data.new_message.mb_id == verifiedMemberData?._id) {
+  if (verifiedMemberData && data.new_message.mb_id === verifiedMemberData._id) {
     return (
       <div className="flex-row-reverse m-2.5">
         <div className="msg_right">{data.new_message.msg}</div>
@@ -124,7 +110,7 @@ const Chat: FC = () => {
 
   const getKeyHandler = (e: any) => {
     try {
-      if (e.key == "Enter") {
+      if (e.key === "Enter") {
         // alert(e.target.value);
         assert.ok(message, Definer.input_err3);
         onClickHandler();
@@ -178,9 +164,9 @@ const Chat: FC = () => {
         <Badge count={onlineUsers} style={{ marginLeft: 20 }} />
       </div>
       <div className="flex flex-col justify-start overflow-hidden p-4">
-      <div className="chat_main flex m-2.5">
-        <div className="msg_left"></div>
-      </div>
+        <div className="chat_main flex m-2.5">
+          <div className="msg_left"></div>
+        </div>
         {messageLists}
       </div>
       <div className="flex w-4/5 m-auto gap-2">

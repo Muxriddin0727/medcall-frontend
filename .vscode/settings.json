@@ -6,5 +6,18 @@
         "markdown",
         "latex",
         "plaintext"
+    ],
+    "cloudcode.duetAI.languages": [
+        "css",
+        "abap",
+        "dockerfile",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "sql",
+        "typescriptreact",
+        "typescript",
+        "json",
+        "git-commit"
     ]
 }
