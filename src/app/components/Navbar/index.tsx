@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Button, FloatButton } from "antd";
+import { Button, FloatButton, message } from "antd";
 import { MessageOutlined } from "@ant-design/icons";
 import { MenuOutlined, ScheduleOutlined } from "@ant-design/icons";
 import { useReduxDispatch, useReduxSelector } from "../../hooks";
@@ -48,7 +48,8 @@ const Navbar: FC = (props: any) => {
             </Button>
           </div>
           <div className="hidden max-md:block cursor-pointer">
-            <MenuOutlined />
+          <MenuOutlined onClick={() => message.info('Mobile version is in development')} />
+
           </div>
         </div>
         <FloatButton

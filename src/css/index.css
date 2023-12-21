@@ -16,3 +16,7 @@
 .slick-active button {
   background-color: #06b6d4 !important;
 }
+
+video {
+  object-fit: cover;
+}

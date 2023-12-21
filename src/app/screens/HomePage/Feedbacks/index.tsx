@@ -37,10 +37,9 @@ const Feedbacks: FC= () => {
           Lorem ipsum dolor sit amet, consectetur
         </p>
       </div>
-
-      <div className="w-[90%] m-auto pb-20  grid grid-cols-3 gap-12  ">
+      <div className="w-[90%] m-auto pb-20 grid md:grid-cols-1 lg:grid-cols-3 gap-12">
         {comments.map((comment: Comment, index: number) => (
-          <div key ={index} className="relative w-[350px] h-auto min-h-[220px] m-auto p-4 bg-white   flex flex-col items-center">
+          <div key ={index} className="relative w-[350px] h-auto min-h-[220px] m-auto p-4 bg-white   flex flex-col items-center ">
             <img
               className="absolute w-36 h-36 m-auto rounded-full top-[-50px]  "
               src={comment.mb_image ? `${comment.mb_image.startsWith('http') ? '' : 'http://localhost:3002/'}${comment.mb_image}` : "/icons/default_user.png"}

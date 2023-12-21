@@ -25,7 +25,6 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
   const [likedDoctors, setLikedDoctors] = useState<{ [key: string]: boolean }>(
     {}
   );
-  
 
   const likeHandler = async (value: FindDoctors) => {
     if (!verifiedMemberData) {
@@ -58,19 +57,22 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
       .then((response) => {
         setTopDoctors(response.data.data);
         // Initialize liked status for each doctor
-        const initialLikes = response.data.data.reduce((acc: { [key: string]: boolean }, doctor: FindDoctors) => {
-          acc[doctor._id] = verifiedMemberData
-            ? doctor.mb_likes?.includes(verifiedMemberData._id) || false
-            : false;
-          return acc;
-        }, {});
+        const initialLikes = response.data.data.reduce(
+          (acc: { [key: string]: boolean }, doctor: FindDoctors) => {
+            acc[doctor._id] = verifiedMemberData
+              ? doctor.mb_likes?.includes(verifiedMemberData._id) || false
+              : false;
+            return acc;
+          },
+          {}
+        );
         setLikedDoctors(initialLikes);
         setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching top doctors: ", error);
       });
-  }, []); 
+  }, []);
 
   return (
     <div className="mb-24 w-full m-auto">
@@ -78,80 +80,78 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
         Meet Our Top Doctors
       </h1>
       <p className=" text-neutral-600 text-xm font-normal text-center my-4 leading-[24px]">
-      Make us your home for health care
+        Make us your home for health care
       </p>
-      <div className="grid grid-cols-4 grid-flow-row gap-6 my-6 max-xl:grid-cols-2 max-sm:grid-cols-1">
-        {loading ? (
-        Array(4).fill(0).map((_, index) => (
-          <Skeleton  key={index} active paragraph={{ rows: 4 }} />
-        ))
-      ) : (
-        topdoctors.map((value: FindDoctors) => {
-       
-
-          return (
-            <div key={value._id}>
-              <div className="group w-[300px] h-[300px] bg-[#f5f5f5] flex justify-center items-center relative">
-                <Avatar
-                  size={{
-                    xs: 200,
-                    sm: 300,
-                    md: 300,
-                    lg: 300,
-                    xl: 300,
-                    xxl: 300,
-                  }}
-                  shape="square"
-                  src={`http://localhost:3002/${value.mb_image}`}
-                  alt="img"
-                  className=""
-                />
-                <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
-                  <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]">
-                    <CommentOutlined
-                      onClick={() =>
-                        dispatch(
-                          setMemberCommentsModal({
-                            isOpen: true,
-                            mb_id: value._id,
-                          })
-                        )
-                      }
+      <div className="grid grid-cols-4 grid-flow-row gap-6 my-6 max-xl:grid-cols-2 max-md:ml-10 md:grid-cols-1 lg:grid-cols-4">
+        {loading
+          ? Array(4)
+              .fill(0)
+              .map((_, index) => (
+                <Skeleton key={index} active paragraph={{ rows: 4 }} />
+              ))
+          : topdoctors.map((value: FindDoctors) => {
+              return (
+                <div key={value._id}>
+                  <div className=" group max:md:w-[50px] max:md:h-[200px] bg-[#f5f5f5] flex justify-center items-center relative ">
+                    {" "}
+                    <Avatar
+                      size={{
+                        xs: 200,
+                        sm: 300,
+                        md: 80,
+                        lg: 300,
+                        xl: 340,
+                        xxl: 300,
+                      }}
+                      shape="square"
+                      src={`http://localhost:3002/${value.mb_image}`}
+                      alt="img"
+                      className=""
                     />
+                    <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
+                      <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]">
+                        <CommentOutlined
+                          onClick={() =>
+                            dispatch(
+                              setMemberCommentsModal({
+                                isOpen: true,
+                                mb_id: value._id,
+                              })
+                            )
+                          }
+                        />
+                      </div>
+                      <div
+                        onClick={() => likeHandler(value)}
+                        className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
+                      >
+                        {likedDoctors[value._id] ? (
+                          <HeartFilled className="text-red-500" />
+                        ) : (
+                          <HeartOutlined />
+                        )}
+                      </div>
+                      <div
+                        onClick={() =>
+                          navigate(
+                            `/single-doctor/${value.mb_profession}/${value._id}`
+                          )
+                        }
+                        className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
+                      >
+                        <DownOutlined />
+                      </div>
+                    </div>
                   </div>
-                  <div
-                    onClick={() => likeHandler(value)}
-                    className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
-                  >
-                    {likedDoctors[value._id] ? (
-                      <HeartFilled className="text-red-500" />
-                    ) : (
-                      <HeartOutlined />
-                    )}
-                  </div>
-                  <div
-                    onClick={() =>
-                      navigate(
-                        `/single-doctor/${value.mb_profession}/${value._id}`
-                      )
-                    }
-                    className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
-                  >
-                    <DownOutlined />
-                  </div>
+                  <h3 className="font-normal cursor-pointer mt-[12px]">
+                    {value.mb_profession}
+                  </h3>
+                  <p className="text-cyan-500 font-bold">
+                    {value.mb_name} {value.mb_last_name}
+                  </p>
                 </div>
-              </div>
-              <h3 className="font-normal cursor-pointer mt-[12px]">
-                {value.mb_profession}
-              </h3>
-              <p className="text-cyan-500 font-bold">
-                {value.mb_name} {value.mb_last_name}
-              </p>
-            </div>
-          );
-        })
-      
-      )}
+              );
+            })}
       </div>
     </div>
   );
