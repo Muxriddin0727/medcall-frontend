@@ -29,10 +29,9 @@ const Welcome: FC = () => {
           Feel better about finding healthcare
         </h1>
         <p className="w-[622px] text-white m-auto text-center text-sm font-normal leading-[30px] max-md:w-[80%] max-md:m-auto max-md:text-xs">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut viverra
-          posuere sem purus enim eleifend habitant arcu, sed.
+        At Guardian Care Clinic, we offer a wide range of services including inpatient, outpatient and emergency care services in addition to many specialty services.
         </p>
-        <div className=" w-full mt-32 h-[165px] bg-gray-200 bg-opacity-60 grid grid-cols-3 gap-4 max-md:grid-cols-1  max-md:h-auto ">
+        <div className=" w-full mt-[100px] h-[165px] bg-gray-200 bg-opacity-60 grid grid-cols-3 gap-4 max-md:grid-cols-1  max-md:h-auto ">
         <div className="w-[33%] m-auto my-6 h-24 max-md:hidden">
           <Carousel
             autoplay

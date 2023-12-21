@@ -35,7 +35,7 @@ const Card: FC<{ value: FindDoctors; category: string }> = ({
       sweetFailureProvider("Please, Register First!");
       return;
     }
-  
+
     try {
       const response = await axios({
         url: `/client/member-liken`,
@@ -45,13 +45,21 @@ const Card: FC<{ value: FindDoctors; category: string }> = ({
           mb_id: value._id,
         },
       });
-  
+
       // Update the state based on the response from the backend
-      if (response.data.state === 'success') {
-        const newLikesCount = response.data.mb_likes.length;
-        const newLikedState = response.data.mb_likes.includes(verifiedMemberData._id);
-        setLikesCount(newLikesCount);
-        setLiked(newLikedState);
+      // Update the state based on the response from the backend
+      if (response.data.state === "success") {
+        if (response.data.mb_likes) {
+          const newLikesCount = response.data.mb_likes.length;
+          const newLikedState = response.data.mb_likes.includes(
+            verifiedMemberData._id
+          );
+          setLikesCount(newLikesCount);
+          setLiked(newLikedState);
+        } else {
+          // Handle the case when mb_likes is undefined
+          console.error("mb_likes is undefined");
+        }
       } else {
         throw new Error(response.data.message);
       }
@@ -61,7 +69,7 @@ const Card: FC<{ value: FindDoctors; category: string }> = ({
   };
   return (
     <div>
-      <div className="group  h-[300px] bg-[#f5f5f5] flex justify-center items-center relative">
+      <div className="group  h-[300px] bg-[#f5f5f5] group/item hover:bg-slate-200 flex justify-center items-center relative">
         <Avatar
           size={{ xs: 32, sm: 40, md: 64, lg: 80, xl: 300, xxl: 160 }}
           shape="square"
@@ -84,11 +92,11 @@ const Card: FC<{ value: FindDoctors; category: string }> = ({
             className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
           >
             {liked ? (
-              <HeartFilled className="text-red-500" />
+              <HeartFilled  className="text-red-500" />
             ) : (
               <HeartOutlined />
             )}
-            <span className="ml-1">{likesCount}</span>
+            <span className=" ml-1 text-sm mt-3">{likesCount}</span>
           </div>
           <div
             onClick={() => navigate(`/single-doctor/${category}/${value._id}`)}

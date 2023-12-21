@@ -1,4 +1,4 @@
-import { Card, Typography } from "antd";
+import { Card, Typography, Empty } from "antd";
 import { EyeOutlined, CommentOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { FC, useEffect, useState } from "react";
 import { Blog } from "../../../../../types/blogs";
@@ -46,92 +46,97 @@ const Blogs: FC = () => {
 
   return (
     <>
-      {blogs.map((value, index) => {
-        const likeHandler = async () => {
-          if (!verifiedMemberData) {
-            sweetFailureProvider("Please, Register First!");
-            return;
+      {blogs.length > 0 ? (
+        blogs.map((value, index) => {
+          const likeHandler = async () => {
+            if (!verifiedMemberData) {
+              sweetFailureProvider("Please, Register First!");
+              return;
+            }
+            const newLikedState = !liked[value._id];
+            setLiked(prevLiked => ({ ...prevLiked, [value._id]: newLikedState }));
+            setLikesCount(prevLikesCount => ({ ...prevLikesCount, [value._id]: prevLikesCount[value._id] + (newLikedState ? 1 : -1) }));
+            try {
+              await axios({
+                url: `/client/blog-liken`,
+                method: "POST",
+                body: {
+                  _id: verifiedMemberData._id,
+                  blog_id: value._id,
+                },
+              });
+            } catch (error) {
+              setLiked(prevLiked => ({ ...prevLiked, [value._id]: !newLikedState }));
+              setLikesCount(prevLikesCount => ({ ...prevLikesCount, [value._id]: prevLikesCount[value._id] + (!newLikedState ? 1 : -1) }));
+              console.log("error:", error);
+            }
           }
-          const newLikedState = !liked[value._id];
-          setLiked(prevLiked => ({ ...prevLiked, [value._id]: newLikedState }));
-          setLikesCount(prevLikesCount => ({ ...prevLikesCount, [value._id]: prevLikesCount[value._id] + (newLikedState ? 1 : -1) }));
-          try {
-            await axios({
-              url: `/client/blog-liken`,
-              method: "POST",
-              body: {
-                _id: verifiedMemberData._id,
-                blog_id: value._id,
-              },
-            });
-          } catch (error) {
-            setLiked(prevLiked => ({ ...prevLiked, [value._id]: !newLikedState }));
-            setLikesCount(prevLikesCount => ({ ...prevLikesCount, [value._id]: prevLikesCount[value._id] + (!newLikedState ? 1 : -1) }));
-            console.log("error:", error);
-          }
-        }
 
-        const viewHandler = async () => {
-          if (!verifiedMemberData) {
-            return;
+          const viewHandler = async () => {
+            if (!verifiedMemberData) {
+              return;
+            }
+            try {
+              await axios({
+                url: `/client/view-blog`,
+                method: "POST",
+                body: {
+                  _id: verifiedMemberData._id,
+                  blog_id: value._id,
+                },
+              });
+              setViewsCount(prevViewsCount => ({ ...prevViewsCount, [value._id]: prevViewsCount[value._id] + 1 }));
+            } catch (error) {
+              console.log("error:", error);
+            }
           }
-          try {
-            await axios({
-              url: `/client/view-blog`,
-              method: "POST",
-              body: {
-                _id: verifiedMemberData._id,
-                blog_id: value._id,
-              },
-            });
-            setViewsCount(prevViewsCount => ({ ...prevViewsCount, [value._id]: prevViewsCount[value._id] + 1 }));
-          } catch (error) {
-            console.log("error:", error);
-          }
-        }
 
-        return (
-          <Card
-          key = {value._id}
-            actions={[
-              <div>
-                <EyeOutlined className="mr-1" />
-                <span>{viewsCount[value._id]}</span>
-              </div>,
-              <div>
-                <CommentOutlined
-                  onClick={() => dispatch(setBlogCommentsModal({ isOpen: true, blog_id: value._id }))}
-                />
-              </div>,
-              <div
-                onClick={likeHandler}
-              >
-                {liked[value._id] ? (
-                  <HeartFilled className="text-red-500" />
-                ) : (
-                  <HeartOutlined />
-                )}
-                <span className="ml-1">{likesCount[value._id]}</span>
-              </div>,
-            ]}
-          >
-            <h1
-              onClick={() => {
-                navigate(`/blogs/${value._id}`);
-                viewHandler();
-              }}
-              className="text-[18px] text-bold cursor-pointer hover:underline"
-              >
-                {value.blog_title}
-              </h1>
-              <Typography spellCheck={true} className="mt-[10px] text-[12px]">
-                {value.blog_description}
-              </Typography>
-            </Card>
-          );
-        })}
-      </>
-    );
-  };
-  
-  export default Blogs;
+          return (
+            <Card
+            className="my-8 bg-slate-100"
+            key = {value._id}
+              actions={[
+                <div>
+                  <EyeOutlined className="mr-1" />
+                  <span>{viewsCount[value._id]}</span>
+                </div>,
+                <div>
+                  <CommentOutlined
+                    onClick={() => dispatch(setBlogCommentsModal({ isOpen: true, blog_id: value._id }))}
+                  />
+                </div>,
+                <div
+                  onClick={likeHandler}
+                >
+                  {liked[value._id] ? (
+                    <HeartFilled className="text-red-500" />
+                  ) : (
+                    <HeartOutlined />
+                  )}
+                  <span className="ml-1">{likesCount[value._id]}</span>
+                </div>,
+              ]}
+            >
+              <h1
+                onClick={() => {
+                  navigate(`/blogs/${value._id}`);
+                  viewHandler();
+                }}
+                className="text-[18px] text-bold cursor-pointer hover:underline"
+                >
+                  {value.blog_title}
+                </h1>
+                <Typography spellCheck={true} className="mt-[10px] text-[12px]">
+                  {value.blog_description}
+                </Typography>
+              </Card>
+            );
+          })
+        ) : (
+          <Empty className="my-20" description="No Blogs Available" />
+        )}
+    </>
+  );
+};
+
+export default Blogs;

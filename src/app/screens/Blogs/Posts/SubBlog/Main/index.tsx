@@ -64,7 +64,7 @@ const Main: FC<{ value: Blog }> = ({ value }) => {
         </p>{" "}
         <div onClick={likeHandler}>
           {liked ? <HeartFilled className="text-red-500" /> : <HeartOutlined />}
-          <span>{likesCount}</span>
+          <span className="ml-2">{likesCount}</span>
         </div>
       </div>
     </div>

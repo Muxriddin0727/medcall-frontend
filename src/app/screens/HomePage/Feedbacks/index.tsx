@@ -1,5 +1,5 @@
 import { useState, type FC, useEffect, useContext } from "react";
-import { Rate } from "antd";
+import { Rate, Tooltip } from "antd";
 import { useAxios } from "../../../customHooks/useAxios";
 import { Comment } from "../../../../types/others";
 import { FindDoctors } from "../../../../types/user";
@@ -40,11 +40,10 @@ const Feedbacks: FC= () => {
 
       <div className="w-[90%] m-auto pb-20  grid grid-cols-3 gap-12  ">
         {comments.map((comment: Comment, index: number) => (
-          <div key ={index} className="relative w-[350px] h-[280px] m-auto  bg-white   flex flex-col items-center">
+          <div key ={index} className="relative w-[350px] h-auto min-h-[220px] m-auto p-4 bg-white   flex flex-col items-center">
             <img
               className="absolute w-36 h-36 m-auto rounded-full top-[-50px]  "
-              src={comment.mb_image ? `http://localhost:3002/${comment.mb_image}` : "/icons/default_user.png"}
-
+              src={comment.mb_image ? `${comment.mb_image.startsWith('http') ? '' : 'http://localhost:3002/'}${comment.mb_image}` : "/icons/default_user.png"}
               alt="william"
             />
             <div>
@@ -56,8 +55,20 @@ const Feedbacks: FC= () => {
               <Rate  allowHalf defaultValue={2.5} />
             </div>
             <div>
-              <p className="px-4 mt-[-120px]">{comment.comment_content}</p>
-            </div>
+                  {comment.comment_content.length > 200 ? (
+                    <Tooltip
+                      color="blue"
+                      placement="bottom"
+                      title={comment.comment_content}
+                    >
+                      <p className="px-4">
+                        {comment.comment_content.substring(0, 100)}...
+                      </p>
+                    </Tooltip>
+                  ) : (
+                    <p className="px-4">{comment.comment_content}</p>
+                  )}
+                </div>
           </div>
         ))}
       </div>

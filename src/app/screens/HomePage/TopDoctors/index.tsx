@@ -1,5 +1,5 @@
 import { useState, type FC, useEffect } from "react";
-import { Card, Button, Space, Badge, Rate, Avatar } from "antd";
+import { Skeleton, Avatar } from "antd";
 import { FindDoctors } from "../../../../types/user";
 import { useAxios } from "../../../customHooks/useAxios";
 import { useReduxDispatch } from "../../../hooks";
@@ -20,6 +20,8 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
   const axios = useAxios();
   const dispatch = useReduxDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
   const [likedDoctors, setLikedDoctors] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -49,6 +51,7 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     axios({
       url: "/client/top-doctors",
     })
@@ -62,6 +65,7 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
           return acc;
         }, {});
         setLikedDoctors(initialLikes);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching top doctors: ", error);
@@ -69,15 +73,20 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
   }, []); 
 
   return (
-    <div className="mb-24">
+    <div className="mb-24 w-full m-auto">
       <h1 className=" text-neutral-800 text-4xl font-bold text-center leading-[60.90px]">
         Meet Our Top Doctors
       </h1>
-      <p className=" text-neutral-600 text-xm font-normal text-center my-4 leading-[27px]">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      <p className=" text-neutral-600 text-xm font-normal text-center my-4 leading-[24px]">
+      Make us your home for health care
       </p>
       <div className="grid grid-cols-4 grid-flow-row gap-6 my-6 max-xl:grid-cols-2 max-sm:grid-cols-1">
-        {topdoctors.map((value: FindDoctors) => {
+        {loading ? (
+        Array(4).fill(0).map((_, index) => (
+          <Skeleton  key={index} active paragraph={{ rows: 4 }} />
+        ))
+      ) : (
+        topdoctors.map((value: FindDoctors) => {
        
 
           return (
@@ -140,7 +149,9 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
               </p>
             </div>
           );
-        })}
+        })
+      
+      )}
       </div>
     </div>
   );

@@ -88,10 +88,12 @@ export interface SearchObj {
 }
 
 export interface ChatMessage {
-  msg: string;
-  mb_id: string;
-  mb_nick: string;
-  mb_image: string;
+  new_message: {
+    mb_id: string;
+    mb_name: string;
+    mb_image: string;
+    msg: string;
+  }
 }
 
 export interface ChatGreetMsg {
@@ -100,5 +102,9 @@ export interface ChatGreetMsg {
 
 export interface ChatInfoMsg {
   total: number;
+}
+
+export interface StickerPickerProps {
+  onStickerClick: (sticker: string) => void;
 }
 

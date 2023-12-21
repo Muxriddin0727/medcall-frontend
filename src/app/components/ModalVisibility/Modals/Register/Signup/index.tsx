@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { Button, Form, Input, Divider, notification } from "antd";
-import { createFromIconfontCN, GoogleOutlined,  LoadingOutlined} from "@ant-design/icons";
+import { createFromIconfontCN, LoginOutlined,  LoadingOutlined} from "@ant-design/icons";
 import { useReduxDispatch } from "../../../../../hooks";
 import { setAuthModal } from "../../../../../redux/modalSlice";
 import { setSignup } from "../../../../../redux/userSlice";
@@ -36,7 +36,7 @@ const Signup: FC = (props: any) => {
         <div className="w-[90%] m-auto">
           <h2 className="py-3">
             {" "}
-            Enter your username and password to register.
+            Enter requested details below to register.
           </h2>
           <Form.Item
             name="mb_username"
@@ -103,6 +103,15 @@ const Signup: FC = (props: any) => {
             </Button>
           </Form.Item>
           <Divider plain></Divider>
+          <div className="flex w-full m-auto ">
+          <img
+          className="ml-[-10px]"
+          src="/images/logo.png"
+          alt=" logo"
+        />
+        <LoginOutlined className="text-3xl text-cyan-500 "/>
+        </div>
+          
         
 
         

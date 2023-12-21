@@ -1,24 +1,38 @@
 import { useState, type FC, useEffect } from "react";
 import Headers from "./Headers";
 import Card from "./Card";
+import { Pagination, Skeleton } from "antd";
 import { useAxios } from "../../../../customHooks/useAxios";
 import { FindDoctors } from "../../../../../types/user";
 import { useAppSearchParams } from "../../../../customHooks/useSearchParams";
+import SkeletonImage from "antd/es/skeleton/Image";
 
 const Mapping: FC = () => {
   const { getParams } = useAppSearchParams();
   const [doctorsData, setAllDoctors] = useState([]);
   const [likeDoctors, setLikeDoctors] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+
+  const itemsPerPage = 9;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentDoctorsData = doctorsData.slice(startIndex, endIndex);
 
   const axios = useAxios();
-  const category = getParams("category") || '';
+  const category = getParams("category") || "";
+  const type = getParams("type") || "";
+
   useEffect(() => {
+    setLoading(true);
     axios({
-      url: `/client/category/${category}`,
+      url: `/client/category/${category}?type=${type}`,
     }).then((data) => {
       setAllDoctors(data.data.data);
+      setLoading(false);
     });
-  }, [category]);
+  }, [category, type]);
 
   useEffect(() => {
     axios({
@@ -31,13 +45,28 @@ const Mapping: FC = () => {
 
   return (
     <div className="w-full ml-4">
-      <Headers />
-      <div className="grid grid-cols-3 grid-flow-row gap-4 my-6 max-xl:grid-cols-2 max-sm:grid-cols-1">
-        {doctorsData.map((value: FindDoctors) => (
+    <Headers />
+    <div className="grid grid-cols-3 grid-flow-row gap-4 my-6 max-xl:grid-cols-2 max-sm:grid-cols-1">
+      {loading ? (
+        Array(itemsPerPage).fill(0).map((_, index) => (
+          <Skeleton  key={index} active paragraph={{ rows: 4 }} />
+        ))
+      ) : (
+        currentDoctorsData.map((value: FindDoctors) => (
           <Card value={value} category={category} key={value._id} />
-        ))}
-      </div>
+        ))
+      )}
     </div>
+    {!loading && (
+      <Pagination
+        className=" flex justify-center my-6"
+        current={currentPage}
+        total={doctorsData.length}
+        pageSize={itemsPerPage}
+        onChange={setCurrentPage}
+      />
+    )}
+  </div>
   );
 };
 

@@ -2,15 +2,13 @@ import { FC, useEffect, useState } from "react";
 import Blogs from "./Card";
 import { useAxios } from "../../../customHooks/useAxios";
 import { Blog } from "../../../../types/blogs";
-import { Spin, Skeleton, SkeletonProps } from "antd";
-import SkeletonImage from "antd/es/skeleton/Image";
-import SkeletonNode from "antd/es/skeleton/Node";
-
+import { Pagination, Skeleton } from "antd";
 
 const Posts: FC = () => {
   const [blogData, setBlogData] = useState<[Blog] | null>(null);
   const axios = useAxios();
- 
+  const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 12;
 
   useEffect(() => {
     axios({
@@ -21,17 +19,25 @@ const Posts: FC = () => {
   }, []);
 
   if (!blogData) {
-    return (
-     <SkeletonNode
-     
-     active />
-    );
+    return <Skeleton className="m-8" paragraph active />;
   }
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = blogData.slice(indexOfFirstBlog, indexOfLastBlog);
   return (
-    <div className="mt-[30px] w-full grid grid-cols-3 gap-4 max-sm:grid-cols-2 ">
-      {blogData.map((value) => (
-      <Blogs value={value} key={value._id}/>
-      ))}
+    <div>
+      <div className="mt-[30px] w-full grid grid-cols-3 gap-4 max-sm:grid-cols-2 ">
+        {currentBlogs.map((value) => (
+          <Blogs value={value} key={value._id} />
+        ))}
+      </div>
+      <Pagination
+      className="flex justify-center my-6"
+        current={currentPage}
+        total={blogData.length}
+        pageSize={blogsPerPage}
+        onChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 };

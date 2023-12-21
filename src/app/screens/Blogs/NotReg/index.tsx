@@ -40,10 +40,10 @@ const NotReg: FC = () => {
           />
         </div>
         <h1 className="mt-[50px] font-black text-center text-[6vw]">
-        Navigate Health Smarter with  <span className="text-[#48b6ca]">MedCall</span>  
+        Navigate Health Smarter with  <span className="text-[#48b6ca]">Guardian Care</span>  
         </h1>
         <p className="text-center text-[25px] mt-[20px] max-xl:text-[2vw] ">
-        MedCall, your trusted online medical consulting platform, provides a convenient and secure way to access expert healthcare advice from the comfort of your home.
+        Guardian Care, your trusted online medical consulting platform, provides a convenient and secure way to access expert healthcare advice.
         </p>
         {!verifiedMemberData && (
         <Button 

@@ -1,6 +1,10 @@
 import { useState, type FC, useEffect } from "react";
 import { useAxios } from "../../../../../customHooks/useAxios";
 import { useAppSearchParams } from "../../../../../customHooks/useSearchParams";
+import { Carousel, Card } from 'antd';
+
+const { Meta } = Card;
+
 
 const Categories: FC = () => {
   const { getParams, setParams } = useAppSearchParams();
@@ -19,7 +23,7 @@ const Categories: FC = () => {
 
   const active_category = getParams("category");
 
-  return (
+  return (<div className="flex flex-col">
     <div>
       <h3 className="  font-bold">Categories</h3>
       <div>
@@ -45,6 +49,32 @@ const Categories: FC = () => {
           }
         )}
       </div>
+    </div>
+    <Card
+  className="mt-6 m-auto"
+  hoverable
+  style={{ width: 240 }}
+>
+  <Carousel 
+  dots={false}
+  autoplay
+  >
+    <div>
+      <img alt="example" src="/doctors/hospital.jpg" />
+    </div>
+    <div>
+      <img alt="example" src="/doctors/hospital2.jpg" />
+    </div>
+    <div>
+      <img alt="example" src="/doctors/hospital3.jpg" />
+    </div>
+    <div>
+      <img alt="example" src="/doctors/hospital4.jpg" />
+    </div>
+  </Carousel>
+  <Meta title="Your Health Our Mission" description="guardianCare@gmail.com" />
+</Card>
+
     </div>
   );
 };

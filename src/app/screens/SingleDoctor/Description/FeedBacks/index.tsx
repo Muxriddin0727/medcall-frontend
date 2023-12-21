@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useAxios } from "../../../../customHooks/useAxios";
 import { Comment } from "../../../../../types/others";
-import { Avatar, Card, Divider } from "antd";
+import { Card, Tooltip, Empty } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { verifiedMemberData } from "../../../../api/verify";
@@ -39,8 +39,6 @@ const Feedbacks: FC<{ mb_id: string }> = ({ mb_id }) => {
 
   return (
     <div className="my-16">
-     
-
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -60,41 +58,55 @@ const Feedbacks: FC<{ mb_id: string }> = ({ mb_id }) => {
           disableOnInteraction: false,
         }}
       >
-        {comments.map((comment, index) => (
-          <SwiperSlide
-            key={index}
-            className="bg-center bg-cover p-2 mt-12 w-[350px] h-[300px]"
-          >
-            <p className="text-end text-gray-400">
-              {new Date(comment.posted_at).toLocaleDateString()}
-            </p>
+        {comments.length > 0 ? (
+          comments.map((comment, index) => (
+            <SwiperSlide
+              key={index}
+              className="bg-center bg-cover bg-slate-50 p-2 mt-12 w-[400px] h-auto "
+            >
+              <p className="text-end text-gray-400">
+                {new Date(comment.posted_at).toLocaleDateString()}
+              </p>
 
-            <div className="relative   bg-white p-[10px] flex flex-col items-center">
-              <img
-                className=" absolute w-24 h-24 top-1 rounded-full  "
-                src={
-                  comment.mb_image
-                    ? comment.mb_image
-                    : "/icons/default_user.png"
-                }
-              />
-              <div>
-                <h2 className=" text-center text-neutral-800 text-2xl font-medium mt-24 mb-2">
-                  {comment.mb_name}
-                </h2>
-              </div>
+              <div className="relative   bg-white p-[10px] flex flex-col items-center">
+                <img
+                  className=" absolute w-24 h-24 top-1 rounded-full  "
+                  src={
+                    comment.mb_image
+                      ? comment.mb_image
+                      : "/icons/default_user.png"
+                  }
+                />
+                <div>
+                  <h2 className=" text-center text-neutral-800 text-2xl font-medium mt-24 mb-2">
+                    {comment.mb_name}
+                  </h2>
+                </div>
 
-              <div>
-                <p className="px-4">{comment.comment_content}</p>
+                <div>
+                  {comment.comment_content.length > 200 ? (
+                    <Tooltip
+                      color="blue"
+                      placement="bottomLeft"
+                      title={comment.comment_content}
+                    >
+                      <p className="px-4">
+                        {comment.comment_content.substring(0, 200)}...
+                      </p>
+                    </Tooltip>
+                  ) : (
+                    <p className="px-4">{comment.comment_content}</p>
+                  )}
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          ))
+        ) : (
+          <Empty className="my-20" description="No Feedbacks Available" />
+        )}
       </Swiper>
     </div>
   );
 };
 
 export default Feedbacks;
-
-

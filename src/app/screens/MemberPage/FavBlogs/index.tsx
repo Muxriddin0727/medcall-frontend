@@ -6,7 +6,7 @@ import {
   CommentOutlined,
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { Card, Typography, Pagination, Row, Col } from "antd";
+import { Card, Typography, Pagination, Row, Skeleton, Col } from "antd";
 import { Blog } from "../../../../types/blogs";
 import { useAxios } from "../../../customHooks/useAxios";
 import { useNavigate } from "react-router-dom";
@@ -27,8 +27,10 @@ const FavBlogs: FC = () => {
   const [liked, setLiked] = useState<boolean[]>([]);
   const [likesCount, setLikesCount] = useState<number[]>([]);
   const [viewsCount, setViewsCount] = useState<number[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const memberData = localStorage.getItem("member_data");
     if (memberData) {
       const parsedData = JSON.parse(memberData);
@@ -57,7 +59,9 @@ const FavBlogs: FC = () => {
               response.data.blogs.map((blog: Blog) => blog.blog_views.length)
             );
           }
+          setLoading(false);
         })
+
         .catch((error) => {
           console.error(error);
         });
@@ -110,7 +114,14 @@ const FavBlogs: FC = () => {
   return (
     <div className=" w-4/5 m-auto ">
       <Row gutter={16}>
-        {currentBlogs.map((value, index) => (
+      {loading ? (
+        Array(blogsPerPage).fill(0).map((_, index) => (
+          <Col span={12} key={index}>
+            <Skeleton active />
+          </Col>
+        ))
+      ) : (
+        currentBlogs.map((value, index) => (
           <Col span={12} key={value._id}>
             <Card
               className=" w-[90%] mb-8"
@@ -154,7 +165,8 @@ const FavBlogs: FC = () => {
               </Typography>
             </Card>
           </Col>
-        ))}
+        ))
+      )}
       </Row>
       <Pagination
         className=""

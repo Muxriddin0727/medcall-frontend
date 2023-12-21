@@ -6,7 +6,7 @@ const intro_data: IntroItemType[] = [
     id: 0,
     title: "CONNECT, CONSULT, PRIORITIZE YOUR",
     description:
-      " MedCall is committed to redefining healthcare, putting you at the       forefront of your health journey. Take advantage of this seamless,     secure, and comprehensive online healthcare solution for a healthier      and more accessible future. Your well-being is our priority, nd we're     here to support you every step of the way.",
+      " We are committed to redefining healthcare, putting you at the       forefront of your health journey. Take advantage of this seamless,     secure, and comprehensive online healthcare solution for a healthier      and more accessible future. Your well-being is our priority, nd we're     here to support you every step of the way.",
     buttonText: "EXPLORE NOW",
     src: "/doctors/smile.png",
   },
@@ -15,17 +15,17 @@ const intro_data: IntroItemType[] = [
     id: 1,
     title: "CHOICES TODAY SHAPE TOMORROW'S",
     description:
-    "Choose MedCalL Online Consulting Platform for a healthier, more  convenient way to manage your health and well-being. Embrace the   future of healthcare today and make every day a step towards a   healthier, happier life",
+    "Choose Guardian Care Clinic for a healthier, more  convenient way to manage your health and well-being. Embrace the   future of healthcare today and make every day a step towards a   healthier, happier life",
     buttonText: "EXPLORE NOW",
     src: "/icons/bag.png",
   },
 
   {
     id: 2,
-    title: "ONLINE HEALING FOR LASTING",
+    title: "QUALITY HEALING FOR LASTING",
     description:
 
-    " MedCall is your trusted destination for accessible, convenient, and    expert medical advice and care. We bring the expertise of healthcare    professionals to your fingertips, offering a comprehensive suite of   telemedicine services tailored to your needs.",
+    " Guardian Care is your trusted destination for accessible, convenient, and    expert medical advice and care. We bring the expertise of healthcare    professionals to your fingertips, offering a comprehensive suite of   telemedicine services tailored to your needs.",
     buttonText: "EXPLORE NOW",
     src: "/icons/korsatma.png",
   },

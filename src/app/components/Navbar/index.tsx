@@ -2,7 +2,7 @@ import { FC } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { Button, FloatButton } from "antd";
 import { MessageOutlined } from "@ant-design/icons";
-import { MenuOutlined } from "@ant-design/icons";
+import { MenuOutlined, ScheduleOutlined } from "@ant-design/icons";
 import { useReduxDispatch, useReduxSelector } from "../../hooks";
 import { setAuthModal, setChatModal } from "../../redux/modalSlice";
 import { setTokenExpired } from "../../redux/userSlice";
@@ -16,7 +16,6 @@ const Navbar: FC = (props: any) => {
   const navigate = useNavigate();
   const checkTokenValidity = useCheckTokenValidity();
 
-
   return (
     <div className="px-[50px] max-sm:px-[10px] ">
       <div className=" w-[90%] m-auto flex justify-between py-[35px]">
@@ -29,19 +28,20 @@ const Navbar: FC = (props: any) => {
             <NavLink to="/find-doctors">Find Doctors</NavLink>
             <NavLink to="/blogs">Blogs</NavLink>
             <NavLink to="/help">About Us</NavLink>
-
+            {member_data && (
+              <ScheduleOutlined
+              
+                className="text-2xl ml-20 h"
+                onClick={() => navigate("/member-page/my-appointments")}
+              />
+            )}
             <Button
               type="primary"
-              onClick={async () => {
-                const isValidToken = await checkTokenValidity();
-                if (isValidToken) {
-                  if (member_data) navigate("/member-page");
-                } else {
-                  dispatch(setTokenExpired());
-                  dispatch(setAuthModal());
-                }
+              onClick={() => {
+                if (member_data) navigate("/member-page");
+                else dispatch(setAuthModal());
               }}
-              className="ml-[100px] bg-cyan-500 "
+              className="ml-[10px] bg-cyan-500 "
               icon={<LoginOutlined />}
             >
               {member_data ? `${member_data.mb_username}` : "Register"} {""}

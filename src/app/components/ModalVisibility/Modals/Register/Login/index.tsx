@@ -1,9 +1,10 @@
 import { useState, type FC } from "react";
-import { Button, Form, Input, Divider, notification } from "antd";
+import { Button, Form, Input, Divider, notification,  } from "antd";
 import {
   createFromIconfontCN,
   GoogleOutlined,
   LoadingOutlined,
+  LoginOutlined
 } from "@ant-design/icons";
 // import Avatar from "react-avatar";
 import { useReduxDispatch } from "../../../../../hooks";
@@ -72,7 +73,7 @@ const Login: FC = () => {
 
           <Form.Item>
             <Button
-              className=" w-full h-[40px]  mt-4 bg-sky-500/75"
+              className=" w-full h-[50px]  mt-4 bg-sky-500/75"
               type="primary"
               htmlType="submit"
             >
@@ -93,6 +94,15 @@ const Login: FC = () => {
           </Form.Item> */}
 
           <Divider plain></Divider>
+          <div className="flex w-full m-auto ">
+          <img
+          className="ml-[-10px]"
+          src="/images/logo.png"
+          alt=" logo"
+        />
+        <LoginOutlined className="text-3xl text-cyan-500 "/>
+        </div>
+          
         </div>
       </Form>
     </div>

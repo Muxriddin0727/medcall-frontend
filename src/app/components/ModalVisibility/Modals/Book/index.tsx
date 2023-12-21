@@ -142,23 +142,24 @@ const Book: FC = () => {
     const selectedSlot = slots.filter((value: any) => value.isSelected);
     console.log(`selectedSlot: ${JSON.stringify(selectedSlot)}`);
     if (selectedSlot.length === 0) {
-     sweetFailureProvider("Please select at least one slot", true);
+      sweetFailureProvider("Please select at least one slot", true);
       return;
     }
   
-
+    const slot_time = selectedSlot[0].start + '-' + selectedSlot[0].end; // Add this line
+  
     axios({
       url: `/client/create-appointment/${doctor_id}?date=${selectedDate}`,
       method: "POST",
       body: {
         slot_id: selectedSlot[0]._id,
         mem_id: JSON.parse(String(localStorage.getItem("member_data")))._id,
+        slot_time: slot_time, // Use the slot_time variable here
       },
     }).then((res) => {
       dispatch(setBookModal());
       sweetTopSmallSuccessAlert(" Appointment Created Successfully");
     });
-    
   };
 
   return (

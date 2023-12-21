@@ -1,4 +1,4 @@
-import {
+import React, {
   FC,
   useCallback,
   useContext,
@@ -7,8 +7,8 @@ import {
   useState,
 } from "react";
 import { SocketContext } from "../../../../context/socket";
-import { Avatar, Input, Badge, Modal, Button } from "antd";
-import { SendOutlined } from "@ant-design/icons";
+import { Avatar, Input, Badge, Modal, Tag, Popover, Button } from "antd";
+import { SendOutlined, SmileOutlined } from "@ant-design/icons";
 import {
   sweetErrorHandling,
   sweetFailureProvider,
@@ -17,6 +17,7 @@ import {
   ChatGreetMsg,
   ChatInfoMsg,
   ChatMessage,
+  StickerPickerProps,
 } from "../../../../../types/others";
 import { setChatModal } from "../../../../redux/modalSlice";
 import { useReduxDispatch, useReduxSelector } from "../../../../hooks";
@@ -24,24 +25,30 @@ import { Definer } from "../../../../../lib/Definer";
 import assert from "assert";
 import { verifiedMemberData } from "../../../../api/verify";
 
-const NewMessage = (data: any) => {
-  if (verifiedMemberData && data.new_message.mb_id === verifiedMemberData._id) {
-    return (
-      <div className="flex-row-reverse m-2.5">
-        <div className="msg_right">{data.new_message.msg}</div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="flex m-2.5">
+const NewMessage = (data: ChatMessage) => {
+  const isCurrentUser =
+    verifiedMemberData && data.new_message.mb_id === verifiedMemberData._id;
+  console.log("isCurrentUser", isCurrentUser);
+  console.log("data.new_message", data);
+  return (
+    <div
+      className={`flex ${
+        isCurrentUser ? "flex-row-reverse" : "flex-row"
+      } gap-3  m-2.5`}
+    >
+      {isCurrentUser && (
         <Avatar
-          alt={data.new_message.mb_namek}
-          src={data.new_message.mb_image}
+          alt={data.new_message.mb_name}
+          src={data.new_message.mb_image || "icons/default_user.png"}
         />
-        <div className="msg_left">{data.new_message.msg}</div>
+      )}
+      <div
+        className={`message-bubble ${isCurrentUser ? "msg_right" : "msg_left"}`}
+      >
+        {data.new_message.msg}
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 const Chat: FC = () => {
@@ -52,6 +59,147 @@ const Chat: FC = () => {
   const [onlineUsers, setOnlineUsers] = useState<number>(0);
   const textInput: any = useRef(null);
   const [message, setMessage] = useState<string>("");
+  const [showStickerPicker, setShowStickerPicker] = useState(false);
+  const StickerPicker: React.FC<StickerPickerProps> = ({ onStickerClick }) => {
+    const stickers = [
+      "😀",
+      "😃",
+      "😄",
+      "😁",
+      "😆",
+      "😅",
+      "😂",
+      "🤣",
+      "😊",
+      "😇",
+      "🙂",
+      "🙃",
+      "😉",
+      "😌",
+      "😍",
+      "🥰",
+      "😘",
+      "😗",
+      "😙",
+      "😚",
+      "😋",
+      "😛",
+      "😝",
+      "😜",
+      "🤪",
+      "🤨",
+      "🧐",
+      "🤓",
+      "😎",
+      "🥸",
+      "🤩",
+      "🥳",
+      "😏",
+      "😒",
+      "😞",
+      "😔",
+      "😟",
+      "😕",
+      "🙁",
+      "☹️",
+      "👍",
+      "👎",
+      "✊",
+      "✌️",
+      "🤞",
+      "🖐️",
+      "👆",
+      "👇",
+      "🤟",
+      "👌",
+      "👋",
+      "👐",
+      "✋",
+      "🤚",
+      "👏",
+      "🙌",
+      "🤲",
+      "👊",
+      "🤛",
+      "🤜",
+      "👦",
+      "👧",
+      "👨",
+      "👩",
+      "👶",
+      "👵",
+      "👴",
+      "👲",
+      "👳‍♀️",
+      "👳‍♂️",
+      "🧓",
+      "👱‍♀️",
+      "👱‍♂️",
+      "👮‍♀️",
+      "👮‍♂️",
+      "👷‍♀️",
+      "👷‍♂️",
+      "💂‍♀️",
+      "💂‍♂️",
+      "🕵️‍♀️",
+      "🕵️‍♂️",
+      "👩‍⚕️",
+      "👨‍⚕️",
+      "👩‍🌾",
+      "👨‍🌾",
+      "👩‍🍳",
+      "👨‍🍳",
+      "👩‍🎓",
+      "👨‍🎓",
+      "👩‍🎤",
+      "👨‍🎤",
+      "👩‍🏫",
+      "👨‍🏫",
+      "👩‍🏭",
+      "👨‍🏭",
+      "👩‍💻",
+      "👨‍💻",
+      "👩‍💼",
+      "👨‍💼",
+      "👩‍🔧",
+      "👨‍🔧",
+      "👩‍🔬",
+      "👨‍🔬",
+      "👩‍🎨",
+      "👨‍🎨",
+      "👩‍🚒",
+      "👨‍🚒",
+      "👩‍✈️",
+      "👨‍✈️",
+      "👩‍🚀",
+      "👨‍🚀",
+      "👩‍⚖️",
+      "👨‍⚖️",
+      "👰",
+      "🤵",
+      "👼",
+      "🤰",
+      "🙇‍♀️",
+      "🙇‍♂️",
+      "💁‍♀️",
+    ];
+
+    return (
+      <div>
+        {stickers.map((sticker, index) => (
+          <button key={index} onClick={() => onStickerClick(sticker)}>
+            {sticker}
+          </button>
+        ))}
+      </div>
+    );
+  };
+
+  const onStickerClick = (sticker: string) => {
+    setMessage(message + sticker);
+    setShowStickerPicker(false);
+    textInput.current.focus();
+  };
 
   useEffect(() => {
     socket.connect();
@@ -75,15 +223,17 @@ const Chat: FC = () => {
       console.log("CLIENT: greet message");
       messageLists.push(
         // @ts-ignore
-        <p
+        <Tag
+          color="cyan"
           style={{
-            textAlign: "center",
+            width: "50%",
+            textAlign: "start",
             fontSize: "large",
             fontFamily: "serif",
           }}
         >
           {msg.text}, dear {verifiedMemberData?.mb_name ?? "guest"}
-        </p>
+        </Tag>
       );
       setMessageLists([...messageLists]);
     });
@@ -153,13 +303,13 @@ const Chat: FC = () => {
 
   return (
     <Modal
-      className="flex flex-col rounded-3xl "
+      className="flex flex-col rounded-3xl bg-cyan-500 "
       title="Chat"
       open={chatModal}
       footer={false}
       onCancel={() => dispatch(setChatModal())}
     >
-      <div className="flex justify-center items-center  text-3xl font-semibold text-black">
+      <div className="flex justify-center items-center   text-3xl font-semibold text-black">
         Live Chat
         <Badge count={onlineUsers} style={{ marginLeft: 20 }} />
       </div>
@@ -169,11 +319,24 @@ const Chat: FC = () => {
         </div>
         {messageLists}
       </div>
-      <div className="flex w-4/5 m-auto gap-2">
+      <div className="flex  w-4/5 m-auto ">
+        <Popover
+          overlayStyle={{ width: 300 }}
+          content={<StickerPicker onStickerClick={onStickerClick} />}
+          trigger="click"
+        >
+          <Button
+            type="text"
+            className="flex items-center ml-2   "
+            icon={<SmileOutlined className="text4xl text-cyan-500 " />}
+          />
+        </Popover>
+        {showStickerPicker && <StickerPicker onStickerClick={onStickerClick} />}
         <Input
           ref={textInput}
           type="text"
           name="message"
+          value={message}
           className="bg-gray-100"
           placeholder="Xabar jo'natish"
           onChange={getInputMessageHandler}
@@ -181,9 +344,9 @@ const Chat: FC = () => {
         />
         <Button
           type="primary"
-          className="rounded-full bg-cyan-500 "
+          className="flex items-center ml-2 rounded-[50%] bg-cyan-500 "
           onClick={onClickHandler}
-          icon={<SendOutlined />}
+          icon={<SendOutlined className=" flex justify-center w-8" />}
         />
       </div>
     </Modal>
