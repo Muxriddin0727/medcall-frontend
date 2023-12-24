@@ -8,7 +8,7 @@ git pull origin develop
 npm i yarn -g
 yarn
 yarn run build
-pm2 start "yarn run start:prod" --name=GuardianCare-REACT
+pm2 start process.config.js
 
  # Development
 # npm i yarn -g
