@@ -2,8 +2,8 @@ module.exports = {
     apps: [
       {
         name: "GuardianCare-REACT",
-        script: "yarn",
-        args: "run start:prod",
+        script: "node_modules/serve/bin/serve.js", 
+        args: "-s build",
         env: {
           NODE_ENV: "production",
         },
