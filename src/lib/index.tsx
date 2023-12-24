@@ -6,7 +6,7 @@ const intro_data: IntroItemType[] = [
     id: 0,
     title: "CONNECT, CONSULT, PRIORITIZE YOUR",
     description:
-      " We are committed to redefining healthcare, putting you at the       forefront of your health journey. Take advantage of this seamless,     secure, and comprehensive online healthcare solution for a healthier      and more accessible future. Your well-being is our priority, nd we're     here to support you every step of the way.",
+    "Experience the synergy of holistic care and specialized services at Guardian Care Clinic. Our advanced medical infrastructure allows us to deliver precise diagnostics and tailored treatments across a spectrum of medical disciplines, ensuring comprehensive care for our patients.",
     buttonText: "EXPLORE NOW",
     src: "/doctors/smile.png",
   },
@@ -15,8 +15,9 @@ const intro_data: IntroItemType[] = [
     id: 1,
     title: "CHOICES TODAY SHAPE TOMORROW'S",
     description:
-    "Choose Guardian Care Clinic for a healthier, more  convenient way to manage your health and well-being. Embrace the   future of healthcare today and make every day a step towards a   healthier, happier life",
+    "Guardian Care Clinic invites you to step into a new era of healthcare where technology meets compassion, and innovation aligns with personalized care. Trust us to be your guardian in health as we pioneer progress in healthcare, striving to redefine standards and exceed expectations.",
     buttonText: "EXPLORE NOW",
+   
     src: "/icons/bag.png",
   },
 

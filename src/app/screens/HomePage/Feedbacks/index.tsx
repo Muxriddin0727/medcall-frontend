@@ -5,17 +5,16 @@ import { Comment } from "../../../../types/others";
 import { FindDoctors } from "../../../../types/user";
 import { useMemberData } from "../../../context/MemberDataContext";
 
-const Feedbacks: FC= () => {
+const Feedbacks: FC = () => {
   const axios = useAxios();
   const { verifiedMemberData, setVerifiedMemberData } = useMemberData();
   const [comments, setComments] = useState<Comment[]>([]);
-
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const response = await axios({
-          url: `/client/member-comment-home`, 
+          url: `/client/member-comment-home`,
           method: "GET",
         });
         setComments(response.data.comments);
@@ -23,7 +22,7 @@ const Feedbacks: FC= () => {
         console.error("Failed to fetch comments:", error);
       }
     };
-  
+
     fetchComments();
   }, []);
 
@@ -33,41 +32,54 @@ const Feedbacks: FC= () => {
         <h1 className=" text-neutral-800 text-4xl font-bold text-center   leading-[60.90px]">
           What People Say
         </h1>
-        <p className=" text-neutral-600 text-xm font-normal text-center my-4  leading-[27px]">
-          Lorem ipsum dolor sit amet, consectetur
+        <p className=" text-neutral-600 text-xm font-normal text-center   leading-[27px]">
+        These heartfelt testimonials reflect the impact of our dedicated team and personalized care on their well-being.
         </p>
       </div>
-      <div className="w-[90%] m-auto pb-20 grid md:grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="w-[90%] m-auto mt-2 pb-20 grid md:grid-cols-1 lg:grid-cols-3 gap-12">
         {comments.map((comment: Comment, index: number) => (
-          <div key ={index} className="relative w-[350px] h-auto min-h-[220px] m-auto p-4 bg-white   flex flex-col items-center ">
-            <img
-              className="absolute w-36 h-36 m-auto rounded-full top-[-50px]  "
-              src={comment.mb_image ? `${comment.mb_image.startsWith('http') ? '' : 'http://localhost:3002/'}${comment.mb_image}` : "/icons/default_user.png"}
-              alt="william"
-            />
+          <div
+            key={index}
+            className="rounded-md w-[400px] h-auto min-h-[220px] m-auto p-4 bg-white flex flex-col justify-between items-start"
+            >
             <div>
-              <h2 className=" text-center text-neutral-800 text-2xl font-medium mt-24">
+              {comment.comment_content.length > 200 ? (
+                <Tooltip
+                  color="blue"
+                  placement="bottom"
+                  title={comment.comment_content}
+                >
+                  <p className="px-4 italic">
+                    {comment.comment_content.substring(0, 200)}...
+                  </p>
+                </Tooltip>
+              ) : (
+                <p className="px-4 italic">{comment.comment_content}</p>
+              )}
+            </div>
+            <div className="flex gap-4  ">
+              <img
+                className="w-10 m-auto rounded-full   "
+                src={
+                  comment.mb_image
+                    ? `${
+                        comment.mb_image.startsWith("http")
+                          ? ""
+                          : "http://localhost:3002/"
+                      }${comment.mb_image}`
+                    : "/icons/default_user.png"
+                }
+                alt="william"
+              />
+              <div className="mt-2">
+              <h2 className=" text-center text-neutral-800 text-x font-medium ">
                 {comment.mb_name}
               </h2>
+              <h2 className=" text-center text-neutral-800 text-xs font-medium ">
+                (Patient)
+              </h2>
+              </div>
             </div>
-            <div className="w-fit m-auto mt-[-1px]">
-              <Rate  allowHalf defaultValue={2.5} />
-            </div>
-            <div>
-                  {comment.comment_content.length > 200 ? (
-                    <Tooltip
-                      color="blue"
-                      placement="bottom"
-                      title={comment.comment_content}
-                    >
-                      <p className="px-4">
-                        {comment.comment_content.substring(0, 100)}...
-                      </p>
-                    </Tooltip>
-                  ) : (
-                    <p className="px-4">{comment.comment_content}</p>
-                  )}
-                </div>
           </div>
         ))}
       </div>

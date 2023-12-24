@@ -4,7 +4,7 @@ import { useAppSearchParams } from "../../../../../customHooks/useSearchParams";
 
 const Headers: FC = () => {
   const { getParams, setParams } = useAppSearchParams();
-  const active_type_style = "pb-[3px] text-[#46A358] border-b border-[#46A358]";
+  const active_type_style = "pb-[3px] text-cyan-500 font-semibold border-b border-cyan-500";
   const paramsType = getParams("type");
 
   return (

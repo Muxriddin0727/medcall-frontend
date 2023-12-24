@@ -9,6 +9,7 @@
   box-sizing: border-box;
 }
 
+
 .slick-dots li button {
   background-color: #06b6d4 !important;
   opacity: 30%;
@@ -17,6 +18,4 @@
   background-color: #06b6d4 !important;
 }
 
-video {
-  object-fit: cover;
-}
+

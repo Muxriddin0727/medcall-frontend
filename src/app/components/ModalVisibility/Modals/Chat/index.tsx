@@ -303,7 +303,7 @@ const Chat: FC = () => {
 
   return (
     <Modal
-      className="flex flex-col rounded-3xl bg-cyan-500 "
+      className="flex flex-col rounded-3xl "
       title="Chat"
       open={chatModal}
       footer={false}

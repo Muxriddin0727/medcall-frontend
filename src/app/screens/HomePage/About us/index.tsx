@@ -8,7 +8,7 @@ const AboutUs: FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full m-auto h-[800px] flex gap-24 justify-center mt-[100px] ">
+    <div className="w-full m-auto h-[800px] flex gap-32 justify-center mt-[100px] ">
       <div className="relative max-md:hidden">
         <img
           className="w-[500px] h-[580px] rounded-lg"
@@ -24,7 +24,7 @@ const AboutUs: FC = () => {
 
       <div className=" w-[580px] max-md:w-full">
         <div>
-          <h3 className="text-slate-950 text-sm font-normal  leading-[27px]">
+          <h3 className="w-16 text-slate-950 border-b text-sm font-normal  leading-[27px]">
             About Us
           </h3>
           <h1 className=" w-[532px] text-neutral-800 text-5xl font-bold leading-[60.90px] max-md:w-fit max-md:text-3xl">
@@ -50,7 +50,7 @@ const AboutUs: FC = () => {
             </p>
             <Button
               onClick={() => navigate(`/help`)}
-              className="h-10 mt-2 bg-cyan-500 rounded-md bg-sky-500/100"
+              className="h-10 mt-2 hover:scale-110 bg-cyan-500 rounded-md bg-sky-500/100"
               type="primary"
             >
               Explore Now{" "}

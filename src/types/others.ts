@@ -11,6 +11,7 @@ export interface Comment {
   comment_content: string;
   mb_image: string;
   posted_at: Date;
+  mb_type: string;
 }
 
 export interface File {
@@ -29,6 +30,7 @@ export interface Appointment {
     ref_id: string;
     start: string;
     end: string;
+    slot_time: string;
     patientName: string;
     doctorName: string;
     doctorLastname: string;

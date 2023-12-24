@@ -42,8 +42,8 @@ const Categories: FC = () => {
                 className={`flex justify-between mt-[10px] pl-[16px] cursor-pointer hover:text-[#06B6D4] transition-colors
     ${active_category === value.route_path && "text-[#06B6D4]"} `}
               >
-                <h3 className="text-base font-normal ">{value.name}</h3>
-                <p className="text-base font-normal ">{value.count}</p>
+                <h3 className="text-base font-semibold ">{value.name}</h3>
+                <p className="text-base font-semibold ">{value.count}</p>
               </div>
             );
           }

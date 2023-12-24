@@ -42,20 +42,20 @@ const Dashboard: FC = () => {
   return (
     <div className="bg-[#FBFBFB] w-[310px] h-fit text-xl p-[15px] max-sm:hidden">
       <h1 className="font-bold">My Account</h1>
-      <div className="flex flex-col gap-3 mt-[15px] border-b border-[#46A35880] pb-[35px]">
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold"
+      <div className="flex flex-col gap-3 mt-[15px] border-b border-cyan-500 pb-[35px]">
+        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-cyan-500 hover:text-cyan-500 hover:text-bold"
        onClick={() => navigateTo("/member-page/account-details")}>
-          <h3 className="font-normal text-base"> Account Details</h3>
+          <h3 className=" text-base font-medium"> Account Details</h3>
         </div>
 
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold"
+        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-cyan-500 hover:text-cyan-500 hover:text-bold"
         onClick = {() => navigate("/member-page/my-appointments")}>
-          <h3 className="font-normal text-base"> My Appointments</h3>
+          <h3 className="font-medium text-base"> My Appointments</h3>
         </div>
 
-        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-[#46A358] hover:text-[#46A358] hover:text-bold"
+        <div className="transition flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] hover:bg-white hover:border-l-[5px] hover:border-cyan-500 hover:text-cyan-500 hover:text-bold"
         onClick = {() => navigate(`/member-page/favorite-blogs/:id`)}>
-          <h3 className="font-normal text-base"> Liked Blogs</h3>
+          <h3 className="font-medium text-base"> Liked Blogs</h3>
         </div>
 
       </div>
@@ -65,7 +65,7 @@ const Dashboard: FC = () => {
         onClick={() => onLogOut()}
         className="flex items-center gap-3 cursor-pointer pl-[5px] w-full h-[40px] mt-[20px] text-base text-red-600"
       >
-        <LogoutOutlined className="w-[20px] h-[20px]" />
+        <LogoutOutlined className="w-[20px] h-[20px] hover:scale-110" />
         <h3 className="font-normal">Log out</h3>
       </div>
     </div>

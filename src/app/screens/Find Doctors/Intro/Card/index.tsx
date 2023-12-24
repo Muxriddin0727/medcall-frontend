@@ -17,18 +17,18 @@ const Card: FC <IntroItemType>= ({title, description, buttonText, src}) => {
         {title} <span className="text-[#3699af]"><br/>HEALTH</span> <br/> 
           
         </h1>
-        <p className="  text-sm font-normal text-[#727272] w-3/5 max-lg:text-xs mt-[10px] max-sm:w-full">
+        <p className="  text-sm font-normal text-[#727272] w-3/5 max-lg:text-xs my-[10px] max-sm:w-full">
           {description}
         </p>
-        <div className="pb-8">
+        
           <Button
           onClick={() => navigate(`/help`)}
             type="primary"
-            className="my-[20px] w-[140px]  bg-cyan-500 h-9 max-md:mt-[10px]"
+            className="w-[140px] hover:scale-110   bg-cyan-500 h-9 max-md:mt-[10px]"
           >
             {buttonText}
           </Button>
-        </div>
+        
       </div>
       <div className=" flex-[1]   flex justify-center items-center max-md:hidden">
         <img src={src} alt="smile" />

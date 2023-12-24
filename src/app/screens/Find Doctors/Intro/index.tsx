@@ -6,7 +6,9 @@ import { intro_data } from "../../../../lib";
 const Intro: FC = () => {
   return (
     <div className="w-[90%] m-auto mb-[30px]">
-      <Carousel autoplay effect="scrollx">
+      <Carousel 
+      dots={false}
+      autoplay effect="scrollx">
         {intro_data?.map((value) => (
           <div key={value.id}>
             <Card

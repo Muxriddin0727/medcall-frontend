@@ -8,7 +8,6 @@ import { FindDoctors } from "../../../types/user";
 import { useAppSearchParams } from "../../customHooks/useSearchParams";
 import { useAxios } from "../../customHooks/useAxios";
 import { useParams } from "react-router-dom";
-import Promo from "./Promo";
 
 const HomePage: FC = () => {
   const [doctorsData, setAllDoctors] = useState([]);
@@ -29,13 +28,12 @@ const HomePage: FC = () => {
   console.log("category", category);
 
   return (
-    <div>
+    <div className="">
       <Welcome />
       <AboutUs />
       <TopDoctors category={category} />
       <Feedbacks />
       <Why />
-      <Promo />
     </div>
   );
 };

@@ -88,20 +88,25 @@ const MyAppointments: FC = () => {
           {item.slots.map(
             (
               slot,
-              index // check if item.slots is defined before calling .map()
+              index 
             ) => (
               <div key={index} className="flex flex-col gap-4 mb-6">
+                <div className="flex items-center gap-4">
                 <Avatar
+                className="flex hover:scale-150"
                   size= "large"
-                  src={`http://localhost:3002/${slot.doctorImg}`} // replace with the actual doctor's image
+                  src={`http://localhost:3002/${slot.doctorImg}`} 
                 />
-                <p>
-                  With: Dr. {slot.doctorName} {slot.doctorLastname} // replace with the actual doctor's name
+                <p className="font-semibold text-ccyan-500">
+                  Dr. {slot.doctorName} {slot.doctorLastname} 
                 </p>
-                <p>Appointment Date: {item.date}</p>
+                </div>
+                <div className="flex flex-col gap-1 mt-2">
+                <p ><span className="font-semibold">Appointment Date:</span> {item.date}</p>
                 <p>
-                  Appointment Time: {slot.start} - {slot.end}
+                  <span className="font-semibold">Appointment Time:</span> {slot.slot_time}
                 </p>
+                </div>
               </div>
             )
           )}

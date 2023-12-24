@@ -29,6 +29,7 @@ const BlogComments: FC = () => {
           mb_name: verifiedMemberData.mb_name,
           comment_content: commentText,
           mb_image: verifiedMemberData.mb_image,
+          mb_type: verifiedMemberData.mb_type,
           posted_at: new Date(Date.now()),
         };
         setCommented([...commented, newComment]);

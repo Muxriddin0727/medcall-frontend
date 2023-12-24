@@ -6,7 +6,7 @@ import {
   CommentOutlined,
 } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { Card, Typography, Pagination, Row, Skeleton, Col } from "antd";
+import { Card, Typography, Pagination, Row, Skeleton, Col, Tooltip } from "antd";
 import { Blog } from "../../../../types/blogs";
 import { useAxios } from "../../../customHooks/useAxios";
 import { useNavigate } from "react-router-dom";
@@ -123,8 +123,10 @@ const FavBlogs: FC = () => {
       ) : (
         currentBlogs.map((value, index) => (
           <Col span={12} key={value._id}>
+            
             <Card
-              className=" w-[90%] mb-8"
+              className=" w-[90%] flex flex-col mb-8"
+              bodyStyle={{flexGrow: 1}}
               actions={[
                 <div>
                   <EyeOutlined />
@@ -160,10 +162,17 @@ const FavBlogs: FC = () => {
               >
                 {value.blog_title}
               </h1>
-              <Typography spellCheck={true} className="mt-[10px] text-[12px]">
-                {value.blog_description}
-              </Typography>
+              {value.blog_description.length > 150 ? (
+        <Tooltip color="blue" placement="bottom" title={value.blog_description}>
+          <p className="flex-grow mt-4 ">
+            {value.blog_description.substring(0, 150)}...
+          </p>
+        </Tooltip>
+      ) : (
+        <p className="flex-grow mt-4 ">{value.blog_description}</p>
+      )}
             </Card>
+            
           </Col>
         ))
       )}
