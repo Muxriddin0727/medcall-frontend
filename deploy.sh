@@ -6,7 +6,7 @@ git pull origin develop
 npm i yarn -g
 yarn
 yarn run build
-pm2 start "yarn" --interpreter bash --name "Guardian_Care-React" -- run start:prod
+pm2 start "C:\Users\abduv\AppData\Local\Yarn\bin\yarn.cmd" --interpreter bash --name "Guardian_Care-React" -- run start:prod
 
 
 
