@@ -30,6 +30,7 @@
     "react-router-dom": "^6.17.0",
     "react-scripts": "5.0.1",
     "redux-logger": "^3.0.6",
+    "serve": "^14.2.1",
     "socket.io-client": "^2.3.0",
     "styled-components": "^6.1.0",
     "sweetalert2": "^11.8.0",
@@ -46,7 +47,6 @@
     "eject": "react-scripts eject",
     "start:prod": "serve -s build",
     "serve:prod": "node node_modules/serve/bin/serve.js -s build"
-
   },
   "eslintConfig": {
     "extends": [
