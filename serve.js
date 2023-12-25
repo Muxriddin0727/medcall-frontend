@@ -1,6 +1,5 @@
 const { exec } = require('child_process');
-
-exec('yarn start:prod', (error, stdout, stderr) => {
+exec('npx serve -s build', (error, stdout, stderr) => {
   if (error) {
     console.error(`exec error: ${error}`);
     return;
