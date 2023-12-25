@@ -44,7 +44,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "start:prod": "serve -s build",
     "serve:prod": "node node_modules/serve/bin/serve.js -s build"
+
   },
   "eslintConfig": {
     "extends": [
