@@ -1,4 +1,4 @@
-const serve = require('serve');
+const serve = require('./node_modules/serve');
 
 const server = serve(__dirname + '/build', {
     port: 5000, 
