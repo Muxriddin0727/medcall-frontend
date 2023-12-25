@@ -6,7 +6,8 @@ git pull origin develop
 npm i yarn -g
 yarn
 yarn run build
-pm2 start "yarn run start:prod" --name "Guardian_Care-React"
+pm2 start "yarn" --interpreter bash --name "Guardian_Care-React" -- run start:prod
+
 
 
  # Development
