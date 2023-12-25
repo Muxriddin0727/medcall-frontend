@@ -8,7 +8,7 @@ git pull origin develop
 npm i yarn -g
 yarn
 yarn run build
-pm2 start "yarn" --name "Guardian_Care-React" -- start:prod --log "path/to/pm2.log"
+pm2 start serve.js --name "Guardian_Care-React"
 
  # Development
 # npm i yarn -g
