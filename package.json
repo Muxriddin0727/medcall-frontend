@@ -46,7 +46,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve:prod": "node node_modules/serve/bin/serve.js -s build",
-    "start:prod": "serve -s build"
+    "start:prod":  "node node_modules/serve/bin/serve.js -s build"
 
     
   },
