@@ -6,8 +6,7 @@ git pull origin develop
 npm i yarn -g
 yarn
 yarn run build
-pm2 start "C:\Users\abduv\Desktop\medcall-frontend\node_modules\serve" --name "Guardian_Care-React" -- -s build
-
+pm2 start "serve -s build" --name "Guardian_Care-React"
 
 
  # Development
