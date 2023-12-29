@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  node:
+    container_name: clinic_frontend
+    restart: always
+    image: node:16.10.0
+    ports: 
+    - 3003:3000
+    volumes:
+      - ./:/usr/src/app
+    working_dir: /usr/src/app
+
+    networks:
+      - clinic_network
+
+    command: bash -c "yarn install && yarn run build && yarn run start:prod"
+
+networks:
+  clinic_network:
+    driver: bridge
