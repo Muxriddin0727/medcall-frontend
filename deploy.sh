@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Production
+git checkout develop
 git reset --hard
 git pull origin develop
 
