@@ -4,7 +4,7 @@ services:
   node:
     container_name: clinic_frontend
     restart: always
-    image: node:16.10.0
+    image: node:16.14.0
     ports: 
     - 3003:3000
     volumes:
