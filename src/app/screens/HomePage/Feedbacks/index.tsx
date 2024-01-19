@@ -33,7 +33,8 @@ const Feedbacks: FC = () => {
           What People Say
         </h1>
         <p className=" text-neutral-600 text-xm font-normal text-center   leading-[27px]">
-        These heartfelt testimonials reflect the impact of our dedicated team and personalized care on their well-being.
+          These heartfelt testimonials reflect the impact of our dedicated team
+          and personalized care on their well-being.
         </p>
       </div>
       <div className="w-[90%] m-auto mt-2 pb-20 grid md:grid-cols-1 lg:grid-cols-3 gap-12">
@@ -41,7 +42,7 @@ const Feedbacks: FC = () => {
           <div
             key={index}
             className="rounded-md w-[400px] h-auto min-h-[220px] m-auto p-4 bg-white flex flex-col justify-between items-start"
-            >
+          >
             <div>
               {comment.comment_content.length > 200 ? (
                 <Tooltip
@@ -59,25 +60,24 @@ const Feedbacks: FC = () => {
             </div>
             <div className="flex gap-4  ">
               <img
-                className="w-10 m-auto rounded-full   "
+                className="w-10 m-auto rounded-full"
                 src={
                   comment.mb_image
-                    ? `${
-                        comment.mb_image.startsWith("http")
-                          ? ""
-                          : "http://46.28.44.182:3002/"
-                      }${comment.mb_image}`
+                    ? comment.mb_image.startsWith("http")
+                      ? comment.mb_image
+                      : "http://46.28.44.182:3002/" + comment.mb_image
                     : "/icons/default_user.png"
                 }
-                alt="william"
+                alt="Member IMG"
               />
+
               <div className="mt-2">
-              <h2 className=" text-center text-neutral-800 text-x font-medium ">
-                {comment.mb_name}
-              </h2>
-              <h2 className=" text-center text-neutral-800 text-xs font-medium ">
-                (Patient)
-              </h2>
+                <h2 className=" text-center text-neutral-800 text-x font-medium ">
+                  {comment.mb_name}
+                </h2>
+                <h2 className=" text-center text-neutral-800 text-xs font-medium ">
+                  (Patient)
+                </h2>
               </div>
             </div>
           </div>

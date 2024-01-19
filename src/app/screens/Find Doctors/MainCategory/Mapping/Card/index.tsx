@@ -73,7 +73,7 @@ const Card: FC<{ value: FindDoctors; category: string }> = ({
         <Avatar
           size={{ xs: 32, sm: 40, md: 64, lg: 80, xl: 300, xxl: 160 }}
           shape="square"
-          src={`http://46.28.44.182/${value.mb_image}`}
+          src={`http://46.28.44.182:3002/${value.mb_image}`}
           alt="img"
           className=""
         />

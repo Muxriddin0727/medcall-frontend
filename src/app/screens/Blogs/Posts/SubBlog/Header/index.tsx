@@ -9,7 +9,7 @@ const Header: FC<{ value: FindDoctors }> = ({ value }) => {
       <div className=" flex gap-6">
         <Avatar 
         size={72} 
-        src= {value.mb_image ? `http://localhost:3002/${value.mb_image}` : "/icons/default_user.png"}
+        src= {value.mb_image ? `http://46.28.44.182:3002/${value.mb_image}` : "/icons/default_user.png"}
        />
         <div className="">
           <h2 className="text-center font-bold text-xl">
