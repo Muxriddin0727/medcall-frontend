@@ -65,7 +65,7 @@ const Feedbacks: FC = () => {
                     ? `${
                         comment.mb_image.startsWith("http")
                           ? ""
-                          : "http://localhost:3002/"
+                          : "http://46.28.44.182:3002/"
                       }${comment.mb_image}`
                     : "/icons/default_user.png"
                 }

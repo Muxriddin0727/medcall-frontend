@@ -13,7 +13,7 @@ export const useAxios = () => {
     headers?: object;
   }) => {
     return axios({
-      url: `http://localhost:3002${url}`,
+      url: `http://46.28.44.182:3002${url}`,
       method,
       data: body,
       headers: {

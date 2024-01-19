@@ -23,7 +23,7 @@ const DoctorInfo: FC<{ value: FindDoctors }> = ({ value }) => {
           <Tooltip title={value.mb_name}>
             <Avatar
               className="rounded-full w-[50px] h-[50px] cursor-pointer"
-              src={`http://localhost:3002/${value.mb_image}`}
+              src={`http://46.28.44.182:3002/${value.mb_image}`}
               alt="david"
             />
           </Tooltip>

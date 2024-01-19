@@ -95,7 +95,7 @@ const MyAppointments: FC = () => {
                 <Avatar
                 className="flex hover:scale-150"
                   size= "large"
-                  src={`http://localhost:3002/${slot.doctorImg}`} 
+                  src={`http://46.28.44.182:3002/${slot.doctorImg}`} 
                 />
                 <p className="font-semibold text-ccyan-500">
                   Dr. {slot.doctorName} {slot.doctorLastname} 

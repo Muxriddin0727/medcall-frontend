@@ -239,7 +239,7 @@ const AccountDetails: FC = () => {
         >
           <Upload
             name="profile_photo"
-            action="http://localhost:3002/client/member-update"
+            action="http://46.28.44.182:3002/client/member-update"
             fileList={fileList}
             onChange={handleUploadChange}
           >

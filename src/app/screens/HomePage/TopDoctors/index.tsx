@@ -104,7 +104,7 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
                         xxl: 300,
                       }}
                       shape="square"
-                      src={`http://localhost:3002/${value.mb_image}`}
+                      src={`http://46.28.44.182:3002/${value.mb_image}`}
                       alt="img"
                       className=""
                     />
