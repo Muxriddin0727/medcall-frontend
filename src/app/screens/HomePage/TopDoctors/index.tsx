@@ -92,21 +92,23 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
           : topdoctors.map((value: FindDoctors) => {
               return (
                 <div key={value._id}>
-                  <div className="shadow-xl group hover:scale-105 max:md:w-[50px] max:md:h-[200px] bg-[#f5f5f5] flex justify-center items-center relative ">
-                    {" "}
+                  <div
+                    className="shadow-xl group hover:scale-105 bg-[#f5f5f5] flex justify-center items-center relative"
+                    style={{
+                      width: "12.5rem", // default width
+                      height: "12.5rem", // default height
+                    }}
+                  >
                     <Avatar
-                      size={{
-                        xs: 200,
-                        sm: 300,
-                        md: 80,
-                        lg: 300,
-                        xl: 340,
-                        xxl: 300,
-                      }}
+                      size={300} // default size
                       shape="square"
                       src={`http://46.28.44.182:3002/${value.mb_image}`}
                       alt="img"
-                      className=""
+                      style={{
+                        width: "100%", // make the Avatar take the full width of its parent
+                        height: "100%", // make the Avatar take the full height of its parent
+                        objectFit: "cover", // maintain the aspect ratio
+                      }}
                     />
                     <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
                       <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]">
