@@ -92,7 +92,7 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
                 ))
             : topdoctors.map((value: FindDoctors) => {
                 return (
-                  <div key={value._id}>
+                  <div key={value._id} className="text-center">
                     <div
                       className="mx-auto shadow-xl group hover:scale-105 bg-[#f5f5f5] flex justify-center items-center relative"
                       style={{
