@@ -111,7 +111,7 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
                           objectFit: "cover", 
                         }}
                       />
-                      <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
+                      <div className="hidden justify-center absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
                         <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]">
                           <CommentOutlined
                             onClick={() =>
