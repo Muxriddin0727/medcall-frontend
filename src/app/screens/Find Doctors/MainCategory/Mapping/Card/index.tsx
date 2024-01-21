@@ -69,14 +69,16 @@ const Card: FC<{ value: FindDoctors; category: string }> = ({
   };
   return (
     <div>
-<div className="group h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] bg-[#f5f5f5] hover:bg-slate-200 flex justify-center items-center relative">
-        <Avatar
-          size="default"
-          shape="square"
-          src={`http://46.28.44.182:3002/${value.mb_image}`}
-          alt="img"
-          className=""
-        />
+      <div className="group h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] bg-[#f5f5f5] hover:bg-slate-200 flex justify-center items-center relative">
+        <div className="w-full h-full flex justify-center items-center">
+          <Avatar
+            size="large" 
+            shape="square"
+            src={`http://46.28.44.182:3002/${value.mb_image}`}
+            alt="img"
+            className="object-cover w-full h-full" 
+          />
+        </div>
         <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
           <div className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer text-[20px]">
             <CommentOutlined
@@ -92,7 +94,7 @@ const Card: FC<{ value: FindDoctors; category: string }> = ({
             className="bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center cursor-pointer text-[20px]"
           >
             {liked ? (
-              <HeartFilled  className="text-red-500" />
+              <HeartFilled className="text-red-500" />
             ) : (
               <HeartOutlined />
             )}
