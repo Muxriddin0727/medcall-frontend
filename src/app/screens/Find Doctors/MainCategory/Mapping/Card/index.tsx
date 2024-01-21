@@ -69,7 +69,7 @@ const Card: FC<{ value: FindDoctors; category: string }> = ({
   };
   return (
     <div>
-      <div className="group h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] bg-[#f5f5f5] hover:bg-slate-200 flex justify-center items-center relative">
+      <div className="group h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96 bg-[#f5f5f5] hover:bg-slate-200 flex justify-center items-center relative">
         <div className="w-full h-full flex justify-center items-center">
           <Avatar
             size="large" 
