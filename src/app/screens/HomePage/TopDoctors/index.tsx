@@ -75,6 +75,7 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
   }, []);
 
   return (
+    <div className="flex justify-center"> 
     <div className="mb-24 w-full m-auto">
       <h1 className=" text-neutral-800 text-4xl font-bold text-center leading-[60.90px]">
         Meet Our Top Doctors
@@ -82,7 +83,7 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
       <p className=" text-neutral-600 text-xm font-normal text-center mb-8 leading-[24px]">
         Make us your home for health care
       </p>
-      <div className=" w-full m-auto grid grid-cols-4 grid-flow-row gap-6 my-6 max-xl:grid-cols-2 max-md:ml-10 md:grid-cols-1 lg:grid-cols-4">
+      <div className=" grid grid-cols-4 grid-flow-row gap-6 my-6 max-xl:grid-cols-2 max-md:ml-10 md:grid-cols-1 lg:grid-cols-4">
         {loading
           ? Array(4)
               .fill(0)
@@ -155,6 +156,7 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
               );
             })}
       </div>
+    </div>
     </div>
   );
 };
