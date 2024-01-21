@@ -94,21 +94,21 @@ const TopDoctors: FC<{ category: string }> = ({ category }) => {
                 return (
                   <div key={value._id}>
                     <div
-                      className="shadow-xl group hover:scale-105 bg-[#f5f5f5] flex justify-center items-center relative"
+                      className="mx-auto shadow-xl group hover:scale-105 bg-[#f5f5f5] flex justify-center items-center relative"
                       style={{
                         width: "14rem", // default width
                         height: "14rem", // default height
                       }}
                     >
                       <Avatar
-                        size={300} // default size
+                        size={300} 
                         shape="square"
                         src={`http://46.28.44.182:3002/${value.mb_image}`}
                         alt="img"
                         style={{
-                          width: "100%", // make the Avatar take the full width of its parent
-                          height: "100%", // make the Avatar take the full height of its parent
-                          objectFit: "cover", // maintain the aspect ratio
+                          width: "100%", 
+                          height: "100%", 
+                          objectFit: "cover", 
                         }}
                       />
                       <div className="hidden absolute inset-x-auto bottom-2 gap-4 group-hover:flex">
