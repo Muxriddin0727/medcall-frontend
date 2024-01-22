@@ -46,10 +46,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve:prod": "node node_modules/serve/bin/serve.js -s build",
-    "start:prod":  "serve -s build"
-
-    
+    "start:prod": "serve -s build -l tcp://46.28.44.182:3000"
   },
+  
   "eslintConfig": {
     "extends": [
       "react-app",
