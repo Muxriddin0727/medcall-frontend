@@ -26,6 +26,7 @@ export interface Appointment {
   _id: string;
   date: string;
   slots: {
+    doctor_id: any;
     _id: number;
     ref_id: string;
     start: string;
