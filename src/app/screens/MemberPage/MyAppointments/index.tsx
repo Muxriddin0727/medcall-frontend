@@ -90,11 +90,11 @@ const MyAppointments: FC = () => {
                       <Avatar
                         className="flex hover:scale-150"
                         size="large"
-                        src={`http://46.28.44.182:3002/${slot.doctor_id.mb_image}`}
+                        src={`http://46.28.44.182:3002/${slot.doctorImg}`}
                       />
                       <p className="font-semibold text-ccyan-500">
-                        Dr. {slot.doctor_id.mb_name}{" "}
-                        {slot.doctor_id.mb_last_name}
+                        Dr. {slot.doctorName}{" "}
+                        {slot.doctorLastname}
                       </p>
                     </div>
                     <div className="flex flex-col gap-1 mt-2">
