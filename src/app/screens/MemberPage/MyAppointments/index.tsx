@@ -29,7 +29,7 @@ const MyAppointments: FC = () => {
       })
         .then((response) => {
           console.log(response);
-          setAppointmentData(response.data.appointments);
+          setAppointmentData(response.data);
           setLoading(false);
         })
         .catch((error) => {
