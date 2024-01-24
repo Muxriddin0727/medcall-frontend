@@ -50,8 +50,9 @@ const MyAppointments: FC = () => {
           },
           pageSize: 2,
         }}
-        dataSource={appointmentData? [...appointmentData] : []}
-        renderItem={(item) =>
+        dataSource={appointmentData || []}
+
+        renderItem={(item: Appointment) =>
           loading ? (
             <Skeleton active />
           ) : (
