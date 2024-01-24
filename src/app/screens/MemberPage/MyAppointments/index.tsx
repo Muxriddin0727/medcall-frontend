@@ -29,7 +29,7 @@ const MyAppointments: FC = () => {
       })
         .then((response) => {
           console.log(response);
-          setAppointmentData(response.data.appointment_data);
+          setAppointmentData(response.data.appointments);
           setLoading(false);
         })
         .catch((error) => {
@@ -50,7 +50,7 @@ const MyAppointments: FC = () => {
           },
           pageSize: 2,
         }}
-        dataSource={appointmentData || []}
+        dataSource={appointmentData? [...appointmentData] : []}
         renderItem={(item) =>
           loading ? (
             <Skeleton active />
