@@ -147,6 +147,7 @@ const Book: FC = () => {
     }
   
     const slot_time = selectedSlot[0].start + '-' + selectedSlot[0].end; // Add this line
+    
   
     axios({
       url: `/client/create-appointment/${doctor_id}?date=${selectedDate}`,

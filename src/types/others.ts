@@ -42,6 +42,7 @@ export interface Appointment {
   appointment_data?: Appointment[]; // add this line
 };
 
+
 export type MainCardType = {
   _id: string;
   discount?: boolean;
