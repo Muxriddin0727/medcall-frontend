@@ -29,7 +29,7 @@ const MyAppointments: FC = () => {
       })
         .then((response) => {
           console.log(response);
-          setAppointmentData([response.data.appointment_data]);
+          setAppointmentData(response.data.appointment_data);
 
           setLoading(false);
         })
