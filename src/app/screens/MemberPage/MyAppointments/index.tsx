@@ -53,8 +53,12 @@ const MyAppointments: FC = () => {
         }}
         dataSource={appointmentData || []}
 
-        renderItem={(item: Appointment) =>
-          loading ? (
+        renderItem={(item: Appointment) => {
+          if (!item) {
+             return null;
+          }
+
+          return loading ? (
             <Skeleton active />
           ) : (
             item.slots &&
@@ -114,7 +118,7 @@ const MyAppointments: FC = () => {
               </List.Item>
             )
           )
-        }
+        }}
       />
     </div>
   );
