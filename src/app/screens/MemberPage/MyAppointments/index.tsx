@@ -52,17 +52,15 @@ const MyAppointments: FC = () => {
           pageSize: 2,
         }}
         dataSource={appointmentData || []}
-
         renderItem={(item: Appointment) => {
           if (!item) {
-             return null;
+            return null;
           }
 
           return loading ? (
             <Skeleton active />
           ) : (
-            item.slots &&
-            item.slots.length > 0 && (
+            item.slots && item.slots.length > 0 && (
               <List.Item
                 key={item.date}
                 actions={[
@@ -99,8 +97,7 @@ const MyAppointments: FC = () => {
                         src={`http://46.28.44.182:3002/${slot.doctorImg}`}
                       />
                       <p className="font-semibold text-ccyan-500">
-                        Dr. {slot.doctorName}{" "}
-                        {slot.doctorLastname}
+                        Dr. {slot.doctorName} {slot.doctorLastname}
                       </p>
                     </div>
                     <div className="flex flex-col gap-1 mt-2">
@@ -112,12 +109,18 @@ const MyAppointments: FC = () => {
                         <span className="font-semibold">Appointment Time:</span>{" "}
                         {slot.start} - {slot.end}
                       </p>
+                      {slot.ref_id && (
+                        <p>
+                          <span className="font-semibold">Reference ID:</span>{" "}
+                          {slot.ref_id}
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}
               </List.Item>
             )
-          )
+          );
         }}
       />
     </div>
