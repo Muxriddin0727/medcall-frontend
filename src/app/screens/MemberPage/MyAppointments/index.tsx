@@ -88,7 +88,7 @@ const MyAppointments: FC = () => {
                 }
               >
                 <List.Item.Meta />
-                {item.slots.map((slot, index) => (
+                {item.slots.filter(slot => Object.keys(slot).length !== 0).map((slot, index) => (
                   <div key={index} className="flex flex-col gap-4 mb-6">
                     <div className="flex items-center gap-4">
                       <Avatar
