@@ -37,7 +37,7 @@ const MyAppointments: FC = () => {
           console.error(error);
         });
     }
-  }, []);
+  }, [appointmentData]);
   console.log("appointmentData", appointmentData);
 
   return (
