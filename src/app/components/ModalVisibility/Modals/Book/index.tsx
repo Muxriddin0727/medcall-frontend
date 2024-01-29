@@ -8,10 +8,13 @@ import {
   Steps,
   DatePickerProps,
   Tag,
+  message,
 } from "antd";
 import { useReduxDispatch, useReduxSelector } from "../../../../hooks";
 import { setBookModal } from "../../../../redux/modalSlice";
 import { useAxios } from "../../../../customHooks/useAxios";
+import { sweetFailureProvider, sweetTopSmallSuccessAlert } from "../../../../../lib/sweetAlert";
+import { verifiedMemberData } from "../../../../api/verify";
 
 const Book: FC = () => {
   const axios = useAxios();
@@ -19,9 +22,7 @@ const Book: FC = () => {
   const dispatch = useReduxDispatch();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedDate, setSelectedDate] = useState<any>(null);
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [slots, setSlots] = useState<any>([]);
-
 
   const doctor_id =
     window.location.href.split("/")[window.location.href.split("/").length - 1];
@@ -50,7 +51,8 @@ const Book: FC = () => {
                     });
                     console.log("data:", data.data.slots);
                     setSlots(data.data.slots);
-                    setCurrentStep(currentStep + 1);                  }}
+                    setCurrentStep(currentStep + 1);
+                  }}
                 >
                   Next
                 </Button>
@@ -65,34 +67,29 @@ const Book: FC = () => {
         currentStep === 1 ? (
           <div>
             {slots?.map((value: any) => (
-              <Tag
-              key = {value._id}
-                className="cursor-pointer m-2"
-                color={`${
-                  value.ref_id
-                    ? "deafault"
-                    : value.isSelected
-                    ? "processing"
-                    : "success"
-                }`}
-                onClick={() =>
-                  !value.isSelected &&
-                  setSlots(
-                    slots.map((slotValue: any) =>
-                      slotValue._id === value._id
-                        ? { ...slotValue, isSelected: true }
-                        : {
-                            _id: slotValue._id,
-                            ref_id: slotValue.ref_id,
-                            start: slotValue.start,
-                            end: slotValue.end,
-                          }
-                    )
-                  )
-                }
-              >
-                {value.start} - {value.end}
-              </Tag>
+             <Tag
+             key={value._id}
+             className="cursor-pointer m-2"
+             color={`${
+               value.ref_id
+                 ? "deafault"
+                 : value.isSelected
+                 ? "processing"
+                 : "success"
+             }`}
+             onClick={() =>
+               !value.isSelected &&
+               setSlots(
+                 slots.map((slotValue: any) =>
+                   slotValue._id === value._id
+                     ? { ...slotValue, isSelected: true }
+                     : { ...slotValue, isSelected: false } // Reset isSelected for other slots
+                 )
+               )
+             }
+           >
+             {value.start} - {value.end}
+           </Tag>
             ))}
             <div className="steps-action">
               {currentStep < steps.length - 1 && (
@@ -123,7 +120,6 @@ const Book: FC = () => {
           </div>
         ) : null,
     },
-   
   ];
 
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
@@ -144,16 +140,25 @@ const Book: FC = () => {
 
   const submit = () => {
     const selectedSlot = slots.filter((value: any) => value.isSelected);
-
+    console.log(`selectedSlot: ${JSON.stringify(selectedSlot)}`);
+    if (selectedSlot.length === 0) {
+      sweetFailureProvider("Please select at least one slot", true);
+      return;
+    }
+  
+    const slot_time = selectedSlot[0].start + '-' + selectedSlot[0].end; // Add this line
+  
     axios({
       url: `/client/create-appointment/${doctor_id}?date=${selectedDate}`,
       method: "POST",
       body: {
         slot_id: selectedSlot[0]._id,
         mem_id: JSON.parse(String(localStorage.getItem("member_data")))._id,
+        slot_time: slot_time, // Use the slot_time variable here
       },
     }).then((res) => {
       dispatch(setBookModal());
+      sweetTopSmallSuccessAlert(" Appointment Created Successfully");
     });
   };
 
