@@ -1,10 +1,21 @@
 import { FC, useEffect, useState } from "react";
-import { PushpinFilled, EnvironmentFilled } from "@ant-design/icons";
+import { Empty, Button } from "antd";
+import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
 import React from "react";
-import { Avatar, List, Space, Skeleton } from "antd";
+import { Avatar, List, Space } from "antd";
 import { Blog } from "../../../../types/blogs";
 import { useAxios } from "../../../customHooks/useAxios";
 import { Appointment } from "../../../../types/others";
+
+const data = Array.from({ length: 23 }).map((_, i) => ({
+  href: "https://ant.design",
+  title: `ant design part ${i}`,
+  avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${i}`,
+  description:
+    "Ant Design, a design language for background applications, is refined by Ant UED Team.",
+  content:
+    "We supply a series of design principles, practical patterns and high quality design resources ",
+}));
 
 const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
   <Space>
@@ -16,10 +27,8 @@ const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
 const MyAppointments: FC = () => {
   const [appointmentData, setAppointmentData] = useState<Appointment[]>([]);
   const axios = useAxios();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     const memberData = localStorage.getItem("member_data");
     if (memberData) {
       const parsedData = JSON.parse(memberData);
@@ -29,9 +38,7 @@ const MyAppointments: FC = () => {
       })
         .then((response) => {
           console.log(response);
-          setAppointmentData(response.data.appointment_data);
-
-          setLoading(false);
+          setAppointmentData(response.data.appointments);
         })
         .catch((error) => {
           console.error(error);
@@ -41,89 +48,59 @@ const MyAppointments: FC = () => {
   console.log("appointmentData", appointmentData);
 
   return (
-    <div className="flex justify-center">
-      <List
-        itemLayout="vertical"
-        size="large"
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          pageSize: 2,
-        }}
-        dataSource={appointmentData || []}
-        renderItem={(item: Appointment) => {
-          if (!item) {
-            return null;
+    <List
+      itemLayout="vertical"
+      size="large"
+      pagination={{
+        onChange: (page) => {
+          console.log(page);
+        },
+        pageSize: 3,
+      }}
+      dataSource={appointmentData ? [...appointmentData] : []}
+      footer={
+        <div>
+          <b>ant design</b> footer part
+        </div>
+      }
+      renderItem={(item) => (
+        <List.Item
+          key={item.date}
+          actions={[
+            <IconText
+              icon={StarOutlined}
+              text="156"
+              key="list-vertical-star-o"
+            />,
+            <IconText
+              icon={LikeOutlined}
+              text="156"
+              key="list-vertical-like-o"
+            />,
+            <IconText
+              icon={MessageOutlined}
+              text="2"
+              key="list-vertical-message"
+            />,
+          ]}
+          extra={
+            <img
+              width={272}
+              alt="logo"
+              src="https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg"
+            />
           }
-
-          return loading ? (
-            <Skeleton active />
-          ) : (
-            item.slots && item.slots.length > 0 && (
-              <List.Item
-                key={item.date}
-                actions={[
-                  <div className="flex flex-col  space-y-[-20px] ">
-                    <IconText
-                      icon={PushpinFilled}
-                      text="Office Hours: 8.00 - 19.30"
-                      key="list-vertical-star-o"
-                    />
-                    ,
-                    <IconText
-                      icon={EnvironmentFilled}
-                      text="101 DAEHAK-RO JONGNO-GU, SEOUL  (서울시 종로구 대학로 101, 연건동)"
-                      key="list-vertical-like-o"
-                    />
-                    ,
-                  </div>,
-                ]}
-                extra={
-                  <img
-                    width={272}
-                    alt="logo"
-                    src="https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg"
-                  />
-                }
-              >
-                <List.Item.Meta />
-                {Array.isArray(item.slots) && item.slots.filter(slot => Object.keys(slot).length !== 0).map((slot, index) => (
-                  <div key={index} className="flex flex-col gap-4 mb-6">
-                    <div className="flex items-center gap-4">
-                      <Avatar
-                        className="flex hover:scale-150"
-                        size="large"
-                        src={`http://46.28.44.182:3002/${slot.doctorImg}`}
-                      />
-                      <p className="font-semibold text-ccyan-500">
-                        Dr. {slot.doctorName} {slot.doctorLastname}
-                      </p>
-                    </div>
-                    <div className="flex flex-col gap-1 mt-2">
-                      <p>
-                        <span className="font-semibold">Appointment Date:</span>{" "}
-                        {item.date}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Appointment Time:</span>{" "}
-                        {slot.start} - {slot.end}
-                      </p>
-                      {slot.ref_id && (
-                        <p>
-                          <span className="font-semibold">Reference ID:</span>{" "}
-                          {slot.ref_id}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </List.Item>
-            )
-          );
-        }}
-      />
-    </div>
+        >
+          <List.Item.Meta description={item.date} />
+          {item.slots.map((slot, index) => (
+            <div key={index}>
+              <p>{slot.doctorName}</p>
+              <p>{slot.patientName}</p>
+            </div>
+          ))}
+        </List.Item>
+      )}
+    />
   );
 };
 
