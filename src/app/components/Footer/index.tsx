@@ -29,7 +29,7 @@ const Footer: FC = () => {
             </div>
           </div>
         </div>
-        <div className=" w-[90%] flex items-center justify-between mx-auto p-[23px] max-sm:flex-col max-sm:gap-4 max-md:flex-row">
+        <div className=" w-[90%] flex items-center justify-between mx-auto p-[23px]  max-md:flex-row">
           <div className="flex flex-col gap-2.5">
             <h3 className="font-bold">Clinic Info</h3>
             <p className="font-light cursor-pointer"> Contact</p>
