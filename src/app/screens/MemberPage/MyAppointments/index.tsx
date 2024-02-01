@@ -93,7 +93,7 @@ const MyAppointments: FC = () => {
               <div key={index} className="flex flex-col gap-4 mb-6">
                 <Avatar
                   size= "large"
-                  src={slot.doctorImg}
+                  src={`http://46.28.44.182:3002/${slot.doctorImg}`}
                 />
                 <p>
                   With: Dr. {slot.doctorName} {slot.doctorLastname}
