@@ -93,7 +93,7 @@ const MyAppointments: FC = () => {
               <div key={index} className="flex flex-col gap-4 mb-6">
                 <Avatar
                   size= "large"
-                  src={`http://localhost:3002/${slot.doctorImg}`} // replace with the actual doctor's image
+                  src={`http://46.28.44.182:3002/${slot.doctorImg}`} // replace with the actual doctor's image
                 />
                 <p>
                   With: Dr. {slot.doctorName} {slot.doctorLastname} // replace with the actual doctor's name
@@ -115,5 +115,3 @@ const MyAppointments: FC = () => {
 };
 
 export default MyAppointments;
-
-
