@@ -37,7 +37,7 @@ const Feedbacks: FC = () => {
           and personalized care on their well-being.
         </p>
       </div>
-      <div className="w-[90%] m-auto mt-2 pb-20 grid md:grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="w-[90%] justify-center m-auto mt-2 pb-20 grid md:grid-cols-1 lg:grid-cols-3 gap-12">
         {comments.map((comment: Comment, index: number) => (
           <div
             key={index}

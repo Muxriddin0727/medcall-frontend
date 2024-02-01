@@ -6,7 +6,7 @@ const Footer: FC = () => {
   return (
     <div>
       <div className="bg-[#f5f5f5] mt-10 ">
-        <div className="flex justify-between  bg-[#20f2e41a] p-[23px] max-lg:flex-col max-lg:items-center gap-2.5">
+        <div className="flex justify-between  bg-[#20f2e41a] p-[23px] max-lg:flex-col max-lg:items-center gap-2.5 max-md:justify-center">
           <img
             src="/images/logo1.png"
             alt="logo"
@@ -29,7 +29,7 @@ const Footer: FC = () => {
             </div>
           </div>
         </div>
-        <div className=" w-[90%] flex items-center justify-between mx-auto p-[23px] max-sm:flex-col max-sm:gap-4">
+        <div className=" w-[90%] flex items-center justify-between mx-auto p-[23px] max-sm:flex-col max-sm:gap-4 max-md:justify-center">
           <div className="flex flex-col gap-2.5">
             <h3 className="font-bold">Clinic Info</h3>
             <p className="font-light cursor-pointer"> Contact</p>
