@@ -22,7 +22,7 @@ const contentStyle: React.CSSProperties = {
 
 const Welcome: FC = () => {
   return (
-    <div className="h-fit bg-cover bg-[url(https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg)] relative max-md:h-250">
+    <div className="h-fit bg-cover bg-[url(https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg)] relative max-md:h-200">
       <div className="absolute w-full h-full bg-black opacity-40 z-[1]"></div>
       <div className="relative z-10 py-[185px]">
         <h1 className="text-[64px] text-white font-bold text-center max-md:text-[30px]">
