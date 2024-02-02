@@ -32,10 +32,12 @@ const userSlice = createSlice({
     },
 
     setTokenExpired(state) {
+      console.log('Token has expired, logging out user...'); // Debugging statement
       state.member_data = null;
       localStorage.removeItem("member_data");
       localStorage.removeItem("token");
-    },
+     },
+     
 
     setSignup(state, { payload }) {
       state.member_data = payload;
