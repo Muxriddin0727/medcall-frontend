@@ -33,7 +33,7 @@ const Welcome: FC = () => {
           inpatient, outpatient and emergency care services in addition to many
           specialty services.
         </p>
-        <div className=" w-full mt-[135px] h-[165px] bg-gray-200 bg-opacity-60 grid grid-cols-3 gap-4 max-md:grid-cols-1  max-md:h-20 ">
+        <div className=" w-full mt-[135px] h-[165px] bg-gray-200 bg-opacity-60 grid grid-cols-3 gap-4 max-md:grid-cols-1  max-md:h-50 ">
           <div className="w-[33%] m-auto my-6 h-24 max-md:hidden">
             <Carousel
               autoplay
@@ -43,7 +43,7 @@ const Welcome: FC = () => {
             >
               <div className="w-full m-auto flex   items-center justify-center  ">
                 <SettingTwoTone
-                  className=""
+                  className="text-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -51,6 +51,7 @@ const Welcome: FC = () => {
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ClockCircleTwoTone
+                className="text-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -58,6 +59,7 @@ const Welcome: FC = () => {
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ExclamationCircleTwoTone
+                className="text-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -77,6 +79,7 @@ const Welcome: FC = () => {
             >
               <div className=" flex h-[150px] items-center justify-center ">
                 <SafetyCertificateTwoTone
+                className="text-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -84,6 +87,7 @@ const Welcome: FC = () => {
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ContactsTwoTone
+                className="text-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -93,6 +97,7 @@ const Welcome: FC = () => {
               </div>
               <div className=" flex h-[150px] items-center justify-center">
                 <CrownTwoTone
+                className="text-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -110,6 +115,7 @@ const Welcome: FC = () => {
             >
               <div className=" flex h-[150px] items-center justify-center ">
                 <StarTwoTone
+                className="text-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -117,6 +123,7 @@ const Welcome: FC = () => {
               </div>
               <div className="flex h-[150px] items-center justify-center ">
                 <ExperimentTwoTone
+                className="text-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -126,6 +133,7 @@ const Welcome: FC = () => {
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <SecurityScanTwoTone
+                className="text-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
