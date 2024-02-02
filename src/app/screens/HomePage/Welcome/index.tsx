@@ -22,7 +22,7 @@ const contentStyle: React.CSSProperties = {
 
 const Welcome: FC = () => {
   return (
-    <div className="h-fit bg-cover bg-[url(https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg)] relative ">
+    <div className="h-fit bg-cover bg-[url(https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg)] relative max-md:h-[70%]">
       <div className="absolute w-full h-full bg-black opacity-40 z-[1]"></div>
       <div className="relative z-10 py-[185px]">
         <h1 className="text-[64px] text-white font-bold text-center max-md:text-[30px]">
@@ -33,7 +33,7 @@ const Welcome: FC = () => {
           inpatient, outpatient and emergency care services in addition to many
           specialty services.
         </p>
-        <div className=" w-full mt-[135px] h-[165px] bg-gray-200 bg-opacity-60 grid grid-cols-3 gap-4 max-md:grid-cols-1  max-md:h-auto ">
+        <div className=" w-full mt-[135px] h-[165px] bg-gray-200 bg-opacity-60 grid grid-cols-3 gap-4 max-md:grid-cols-1  max-md:h-fit ">
           <div className="w-[33%] m-auto my-6 h-24 max-md:hidden">
             <Carousel
               autoplay
@@ -47,14 +47,14 @@ const Welcome: FC = () => {
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className=" my-2 text-red-950 font-semibold" > Latest Technologies</h3>
+                <h3 className=" my-2 text-red-950 font-semibold" > Latest Technologies & Equipments</h3>
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ClockCircleTwoTone
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold">Fast & Flex Service</h3>
+                <h3 className="my-2 text-red-950 font-semibold">Fast and Flex Service</h3>
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ExclamationCircleTwoTone
@@ -80,7 +80,7 @@ const Welcome: FC = () => {
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold"> Experienced Doctors</h3>
+                <h3 className="my-2 text-red-950 font-semibold"> Experienced Doctors & Professionals</h3>
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ContactsTwoTone
@@ -88,7 +88,7 @@ const Welcome: FC = () => {
                   style={{ fontSize: "6em" }}
                 />
                 <h3 className="my-2 text-red-950 font-semibold">
-                  Medical Advices & Check Ups
+                  Medical Advices and Check Ups
                 </h3>
               </div>
               <div className=" flex h-[150px] items-center justify-center">
@@ -96,7 +96,7 @@ const Welcome: FC = () => {
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold">Cutting Edge Facility</h3>
+                <h3 className="my-2 text-red-950 font-semibold">Cutting Edge Facility and Rooms</h3>
               </div>
             </Carousel>
           </div>
@@ -113,7 +113,7 @@ const Welcome: FC = () => {
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold">Customer Satisfaction</h3>
+                <h3 className="my-2 text-red-950 font-semibold">Customer Satisfaction & Best Rating</h3>
               </div>
               <div className="flex h-[150px] items-center justify-center ">
                 <ExperimentTwoTone
@@ -121,7 +121,7 @@ const Welcome: FC = () => {
                   style={{ fontSize: "6em" }}
                 />
                 <h3 className="my-2 text-red-950 font-semibold">
-                  Medical Treatment Surgery
+                  Medical Surgery & Consulting
                 </h3>
               </div>
               <div className=" flex h-[150px] items-center justify-center ">

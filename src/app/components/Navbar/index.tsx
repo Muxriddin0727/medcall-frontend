@@ -14,7 +14,6 @@ const Navbar: FC = (props: any) => {
   const dispatch = useReduxDispatch();
   const { member_data } = useReduxSelector((state) => state.user);
   const navigate = useNavigate();
-  const checkTokenValidity = useCheckTokenValidity();
 
   return (
     <div className="w-[90%] m-auto max-sm:px-[10px] ">
