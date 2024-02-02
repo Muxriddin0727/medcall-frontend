@@ -10,7 +10,7 @@ const Footer: FC = () => {
           <img
             src="/images/logo1.png"
             alt="logo"
-            className="w-30 cursor-pointer ml-16 "
+            className="w-30 cursor-pointer ml-16 max-md:hidden "
           />
           <div className="flex gap-2.5 items-center ">
             <img className="w-5 h-5" src="/icons/location.png" alt="location" />
@@ -36,7 +36,7 @@ const Footer: FC = () => {
             <p className="font-light cursor-pointer">Address</p>
             <p className="font-light cursor-pointer">About Us</p>
           </div>
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-2.5 max-md:hidden">
             <h3 className="font-bold">Services</h3>
             <p className="font-light cursor-pointer">Appointments</p>
             <p className="font-light cursor-pointer">Emergancy Calls</p>
