@@ -33,7 +33,7 @@ const Welcome: FC = () => {
           inpatient, outpatient and emergency care services in addition to many
           specialty services.
         </p>
-        <div className=" w-full mt-[135px] h-[165px] bg-gray-200 bg-opacity-60 grid grid-cols-3 gap-4 max-md:grid-cols-1  max-md:h-fit ">
+        <div className=" w-full mt-[135px] h-[165px] bg-gray-200 bg-opacity-60 grid grid-cols-3 gap-4 max-md:grid-cols-1  max-md:h-20 ">
           <div className="w-[33%] m-auto my-6 h-24 max-md:hidden">
             <Carousel
               autoplay
@@ -47,21 +47,21 @@ const Welcome: FC = () => {
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className=" my-2 text-red-950 font-semibold" > Latest Technologies & Equipments</h3>
+                <h3 className=" my-2 text-red-950 font-semibold text-center" > Latest Technologies & Equipments</h3>
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ClockCircleTwoTone
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold">Fast and Flex Service</h3>
+                <h3 className="my-2 text-red-950 font-semibold text-center">Fast and Flex Service</h3>
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ExclamationCircleTwoTone
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold">
+                <h3 className="my-2 text-red-950 font-semibold text-center">
                   Emergency Help Available 24/7
                 </h3>
               </div>
@@ -80,14 +80,14 @@ const Welcome: FC = () => {
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold"> Experienced Doctors & Professionals</h3>
+                <h3 className="my-2 text-red-950 font-semibold text-center"> Experienced Doctors & Professionals</h3>
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ContactsTwoTone
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold">
+                <h3 className="my-2 text-red-950 font-semibold text-center">
                   Medical Advices and Check Ups
                 </h3>
               </div>
@@ -96,7 +96,7 @@ const Welcome: FC = () => {
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold">Cutting Edge Facility and Rooms</h3>
+                <h3 className="my-2 text-red-950 font-semibold text-center">Cutting Edge Facility and Rooms</h3>
               </div>
             </Carousel>
           </div>
@@ -113,14 +113,14 @@ const Welcome: FC = () => {
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold">Customer Satisfaction & Best Rating</h3>
+                <h3 className="my-2 text-red-950 font-semibold text-center">Customer Satisfaction & Best Rating</h3>
               </div>
               <div className="flex h-[150px] items-center justify-center ">
                 <ExperimentTwoTone
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold">
+                <h3 className="my-2 text-red-950 font-semibold text-center">
                   Medical Surgery & Consulting
                 </h3>
               </div>
@@ -129,7 +129,7 @@ const Welcome: FC = () => {
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
-                <h3 className="my-2 text-red-950 font-semibold">
+                <h3 className="my-2 text-red-950 font-semibold text-center">
                   Diagnosis and Investigation
                 </h3>
               </div>
