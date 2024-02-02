@@ -25,27 +25,28 @@ import { Definer } from "../../../../../lib/Definer";
 import assert from "assert";
 import { verifiedMemberData } from "../../../../api/verify";
 
-const NewMessage = (data: ChatMessage) => {
-  const isCurrentUser =
-    verifiedMemberData && data.new_message.mb_id === verifiedMemberData._id;
-  console.log("isCurrentUser", isCurrentUser);
-  console.log("data.new_message", data);
+interface MessageProps {
+  mb_id: string;
+  mb_name: string;
+  mb_image: string;
+  msg: string;
+}
+
+const NewMessage: FC<MessageProps> = ({ mb_id, mb_name, mb_image, msg }) => {
+  const isCurrentUser = verifiedMemberData && mb_id === verifiedMemberData._id;
   return (
     <div
       className={`flex ${
         isCurrentUser ? "flex-row-reverse" : "flex-row"
-      } gap-3  m-2.5`}
+      } gap-3 m-2.5`}
     >
       {isCurrentUser && (
-        <Avatar
-          alt={data.new_message.mb_name}
-          src={data.new_message.mb_image || "icons/default_user.png"}
-        />
+        <Avatar alt={mb_name} src={mb_image || "icons/default_user.png"} />
       )}
       <div
         className={`message-bubble ${isCurrentUser ? "msg_right" : "msg_left"}`}
       >
-        {data.new_message.msg}
+        {msg}
       </div>
     </div>
   );
@@ -54,7 +55,7 @@ const NewMessage = (data: ChatMessage) => {
 const Chat: FC = () => {
   const { chatModal } = useReduxSelector((state) => state.modal);
   const dispatch = useReduxDispatch();
-  const [messageLists, setMessageLists] = useState([]);
+  const [messageLists, setMessageLists] = useState<JSX.Element[]>([]);
   const socket = useContext(SocketContext);
   const [onlineUsers, setOnlineUsers] = useState<number>(0);
   const textInput: any = useRef(null);
@@ -209,20 +210,24 @@ const Chat: FC = () => {
       console.log("CLIENT: connected");
     });
 
-    socket.on("newMsg", (new_message: ChatMessage) => {
+    socket.on("newMsg", (new_message: MessageProps) => {
       console.log("CLIENT: new message");
-      messageLists.push(
-        // @ts-ignore
-        <NewMessage new_message={new_message} key={messageLists.length} />
-      );
-
-      setMessageLists([...messageLists]);
+      setMessageLists((prevMessages) => [
+        ...prevMessages,
+        <NewMessage
+          mb_id={new_message.mb_id}
+          mb_name={new_message.mb_name}
+          mb_image={new_message.mb_image}
+          msg={new_message.msg}
+          key={prevMessages.length}
+        />,
+      ]);
     });
 
     socket.on("greetMsg", (msg: ChatGreetMsg) => {
       console.log("CLIENT: greet message");
-      messageLists.push(
-        // @ts-ignore
+      setMessageLists((prevMessages) => [
+        ...prevMessages,
         <Tag
           color="cyan"
           style={{
@@ -233,9 +238,8 @@ const Chat: FC = () => {
           }}
         >
           {msg.text}, dear {verifiedMemberData?.mb_name ?? "guest"}
-        </Tag>
-      );
-      setMessageLists([...messageLists]);
+        </Tag>,
+      ]);
     });
 
     socket?.on("infoMsg", (msg: ChatInfoMsg) => {
