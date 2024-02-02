@@ -22,7 +22,7 @@ const contentStyle: React.CSSProperties = {
 
 const Welcome: FC = () => {
   return (
-    <div className="h-fit bg-cover bg-[url(https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg)] relative max-md:h-[70%]">
+    <div className="h-fit bg-cover bg-[url(https://www.pepperconstruction.com/sites/default/files/images/community-east-hospital-teg-architects-810_3138.jpg)] relative max-md:h-250">
       <div className="absolute w-full h-full bg-black opacity-40 z-[1]"></div>
       <div className="relative z-10 py-[185px]">
         <h1 className="text-[64px] text-white font-bold text-center max-md:text-[30px]">
@@ -43,7 +43,7 @@ const Welcome: FC = () => {
             >
               <div className="w-full m-auto flex   items-center justify-center  ">
                 <SettingTwoTone
-                  className="flex items-center"
+                  className="flex justify-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -59,7 +59,7 @@ const Welcome: FC = () => {
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ExclamationCircleTwoTone
-                className="text-center"
+                className="flex justify-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -79,7 +79,7 @@ const Welcome: FC = () => {
             >
               <div className=" flex h-[150px] items-center justify-center ">
                 <SafetyCertificateTwoTone
-                className="text-center"
+                className="flex justify-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -87,7 +87,7 @@ const Welcome: FC = () => {
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <ContactsTwoTone
-                className="text-center"
+                className="flex justify-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -97,7 +97,7 @@ const Welcome: FC = () => {
               </div>
               <div className=" flex h-[150px] items-center justify-center">
                 <CrownTwoTone
-                className="text-center"
+                className="flex justify-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -115,7 +115,7 @@ const Welcome: FC = () => {
             >
               <div className=" flex h-[150px] items-center justify-center ">
                 <StarTwoTone
-                className="text-center"
+                className="flex justify-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -123,7 +123,7 @@ const Welcome: FC = () => {
               </div>
               <div className="flex h-[150px] items-center justify-center ">
                 <ExperimentTwoTone
-                className="text-center"
+                className="flex justify-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
@@ -133,7 +133,7 @@ const Welcome: FC = () => {
               </div>
               <div className=" flex h-[150px] items-center justify-center ">
                 <SecurityScanTwoTone
-                className="text-center"
+                className="flex justify-center"
                   twoToneColor="#06B6D4"
                   style={{ fontSize: "6em" }}
                 />
