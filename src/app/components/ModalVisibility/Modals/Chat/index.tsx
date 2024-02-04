@@ -203,6 +203,9 @@ const Chat: FC = () => {
   };
 
   useEffect(() => {
+    console.log('Initial messageLists state:', messageLists);
+    console.log('Chat component mounted');
+    console.log('Redux chatModal state:', chatModal);
     socket.connect();
     console.log("Socket connection initiated");
    
@@ -257,6 +260,7 @@ const Chat: FC = () => {
    
     return () => {
        socket.disconnect();
+       console.log('Chat component unmounted');
     };
    }, [socket]);
    
