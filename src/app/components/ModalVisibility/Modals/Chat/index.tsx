@@ -204,54 +204,62 @@ const Chat: FC = () => {
 
   useEffect(() => {
     socket.connect();
-    console.log("Printed");
-
+    console.log("Socket connection initiated");
+   
     socket?.on("connect", function () {
-      console.log("CLIENT: connected");
+       console.log("CLIENT: connected");
     });
-
+   
     socket.on("newMsg", (new_message: MessageProps) => {
-      console.log("CLIENT: new message");
-      setMessageLists((prevMessages) => [
-        ...prevMessages,
-        <NewMessage
-          mb_id={new_message.mb_id}
-          mb_name={new_message.mb_name}
-          mb_image={new_message.mb_image}
-          msg={new_message.msg}
-          key={prevMessages.length}
-        />,
-      ]);
+       console.log("CLIENT: new message received", new_message);
+       setMessageLists((prevMessages) => {
+         const updatedMessages = [
+           ...prevMessages,
+           <NewMessage
+             mb_id={new_message.mb_id}
+             mb_name={new_message.mb_name}
+             mb_image={new_message.mb_image}
+             msg={new_message.msg}
+             key={prevMessages.length}
+           />,
+         ];
+         console.log("Updated messages list:", updatedMessages);
+         return updatedMessages;
+       });
     });
-
+   
     socket.on("greetMsg", (msg: ChatGreetMsg) => {
-      console.log("CLIENT: greet message");
-      setMessageLists((prevMessages) => [
-        ...prevMessages,
-        <Tag
-          color="cyan"
-          style={{
-            width: "50%",
-            textAlign: "start",
-            fontSize: "large",
-            fontFamily: "serif",
-          }}
-        >
-          {msg.text}, dear {verifiedMemberData?.mb_name ?? "guest"}
-        </Tag>,
-      ]);
+       console.log("CLIENT: greet message received", msg);
+       setMessageLists((prevMessages) => {
+         const updatedMessages = [
+           ...prevMessages,
+           <Tag
+             color="cyan"
+             style={{
+               width: "50%",
+               textAlign: "start",
+               fontSize: "large",
+               fontFamily: "serif",
+             }}
+           >
+             {msg.text}, dear {verifiedMemberData?.mb_name ?? "guest"}
+           </Tag>,
+         ];
+         console.log("Updated messages list with greet message:", updatedMessages);
+         return updatedMessages;
+       });
     });
-
+   
     socket?.on("infoMsg", (msg: ChatInfoMsg) => {
-      console.log("CLIENT: info message");
-
-      setOnlineUsers(msg.total);
+       console.log("CLIENT: info message received", msg);
+       setOnlineUsers(msg.total);
     });
-
+   
     return () => {
-      socket.disconnect();
+       socket.disconnect();
     };
-  }, [socket]);
+   }, [socket]);
+   
 
   /** HANDLERS **/
   const getInputMessageHandler = useCallback(
