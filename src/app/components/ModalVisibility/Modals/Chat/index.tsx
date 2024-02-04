@@ -263,6 +263,8 @@ const Chat: FC = () => {
        console.log('Chat component unmounted');
     };
    }, [socket]);
+
+   console.log('Rendering Chat component with messageLists:', messageLists);
    
 
   /** HANDLERS **/
