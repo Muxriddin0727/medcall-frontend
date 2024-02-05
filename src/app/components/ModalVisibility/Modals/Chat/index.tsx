@@ -54,7 +54,7 @@ const NewMessage: FC<MessageProps> = ({ mb_id, mb_name, mb_image, msg }) => {
 
 const Chat: FC = () => {
   const { chatModal } = useReduxSelector((state) => state.modal);
-  const [hasReceivedGreeting, setHasReceivedGreeting] = useState(false);
+
   const dispatch = useReduxDispatch();
   const [messageLists, setMessageLists] = useState<JSX.Element[]>([]);
   const socket = useContext(SocketContext);
@@ -204,70 +204,65 @@ const Chat: FC = () => {
   };
 
   useEffect(() => {
-    console.log('Initial messageLists state:', messageLists);
-    console.log('Chat component mounted');
-    console.log('Redux chatModal state:', chatModal);
+    console.log("Initial messageLists state:", messageLists);
+    console.log("Chat component mounted");
+    console.log("Redux chatModal state:", chatModal);
     socket.connect();
     console.log("Socket connection initiated");
-   
-    socket?.on("connect", function () {
-       console.log("CLIENT: connected");
-    });
-   
-    socket.on("newMsg", (new_message: MessageProps) => {
-       console.log("CLIENT: new message received", new_message);
-       setMessageLists((prevMessages) => {
-         const updatedMessages = [
-           ...prevMessages,
-           <NewMessage
-             mb_id={new_message.mb_id}
-             mb_name={new_message.mb_name}
-             mb_image={new_message.mb_image}
-             msg={new_message.msg}
-             key={prevMessages.length}
-           />,
-         ];
-         console.log("Updated messages list:", updatedMessages);
-         return updatedMessages;
-       });
-    });
-   
-    socket.on("greetMsg", (msg: ChatGreetMsg) => {
-       console.log("CLIENT: greet message received", msg);
-       setHasReceivedGreeting(true);
-       setMessageLists((prevMessages) => {
-         const updatedMessages = [
-           ...prevMessages,
-           <Tag
-             color="cyan"
-             style={{
-               width: "50%",
-               textAlign: "start",
-               fontSize: "large",
-               fontFamily: "serif",
-             }}
-           >
-             {msg.text}, dear {verifiedMemberData?.mb_name ?? "guest"}
-           </Tag>,
-         ];
-         console.log("Updated messages list with greet message:", updatedMessages);
-         return updatedMessages;
-       });
-    });
-   
-    socket?.on("infoMsg", (msg: ChatInfoMsg) => {
-       console.log("CLIENT: info message received", msg);
-       setOnlineUsers(msg.total);
-    });
-   
-    return () => {
-       socket.disconnect();
-       console.log('Chat component unmounted');
-    };
-   }, [socket]);
 
-   console.log('Rendering Chat component with messageLists:', messageLists);
-   
+    socket?.on("connect", function () {
+      console.log("CLIENT: connected");
+    });
+
+    socket.on("newMsg", (new_message: MessageProps) => {
+      console.log("CLIENT: new message received", new_message);
+      setMessageLists((prevMessages) => {
+        const updatedMessages = [
+          ...prevMessages,
+          <NewMessage
+            mb_id={new_message.mb_id}
+            mb_name={new_message.mb_name}
+            mb_image={new_message.mb_image}
+            msg={new_message.msg}
+            key={prevMessages.length}
+          />,
+        ];
+        console.log("Updated messages list:", updatedMessages);
+        return updatedMessages;
+      });
+    });
+
+    socket.on("greetMsg", (msg: ChatGreetMsg) => {
+      console.log("CLIENT: greet message received", msg);
+      messageLists.push(
+        <Tag
+          color="cyan"
+          style={{
+            width: "50%",
+            textAlign: "start",
+            fontSize: "large",
+            fontFamily: "serif",
+          }}
+        >
+          {msg.text}, dear {verifiedMemberData?.mb_name ?? "guest"}
+        </Tag>
+      );
+
+      setMessageLists([...messageLists]);
+    });
+
+    socket?.on("infoMsg", (msg: ChatInfoMsg) => {
+      console.log("CLIENT: info message received", msg);
+      setOnlineUsers(msg.total);
+    });
+
+    return () => {
+      socket.disconnect();
+      console.log("Chat component unmounted");
+    };
+  }, [socket]);
+
+  console.log("Rendering Chat component with messageLists:", messageLists);
 
   /** HANDLERS **/
   const getInputMessageHandler = useCallback(
@@ -327,14 +322,8 @@ const Chat: FC = () => {
       title="Chat"
       open={chatModal}
       footer={false}
-      onCancel={() => {dispatch(setChatModal())
-        setHasReceivedGreeting(false)
-      }}
+      onCancel={() => dispatch(setChatModal())}
     >
-       {!hasReceivedGreeting && <div>Loading...</div>}
-
-       {hasReceivedGreeting && (
-        <>
       <div className="flex justify-center items-center   text-3xl font-semibold text-black">
         Live Chat
         <Badge count={onlineUsers} style={{ marginLeft: 20 }} />
@@ -375,8 +364,6 @@ const Chat: FC = () => {
           icon={<SendOutlined className=" flex justify-center w-8" />}
         />
       </div>
-      </>
-       )}
     </Modal>
   );
 };
