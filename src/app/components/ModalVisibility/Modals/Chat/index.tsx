@@ -54,6 +54,7 @@ const NewMessage: FC<MessageProps> = ({ mb_id, mb_name, mb_image, msg }) => {
 
 const Chat: FC = () => {
   const { chatModal } = useReduxSelector((state) => state.modal);
+  const [hasReceivedGreeting, setHasReceivedGreeting] = useState(false);
   const dispatch = useReduxDispatch();
   const [messageLists, setMessageLists] = useState<JSX.Element[]>([]);
   const socket = useContext(SocketContext);
@@ -233,6 +234,7 @@ const Chat: FC = () => {
    
     socket.on("greetMsg", (msg: ChatGreetMsg) => {
        console.log("CLIENT: greet message received", msg);
+       setHasReceivedGreeting(true);
        setMessageLists((prevMessages) => {
          const updatedMessages = [
            ...prevMessages,
@@ -325,8 +327,14 @@ const Chat: FC = () => {
       title="Chat"
       open={chatModal}
       footer={false}
-      onCancel={() => dispatch(setChatModal())}
+      onCancel={() => {dispatch(setChatModal())
+        setHasReceivedGreeting(false)
+      }}
     >
+       {!hasReceivedGreeting && <div>Loading...</div>}
+
+       {hasReceivedGreeting && (
+        <>
       <div className="flex justify-center items-center   text-3xl font-semibold text-black">
         Live Chat
         <Badge count={onlineUsers} style={{ marginLeft: 20 }} />
@@ -367,6 +375,8 @@ const Chat: FC = () => {
           icon={<SendOutlined className=" flex justify-center w-8" />}
         />
       </div>
+      </>
+       )}
     </Modal>
   );
 };
