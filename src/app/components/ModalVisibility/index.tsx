@@ -12,7 +12,7 @@ const ModalVisibility = ()=> {
     <>
     {authModal && <Register/>}
     {bookModal && <Book/>}
-    {chatModal  && <Chat/>} 
+    <Chat/>
     {blogCommentsModal && <BlogComments/>}
     {memberCommentsModal && <MemberComments/>}
 

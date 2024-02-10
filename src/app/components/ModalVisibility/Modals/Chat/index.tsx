@@ -216,25 +216,23 @@ const Chat: FC = () => {
 
     socket.on("newMsg", (new_message: MessageProps) => {
       console.log("CLIENT: new message received", new_message);
-      setMessageLists((prevMessages) => {
-        const updatedMessages = [
-          ...prevMessages,
-          <NewMessage
-            mb_id={new_message.mb_id}
-            mb_name={new_message.mb_name}
-            mb_image={new_message.mb_image}
-            msg={new_message.msg}
-            key={prevMessages.length}
-          />,
-        ];
-        console.log("Updated messages list:", updatedMessages);
-        return updatedMessages;
-      });
+      setMessageLists((prevMessages) => [
+        ...prevMessages,
+        <NewMessage
+          mb_id={new_message.mb_id}
+          mb_name={new_message.mb_name}
+          mb_image={new_message.mb_image}
+          msg={new_message.msg}
+          key={prevMessages.length}
+        />,
+      ]);
     });
 
     socket.on("greetMsg", (msg: ChatGreetMsg) => {
       console.log("CLIENT: greet message received", msg);
-      messageLists.push(
+
+      setMessageLists((prev) => [
+        ...prev,
         <Tag
           color="cyan"
           style={{
@@ -245,10 +243,8 @@ const Chat: FC = () => {
           }}
         >
           {msg.text}, dear {verifiedMemberData?.mb_name ?? "guest"}
-        </Tag>
-      );
-
-      setMessageLists([...messageLists]);
+        </Tag>,
+      ]);
     });
 
     socket?.on("infoMsg", (msg: ChatInfoMsg) => {
