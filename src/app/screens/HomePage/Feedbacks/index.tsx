@@ -41,7 +41,7 @@ const Feedbacks: FC = () => {
         {comments.map((comment: Comment, index: number) => (
           <div
             key={index}
-            className="rounded-md w-[400px] h-auto min-h-[220px] m-auto p-4 bg-white flex flex-col justify-between items-start"
+            className="rounded-md w-fit h-auto min-h-[220px] m-auto p-4 bg-white flex flex-col justify-between items-start"
           >
             <div>
               {comment.comment_content.length > 200 ? (

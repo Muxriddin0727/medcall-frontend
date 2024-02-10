@@ -29,6 +29,7 @@ const Dashboard: FC = () => {
         localStorage.removeItem("member_data");
         dispatch(setLogout());
         navigate("/");
+        window.location.reload();
       },
     });
   };
