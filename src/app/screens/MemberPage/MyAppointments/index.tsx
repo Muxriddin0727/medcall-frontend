@@ -36,7 +36,10 @@ const MyAppointments: FC = () => {
         })
         .catch((error) => {
           console.error(error);
+          setLoading(false);
         });
+    }else {
+      setLoading(false);
     }
   }, []);
   console.log("appointmentData", appointmentData);

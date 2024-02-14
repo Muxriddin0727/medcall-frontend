@@ -30,22 +30,31 @@ export const verifiedMemberData = member_data ? member_data : null;
 
 export const useCheckTokenValidity = () => {
   const axios = useAxios();
-  
+
   const checkTokenValidity = async () => {
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem("token");
 
-    const response = await axios({
-      url: '/client/check-token', 
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    if (!token) {
+      return false;
+    }
+    try {
+      const response = await axios({
+        url: "/client/check-token",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const data = await response.data;
+      const data = await response.data;
 
-    return data.valid;
-  }
+      return data.valid;
+    } catch (error) {
+      // Handle errors appropriately, e.g., log them and return false
+      console.error("Error checking token validity:", error);
+      return false;
+    }
+  };
 
   return checkTokenValidity;
-}
+};

@@ -8,12 +8,16 @@ import {
 import { Blog } from "../../../../../../types/blogs";
 import { useAxios } from "../../../../../customHooks/useAxios";
 import { verifiedMemberData } from "../../../../../api/verify";
+import { useReduxDispatch } from "../../../../../hooks";
+import { setBlogCommentsModal } from "../../../../../redux/modalSlice";
+
 
 const Main: FC<{ value: Blog }> = ({ value }) => {
   const axios = useAxios();
 
   
   const [liked, setLiked] = useState(verifiedMemberData ? value?.blog_likes?.includes(verifiedMemberData._id) : false);  
+  const dispatch = useReduxDispatch();
 
   const [likesCount, setLikesCount] = useState(value?.blog_likes.length);
 
@@ -59,7 +63,9 @@ const Main: FC<{ value: Blog }> = ({ value }) => {
           {value.blog_views.length}
         </p>
         <p className="text-gray-500 max-lg:text-sm">
-          <CommentOutlined className="mr-2" />
+          <CommentOutlined 
+          onClick={() => dispatch(setBlogCommentsModal({ isOpen: true, blog_id: value._id }))}
+          className="mr-2" />
           {value.blog_comment}
         </p>{" "}
         <div onClick={likeHandler}>

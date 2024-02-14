@@ -17,10 +17,7 @@ const Feedbacks: FC<{ mb_id: string }> = ({ mb_id }) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
-    if (!verifiedMemberData) {
-      sweetErrorHandling("Please login or register first");
-      return;
-    }
+   
     const fetchComments = async () => {
       try {
         const response = await axios({
