@@ -46,6 +46,11 @@ const Book: FC = () => {
                   type="primary"
                   onClick={async () => {
                     if (!selectedDate) return;
+                    const memberData = localStorage.getItem("member_data");
+                    if (!memberData) {
+                      sweetFailureProvider("Please log in first", true);
+                      return;
+                    }
                     const data = await axios({
                       url: `/client/appointments/${doctor_id}?date=${selectedDate}`,
                     });

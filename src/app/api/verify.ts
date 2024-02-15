@@ -1,5 +1,7 @@
 import { serverApi } from "../../lib/config";
 import { useAxios } from "../customHooks/useAxios";
+import { useDispatch } from 'react-redux';
+import { setTokenExpired } from '../redux/userSlice';
 
 let member_data: any = null;
 
@@ -28,13 +30,15 @@ console.log(member_data);
 
 export const verifiedMemberData = member_data ? member_data : null;
 
+
 export const useCheckTokenValidity = () => {
   const axios = useAxios();
-
+  const dispatch = useDispatch();
   const checkTokenValidity = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
+      dispatch(setTokenExpired());
       return false;
     }
     try {
@@ -47,11 +51,16 @@ export const useCheckTokenValidity = () => {
       });
 
       const data = await response.data;
+      if (!data.valid) {
+        dispatch(setTokenExpired());
+        return false;
+      }
 
-      return data.valid;
+      return true;
     } catch (error) {
       // Handle errors appropriately, e.g., log them and return false
       console.error("Error checking token validity:", error);
+      dispatch(setTokenExpired());
       return false;
     }
   };
