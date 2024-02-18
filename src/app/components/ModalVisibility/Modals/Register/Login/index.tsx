@@ -41,6 +41,7 @@ const Login: FC = () => {
       }
       dispatch(setAuthModal());
       dispatch(setLogin(data.data));
+      window.location.reload();
     } catch (error) {
       sweetFailureProvider(Definer.general_err1);
     }

@@ -32,6 +32,7 @@ const Signup: FC = (props: any) => {
       dispatch(setLogin(signupResponse.data)); // Update the Redux state to reflect login
       localStorage.setItem('token', signupResponse.data.token); // Store the token
       dispatch(setAuthModal()); // Close the auth modal if needed
+      window.location.reload();
     } else {
       // Handle the case where signup is unsuccessful
       notification.error({
