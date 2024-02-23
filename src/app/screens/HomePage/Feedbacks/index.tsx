@@ -41,7 +41,7 @@ const Feedbacks: FC = () => {
         {comments.map((comment: Comment, index: number) => (
           <div
             key={index}
-            className="rounded-md w-fit h-auto min-h-[220px] m-auto p-4 bg-white flex flex-col justify-between items-start"
+            className="rounded-md  w-fit min-w-[360px] h-auto min-h-[220px] m-auto p-4 bg-white flex flex-col justify-between items-start"
           >
             <div>
               {comment.comment_content.length > 200 ? (
@@ -62,13 +62,10 @@ const Feedbacks: FC = () => {
               <img
                 className="w-10 m-auto rounded-full"
                 src={
-                  comment.mb_image
-                    ? comment.mb_image.startsWith("http")
-                      ? comment.mb_image
-                      : "http://46.28.44.182:3002/" + comment.mb_image
-                    : "/icons/default_user.png"
+                  comment.mb_image ||
+                  "/icons/default_user.png"
                 }
-                alt="Member IMG"
+                alt="user.img"
               />
 
               <div className="mt-2">
